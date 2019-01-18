@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="guesser.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="jquery.ui.touch-punch.min.js"></script> <!-- Mobile compatibility -->
+	<script src="jschannel.js"></script>
+	<script src="guesser.js"></script>
+</head>
+<body>
+
+<form id="input-form" action="" method="POST"></form>
+
+<div id="boundingbox">
+<p>
+<span class="alignleft">
+	<label for="leftbound">Left Bound:</label> 
+	<input id="leftbound" form="input-form"></input>
+	<input id="lefttypebox" class="for-numerical" form="input-form" type="checkbox" name="lefttype" value="openclose" checked="checked"></input>
+	<label for="lefttypebox" class="for-numerical leftopenclose">Closed</label>
+	<span class="sr for-numerical" aria-live="polite" role="status">Lower endpoint is <span  class="leftopenclose">Closed</span></span>
+
+</span>
+<span class="alignright">
+	<label for="rightbound">Right Bound:</label>
+	<input id="rightbound" form="input-form"></input>
+	<input id="righttypebox" class="for-numerical" form="input-form" type="checkbox" name="righttype" value="openclose" checked="checked"></input>
+	<label for="righttypebox" class="for-numerical rightopenclose">Closed</label>
+	<span class="sr for-numerical" aria-live="polite" role="status">Upper endpoint is <span  class="rightopenclose">Closed</span></span>
+</span>
+</p>
+<p class="sr">Exit frame to submit answer.</p>
+<div id="spacer"></div>
+<div id="rangeselector"></div>
+<div id="rangelabel">
+	<span id="location1" aria-hidden="true"></span>
+	<span id="location2" aria-hidden="true"></span>
+	<span id="location3" aria-hidden="true"></span>
+	<span id="location4" aria-hidden="true"></span>
+	<span id="location5" aria-hidden="true"></span>
+</div>
+<div id="spacer"></div>
+<div id="errors" aria-live="polite"></div>
+</div>
+
+</body>
+</html>

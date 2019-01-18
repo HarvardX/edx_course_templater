@@ -1,0 +1,12 @@
+<problem display_name="Conservation" markdown="&gt;&gt;The video says that angular momentum is always conserved. Why do we see spinning things slow down, then? ||Select all that apply. &lt;&lt;&#10;&#10;[x] On Earth, friction or air resistance slow them down.&#10;[ ] The off-angle motion is lost, which makes things go slower.&#10;[ ] All things naturally slow down.&#10;[x] The situation is being described in an idealized manner.&#10;">
+<choiceresponse>
+  <label>The video says that angular momentum is always conserved. Why do we see spinning things slow down, then? </label>
+<description>Select all that apply. </description>
+<checkboxgroup>
+    <choice correct="true">On Earth, friction or air resistance slow them down.</choice>
+    <choice correct="false">The off-angle motion is lost, which makes things go slower.</choice>
+    <choice correct="false">All things naturally slow down.</choice>
+    <choice correct="true">The situation is being described in an idealized manner.</choice>
+  </checkboxgroup>
+</choiceresponse>
+</problem>

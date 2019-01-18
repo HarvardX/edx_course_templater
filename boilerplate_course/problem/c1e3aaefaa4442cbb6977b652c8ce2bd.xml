@@ -1,0 +1,21 @@
+<problem display_name=" Where to Learn More" group_access="{&quot;51&quot;: [1, 2]}" markdown="null">
+  <choiceresponse partial_credit="edc">
+    <label>Where can you go for more information on this course and its topics?</label>
+    <description>Select all that apply.</description>
+    <checkboxgroup>
+      <choice correct="true">I can visit the discussion boards.</choice>
+      <choice correct="true">I can read the edX FAQ page.</choice>
+      <choice correct="true">I can use the (insert page name here) Page.</choice>
+      <choice correct="false">I can search the web and believe anything I read.</choice>
+      <choice correct="true">I can search the web and carefully check what I find.</choice>
+      <choice correct="true">I can read books on (insert course topic) written in the last (time) years.</choice>
+      <choice correct="false">I can read books on (insert course topic) written (long time) years ago.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>There are many good sources of information about this course, from our material to other courses to websites to talking with your fellow students. You definitely shouldn't believe everything you read, though - it's important to compare multiple sources.</p>
+    </div>
+  </solution>
+</problem>

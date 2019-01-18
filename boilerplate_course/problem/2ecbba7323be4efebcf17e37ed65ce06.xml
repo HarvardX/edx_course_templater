@@ -1,0 +1,20 @@
+<problem display_name="Multiple Choice with Random Order " markdown="You can make a randomized MC question very easily! Use an exclamation mark to randomize, an @ sign to pin something in place, and x to mark the correct answer.&#10;&#10;&gt;&gt;Which stooge is the best stooge? &lt;&lt;&#10;&#10;(!) Moe&#10;( ) Larry&#10;( ) Shemp&#10;(@x) None of the above&#10;&#10;[explanation]&#10;Everyone knows Curly is the best stooge.&#10;[explanation]&#10;">
+<multiplechoiceresponse>
+  <p>You can make a randomized MC question very easily! Use an exclamation mark to randomize, an @ sign to pin something in place, and x to mark the correct answer.</p>
+<label>Which stooge is the best stooge? </label>
+<choicegroup type="MultipleChoice" shuffle="true">
+    <choice correct="false">Moe</choice>
+    <choice correct="false">Larry</choice>
+    <choice correct="false">Shemp</choice>
+    <choice correct="true" fixed="true">None of the above</choice>
+  </choicegroup>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>Everyone knows Curly is the best stooge.</p>
+
+</div>
+</solution>
+</multiplechoiceresponse>
+</problem>

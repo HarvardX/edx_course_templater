@@ -1,0 +1,14 @@
+<problem display_name="How Old?" markdown="&gt;&gt;How old is our solar system?&lt;&lt;&#10;&#10;( ) About 5 trillion years.&#10;( ) About 500 billion years.&#10;( ) About 50 billion years.&#10;( ) About 5 billion years.&#10;( ) About 500 million years.&#10;( ) About 50 million years.&#10;( ) About 5 million years.&#10;">
+<multiplechoiceresponse>
+  <label>How old is our solar system?</label>
+<choicegroup type="MultipleChoice">
+    <choice correct="false">About 5 trillion years.</choice>
+    <choice correct="false">About 500 billion years.</choice>
+    <choice correct="false">About 50 billion years.</choice>
+    <choice correct="false">About 5 billion years.</choice>
+    <choice correct="false">About 500 million years.</choice>
+    <choice correct="false">About 50 million years.</choice>
+    <choice correct="false">About 5 million years.</choice>
+  </choicegroup>
+</multiplechoiceresponse>
+</problem>

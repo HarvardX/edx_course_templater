@@ -1,0 +1,8 @@
+<vertical display_name="Pop-up Questions">
+  <html url_name="16f4f93bab62472c82c2d18e016ecbfe"/>
+  <video url_name="ceddadad13e34f31a6af5c0b91f0d2f1"/>
+  <html url_name="817b5707da1845e9af9fd0c4e5050837"/>
+  <problem url_name="028db345e298493bb335953d8611b8dd"/>
+  <poll url_name="b877acc45bd3426b990e4d8a61cce9e6" xblock-family="xblock.v1" feedback="" display_name="What do you think?" private_results="false" question="Are most solar systems basically flat like our own, or are they actually more blob-like?" max_submissions="1" answers="[&#10;  [&#10;    &quot;R&quot;,&#10;    {&#10;      &quot;img&quot;: &quot;&quot;,&#10;      &quot;img_alt&quot;: &quot;&quot;,&#10;      &quot;label&quot;: &quot;Flat&quot;&#10;    }&#10;  ],&#10;  [&#10;    &quot;B&quot;,&#10;    {&#10;      &quot;img&quot;: &quot;&quot;,&#10;      &quot;img_alt&quot;: &quot;&quot;,&#10;      &quot;label&quot;: &quot;Blob-like&quot;&#10;    }&#10;  ],&#10;  [&#10;    &quot;G&quot;,&#10;    {&#10;      &quot;img&quot;: &quot;&quot;,&#10;      &quot;img_alt&quot;: &quot;&quot;,&#10;      &quot;label&quot;: &quot;I am terrified of commitment&quot;&#10;    }&#10;  ]&#10;]"/>
+  <problem url_name="d9fa1b7f0bbc49c8bae30e9602c2e695"/>
+</vertical>

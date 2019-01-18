@@ -1,0 +1,21 @@
+<problem display_name=" Graded Assignments" group_access="{&quot;51&quot;: [1, 2]}" markdown="&gt;&gt;Which of the following types of graded assignments appear in this course?|| Select all that apply.&lt;&lt;&#10;[ ] Quizzes&#10;[x] Practice&#10;[ ] Exams&#10;[x] Coursework&#10;[x] Peer-graded Essays&#10;&#10;[explanation]&#10;This course does not have quizzes or exams, but it does use practice problems, coursework exercises, and peer-graded essays.&#10;[explanation]&#10;">
+<choiceresponse>
+  <label>Which of the following types of graded assignments appear in this course?</label>
+<description> Select all that apply.</description>
+<checkboxgroup>
+    <choice correct="false">Quizzes</choice>
+    <choice correct="true">Practice</choice>
+    <choice correct="false">Exams</choice>
+    <choice correct="true">Coursework</choice>
+    <choice correct="true">Peer-graded Essays</choice>
+  </checkboxgroup>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>This course does not have quizzes or exams, but it does use practice problems, coursework exercises, and peer-graded essays.</p>
+
+</div>
+</solution>
+</choiceresponse>
+</problem>

@@ -1,0 +1,18 @@
+<problem display_name="Dropdown" markdown="This is a dropdown problem. It's basically identical to a multiple-choice problem, it just displays things in a different way. Dropdown problems only ever have one correct answer.&#10;&#10;&gt;&gt;Which of these numbers is a prime number?&lt;&lt;&#10;&#10;[[1, 6, 9, 15, (17)]]&#10;&#10;|| Prime numbers are evenly divisible only by themselves and the number 1. ||&#10;&#10;[explanation]&#10;A prime number is evenly divisible by only two numbers: itself and the number 1. The number 6 is 2x3, 9 is 3x3, and 15 is 5x3. On this list, only 17 is prime.&#10;[explanation]&#10;" weight="0.0">
+<optionresponse>
+  <p>This is a dropdown problem. It's basically identical to a multiple-choice problem, it just displays things in a different way. Dropdown problems only ever have one correct answer.</p>
+<label>Which of these numbers is a prime number?</label>
+<optioninput options="('1','6','9','15','17')" correct="17"/>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>A prime number is evenly divisible by only two numbers: itself and the number 1. The number 6 is 2x3, 9 is 3x3, and 15 is 5x3. On this list, only 17 is prime.</p>
+
+</div>
+</solution>
+</optionresponse>
+<demandhint>
+  <hint>Prime numbers are evenly divisible only by themselves and the number 1.</hint>
+</demandhint>
+</problem>

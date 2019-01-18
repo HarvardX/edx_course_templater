@@ -1,0 +1,26 @@
+<problem display_name=" Navigating from Page to Page " group_access="{&quot;51&quot;: [1, 2]}" markdown="null">
+  <p>EdX courses have many parts to them. You can find page links at the top of the site, sections and subsections in the left-hand navigation, and the Support button on the far left of your window. </p>
+  <choiceresponse partial_credit="edc">
+    <label>Some subsections (like this one) also have multiple pages. Where can you find the links that take you to these pages?</label>
+    <description>Select all that apply.</description>
+    <checkboxgroup label="Where can you find the links that take you to these pages?">
+      <choice correct="true">Via the buttons in the "ribbon" at the top of the page.
+      <choicehint selected="true">Right - The buttons in the "ribbon" can take you to a specific page.</choicehint>
+      <choicehint selected="false">You are missing one way to get to any page you want.</choicehint></choice>
+      <choice correct="true">Via the left-right arrows in the "ribbon" at the top of the page.
+      <choicehint selected="true">Right - The arrows in the "ribbon" can take you to the next page or the previous page.</choicehint>
+      <choicehint selected="false">You missed at least one way to get to the next page or the previous page.</choicehint></choice>
+      <choice correct="true">Via the left-right arrows at the bottom of the page.
+      <choicehint selected="true">Right - The arrows at the bottom of the page can take you to the next page or the previous page.</choicehint>
+      <choicehint selected="false">You missed at least one way to get to the next page or the previous page.</choicehint></choice>
+      <choice correct="true">Via links in the course that take you to a specific page.
+      <choicehint selected="true">Right - Links you see in the course may take you to places inside the course, as well as places outside it.</choicehint>
+      <choicehint selected="false">You missed at least one way to get to a specific page.</choicehint></choice>
+      <compoundhint value="A B C D">That's right! All of these are correct.</compoundhint>
+    </checkboxgroup>
+  </choiceresponse>
+  <demandhint>
+    <hint>Look for these options and try them out!</hint>
+    <hint>Checkbox-style problems like this one can have any number of answers correct.</hint>
+  </demandhint>
+</problem>

@@ -1,0 +1,27 @@
+<problem display_name="Numerical Input with Random Numbers" markdown="null" showanswer="always">
+<script type="loncapa/python">
+
+a = random.randrange(1, 10)
+b = random.randrange(1, 10)
+c = random.randrange(1, 10)
+x0 = random.randrange(1, 10)
+
+slope = 2*a*x0 + b
+
+</script>
+<numericalresponse answer="$slope">
+<label>What is the slope of the line \( y = $a x^2 + $b x + $c \) at the point x = $x0?</label>
+<description>Enter your answer as a number.</description>
+<responseparam type="tolerance" default="1%"/>
+  <formulaequationinput/>
+</numericalresponse>
+<solution>
+  <div class="detailed-solution">
+    <p>Explanation</p>
+    <p>The slope of the line \( y = a x^2 + b x + c \) is found by taking the derivative:</p>
+    <p>\[ \frac{dy}{dx} = \frac{d}{dx} \left( a x^2 + b x + c \right) = 2ax + b \]</p>
+    <p>Plugging in numbers at our location, we get:</p>
+    <p>\[ 2ax + b = 2 \cdot $a \cdot $x0 + $b = $slope \]</p>
+  </div>
+</solution>
+</problem>

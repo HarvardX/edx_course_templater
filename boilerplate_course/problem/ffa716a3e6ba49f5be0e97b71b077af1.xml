@@ -1,0 +1,23 @@
+<problem display_name="Certificates" group_access="{&quot;51&quot;: [1, 2]}" markdown="null">
+  <multiplechoiceresponse>
+    <label>If you pass this course and pay for a verified certificate, where will you get your certificate?</label>
+    <choicegroup shuffle="true" type="MultipleChoice">
+      <choice correct="false">In the mail 
+        <choicehint>EdX does not mail paper certificates.</choicehint>
+      </choice>
+      <choice correct="false">In e-mail 
+        <choicehint>EdX provides your certificate in such a way that you can get it even if you lose an e-mail.</choicehint>
+      </choice>
+      <choice correct="true">In your edX dashboard</choice>
+      <choice correct="false">This course does not give certificates 
+        <choicehint>This course makes both Honor Code and Verified certificates available.</choicehint>
+      </choice>
+    </choicegroup>
+    <solution>
+      <div class="detailed-solution">
+        <p>Explanation</p>
+        <p>About two weeks after the course ends, you will be able to receive your certificate in your dashboard. Click on your username at the top right-hand side of the page to go to your dashboard.</p>
+      </div>
+    </solution>
+  </multiplechoiceresponse>
+</problem>

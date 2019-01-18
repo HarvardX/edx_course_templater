@@ -1,0 +1,38 @@
+<problem display_name="More complex example" markdown="null">
+<script type="loncapa/python">
+
+
+pepperoni = random.randint(8,12)
+veggie = pepperoni + random.randint(3,6)
+
+pepCarbon = random.randint(8,12) / 10
+pepCarbonDisp = "%0.1f" % pepCarbon
+vegCarbon = pepCarbon - random.randint(3,5)/10
+vegCarbonDisp = "%0.1f" % vegCarbon
+
+mitigationCost = (veggie - pepperoni)/(pepCarbon - vegCarbon)
+mitigationCostDisp = "%0.2f" % mitigationCost
+
+
+</script>
+  <p>A pepperoni pizza costs $$pepperoni and causes $pepCarbonDisp tons of CO<sub>2</sub> emissions. A super deluxe veggie pizza costs $$veggie and causes $vegCarbonDisp tons of CO<sub>2</sub> emissions. What’s the cost of mitigation for choosing the veggie pizza?
+</p>
+  <p>This problem has randomly generated costs that are different for each student.</p>
+  <numericalresponse answer="$mitigationCost">
+    <responseparam type="tolerance" default="5%"/>
+    <formulaequationinput label="What is the mitigation cost for a veggie pizza?" trailing_text="$/tCO2"/>
+  </numericalresponse>
+  <demandhint>
+    <hint>Go back to the previous page if you don't remember the formula for this.</hint>
+  </demandhint>
+
+<solution>
+  <div class="detailed-solution">
+    <p>Explanation</p>
+    <p>Mitigation cost is:</p>
+    <p>\[ \frac{Cost \ of \ Clean \ Option - Cost \ of \ Dirty \ Option}{Pollution \ of \ Dirty \ Option - Pollution \ of \ Clean \ Option} \]</p>
+    <p>In our case, that's:</p>
+    <p>\[ \frac{$$veggie - $$pepperoni}{$pepCarbon - $vegCarbon} = $$mitigationCostDisp \ per \ ton \ CO_2\]</p>
+  </div>
+</solution>
+</problem>

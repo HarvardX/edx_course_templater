@@ -1,0 +1,40 @@
+<script src="/static/hx.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/hx.css">
+
+<h3 class="hx-underline">How to Write Your Own Range Guesser Problem</h3>
+
+<p>This kind of problem is good for having students identify a range of numbers or times. It's also good for playing guessing games (if you set it as ungraded).</p>
+
+<p>No need to download anything; everything you need is already in Files &amp; Uploads. Instead, when you copy the problem below, edit it and look for the <strong>options block</strong> shown below:</p>
+
+<pre><code class="language-python">
+options = {
+
+    # These are REQUIRED for all problems.
+    'problem_type': 'interval',  # Set to 'interval' or a 'number', depending on whether people
+                                 # are guessing at a range or just one number.
+    'show_open_close': False,    # Do we ask for open/closed interval like in a math course?
+    'feedback': True,            # Do we tell people how close they were?
+    'is_time_question': False,   # Should we display numbers as times in (min:sec) format?
+                                 # (Even if this is set True, course authors still use seconds.)
+
+    # Only needed for number-guessing:
+    'correct_number': 10,            # The right answer
+    'tolerance': [2, 4, 6],          # How close do they have to be? [correct, near, far]
+    'brackets': [1, 0.5, 0.25, 0],   # Partial credit scores for various range brackets. 1 = 100%.
+
+    # Only needed for interval-guessing:
+    'correct_interval': [38515,62434],         # Please put the lower value on the left.
+    'interval_type': ['closed', 'closed'],     # Are the endpoints 'open' or 'closed'?
+    'interval_tolerance': 'generous',          # Options: 'linear', 'strict', or 'generous'
+    'type_penalty': 0.1,                       # Points off if open/closed is incorrect. Currently 10%.
+
+    # You only need this for time-guessing, like intervals in a video clip:
+    'max_time': 300                # How long is your clip in seconds?
+
+}
+</code></pre>
+
+<p>Then look for the part that says "You should ask your question here." and put in your question. Don't forget to give it a more meaningful name.</p>
+
+<p><em>Warning:</em> You cannot put more than one Range Guessing problem on the same page. They interfere with each other.</p>

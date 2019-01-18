@@ -1,0 +1,45 @@
+<problem display_name="Random Images" markdown="null" rerandomize="onreset" show_reset_button="true">
+  <script type="loncapa/python">
+
+
+random_image = random.randrange(1,4)   # Makes a number between 1 and 3
+
+if random_image == 1:
+  alt_text = "A Lion"
+  img_source = "Lion.jpg"
+  lion = True
+  zebra = False
+  bear = False
+elif random_image == 2:
+  alt_text = "A Zebra"
+  img_source = "Zebra.jpg"
+  lion = False
+  zebra = True
+  bear = False
+elif random_image == 3:
+  alt_text = "A Bear"
+  img_source = "Bear.jpg"
+  lion = False
+  zebra = False
+  bear = True
+
+
+</script>
+<multiplechoiceresponse>
+  <p>This is an image of an animal:</p>
+  <p><img src="/static/$img_source" alt="$alt_text"/></p>
+<label>Which animal?</label>
+  <description>Here we're randomizing both the animal and the order of the answers. </description>
+<choicegroup type="MultipleChoice" shuffle="true">
+    <choice correct="$bear">A bear</choice>
+    <choice correct="$zebra">A zebra</choice>
+    <choice correct="$lion">A lion</choice>
+  </choicegroup>
+</multiplechoiceresponse>
+  <solution>
+  <div class="detailed-solution">
+    <p>Explanation</p>
+    <p>Excellent sleuthing, Sherlock.</p>
+  </div>
+</solution>
+</problem>

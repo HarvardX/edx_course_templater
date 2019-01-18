@@ -1,0 +1,20 @@
+<script src="/static/hx.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/hx.css">
+
+<h3 class="hx-underline">Make Your Own Accessible Matching Problem</h3>
+
+<p>This is time-consuming and tricky the first time, but it gets easier as you make more of them.</p>
+
+<ol>
+  <li>Come up with the left-hand and right-hand items.</li>
+  <li>Find images or write text (full HTML ok) for the cards. If you're using images, drop them in Files &amp; Uploads. If you're using text, consider front-loading it so that students hear the most important or identifiable parts of them first when using a screen reader.</li>
+  <li>Download this <a href="https://github.com/Stanford-Online/js-input-samples/raw/master/matching_accessible/MatchingA.zip">zip file</a> and open it. You will only need some of what's inside.</li>
+  <li>Rename the MatchingA_Elements.js file and open it with a text editor. Fill in the 'type' property with either 'text' or 'image', and fill in the according property with the image's filename or with your text. The text field is used as alt text for images.</li>
+  <li>Rename the MatchingA.html file. Open it with a text editor and change where it says <code class="lang-html">&lt;script src="MatchingA_Elements.js"&gt;&lt;/script&gt;</code> to match your new Elements file.</li>
+  <li>Upload your two new js and html files to Files &amp; Uploads.</li>
+  <li>Duplicate the Matching problem above. Rename it and move it to where you want it in the course.</li>
+  <li>Edit that problem:
+    <ol><li>Change where it says <code class="lang-python">html_file="&#47;static&#47;MatchingA.html"</code> near the bottom, replacing MatchingA.html with your own filename.</li>
+      <li>Change where it says <code class="lang-python">right_answer.append( [['A','2'],['B','1'],['C','3']] )</code> in the middle-top to be your answer. Pay close attention to the formatting. <b>L</b>etters are the <b>L</b>eft-hand side. You can also add more lines like this one to have multiple right answers.</li></ol>
+  <li>Test it!</li>
+</ol>

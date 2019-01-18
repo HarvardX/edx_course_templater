@@ -1,0 +1,71 @@
+<!-- This style sheet is necessary for the intro.js text blocks to work. -->
+<link rel="stylesheet" type="text/css" href="/static/introjs.css" />
+<!-- So is this script. -->
+<script src="/static/intro_accessible.js"></script>
+
+<script>
+  $(document).ready(function(){
+    
+    /*****************************************************
+    * This section enables the intro.js text blocks.
+    * They're set in the addNavData() function below.
+    *****************************************************/
+
+    addNavData();
+    
+    $('#navmaker').on('click tap', function(event){
+        event.preventDefault();
+        introJs().start();
+    });
+    
+    // End of intro.js code.
+    
+  });
+  
+  /**************************************************************
+  * This function adds the data needed for the intro.js text blocks.
+  * You can change the text if you want.
+  **************************************************************/
+  function addNavData(){
+    let navmaker = $('#navmaker');
+    navmaker.attr("data-step", "1");
+    navmaker.attr("data-intro", "Welcome to our course! You are on the How to Get Started page. Click on the 'next' button or press the right arrow key to continue. Press 'escape' or click 'done' to quit this tour.");
+    navmaker.attr("data-position", "right");
+
+    let courseware = $('.course-tabs .active');
+    courseware.attr("data-step", "2");
+    courseware.attr("data-intro", "The course outline, including pages with all the videos, problems, and more, can all be found in the Course link.");
+    courseware.attr("data-position", "right");
+
+    let discussion = $('.course-tabs').find('a:contains("Discussion")');
+    discussion.attr("data-step", "3");
+    discussion.attr("data-intro", "The Discussion link sends you to the discussion boards, where you can talk to your fellow students.");
+    discussion.attr("data-position", "right");
+
+    let syllabus = $('.course-tabs').find('a:contains("Syllabus")');
+    syllabus.attr("data-step", "4");
+    syllabus.attr("data-intro", "This is the Syllabus tab, which will tell you about the course contents and policies. You will want to read this early.");
+    syllabus.attr("data-position", "right");
+
+    let handouts = $('.sequence-nav');
+    handouts.attr("data-step", "5");
+    handouts.attr("data-intro", "Finally, the tabs at the top of each page will help you navigate through the course material. Click the Done button or press Escape and you're ready to go!");
+    handouts.attr("data-position", "bottom");
+
+  }
+</script>
+<script src="/static/hx.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/hx.css">
+
+<h3 class="hx-underline">Getting Started</h3>
+
+<p>(Insert pre-course directions here)</p>
+
+<p>Are you new to edX? Click on this button to get a quick tour of the most basic parts of the course.</p>
+
+<p><button id="navmaker" style="color: white; padding: 6px; font-size: 16px; background-color: #009b00; text-shadow: none; background-image: none;">How Do I Use edX?</button></p>
+
+
+<p>Please take about 15 minutes to read the <a href="" target="_blank">(insert link to Course Syllabus)</a>. The syllabus has useful information about course logistics, due dates, terminology, and policies about grading and collaboration. It also has an overview of the course topics and our objectives. There will be a quiz later.</p>
+
+<p>Then move on to the next page.</p>
