@@ -10,3 +10,5 @@ Ok, so here's the plan:
 * Use browserified versions of tar and gzip to deliver the final file.
 * Do this all client-side so we don't need to run a secure server.
 * Run this out of GitHub Pages, maybe get a custom URL to point at it.
+
+Currently using [TarballJS](https://github.com/ankitrohatgi/tarballjs), a snapshot of which is included in this repo.
