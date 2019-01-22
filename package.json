@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "browserify": "^16.2.3",
-    "tar": "^4.4.8"
+    "pako": "^1.0.8"
   }
 }
