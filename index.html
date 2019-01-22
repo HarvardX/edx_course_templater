@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <script src="tarballjs/tarball.js"></script>
     <script src="main.js"></script>
     <!-- <script src="bundle.js"></script> -->
 </head>
 <body>
     <form id="goodform" onsubmit="return false">
-        Filename: <input type="text" name="name" value="test.txt" id="filename"><br/>
-        File text:<br/>
-        <textarea name="text" id="filetext"></textarea><br/>
+        Filename: <input type="text" name="name" value="test.tar" id="filename"><br/>
+        File source:<br/>
+        <textarea name="text" id="filesource"></textarea><br/>
         <input type="submit" value="Create downloadable file" onclick="makeDownload()">
     </form>
     <p id="dlink"></p>
