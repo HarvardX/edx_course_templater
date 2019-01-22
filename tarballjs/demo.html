@@ -18,12 +18,12 @@ function load() {
             if(file_name.indexOf(".json") >= 0 || file_name.indexOf(".txt") >= 0) {
                 console.log(tar.getTextFile(file_name));
             }
-            
+
             if(fileInfo[i].type == "file") {
                 let blob = tar.getFileBlob(file_name);
                 let fileUrl = window.URL.createObjectURL(blob);
                 $fileList.innerHTML += "<li><a href='" + fileUrl + "' download='" + file_name + "'>" + file_name + "</a></li>";
-            }                        
+            }
         }
     }, function(err) {
         console.log("error:", err);
@@ -32,9 +32,11 @@ function load() {
 
 
 function generate() {
+    console.log('generate');
     let tar = new tarball.TarWriter();
     let $elem = document.getElementById("source-files-input");
-    let files = $elem.files;     
+    let files = $elem.files;
+    console.log(files);
     for(let fileIdx = 0; fileIdx < files.length; fileIdx++) {
         tar.addFile($elem.files[fileIdx].name, $elem.files[fileIdx]);
     }
