@@ -9,7 +9,7 @@ function makeDownload() {
 
     let tar = new tarball.TarWriter();
     tar.addFile(file_source.substring(file_source.lastIndexOf('/')+1), file_source);
-    let tarblob = await tar.write();
+    let tarblob = tar.write();
 
     let download_link = document.createElement('a');
     download_link.setAttribute('href', URL.createObjectURL(tarblob) );
