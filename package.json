@@ -9,7 +9,6 @@
   "author": "colin_fredericks",
   "license": "ISC",
   "dependencies": {
-    "browserify": "^16.2.3",
-    "tar": "^4.4.8"
+    "browserify": "^16.2.3"
   }
 }
