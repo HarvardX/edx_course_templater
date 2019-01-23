@@ -2,6 +2,19 @@
 
 console.log('working');
 
+function readCourseJSON(filepath){
+    let courseObj = {};
+    let rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", filepath, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
+
 async function makeDownload() {
 
     let boilerplateLocation = "https://harvardx.github.io/edx_course_templater/boilerplate_course.json";
@@ -51,17 +64,4 @@ async function makeDownload() {
             target_location.appendChild(download_link);
     });
 
-}
-
-function readCourseJSON(filepath){
-    let courseObj = {};
-    let rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", filepath, true);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
-        }
-    }
-    rawFile.send(null);
 }
