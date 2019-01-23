@@ -9,7 +9,6 @@
   "author": "colin_fredericks",
   "license": "ISC",
   "dependencies": {
-    "browserify": "^16.2.3",
-    "pako": "^1.0.8"
+    "browserify": "^16.2.3"
   }
 }

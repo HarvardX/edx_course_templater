@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <script src="tarballjs/tarball.js"></script>
-    <script src="bundle.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
     <form id="goodform" onsubmit="return false">
         Filename: <input type="text" name="name" value="test.tar.gz" id="filename"><br/>
         File source:<br/>
         <textarea name="text" id="filesource"></textarea><br/>
-        <input type="submit" value="Create downloadable file" onclick="tgz.makeDownload()">
+        <input type="submit" value="Create downloadable file" onclick="makeDownload()">
     </form>
     <p id="dlink"></p>
 </body>

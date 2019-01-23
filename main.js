@@ -1,6 +1,5 @@
 "use strict";
 
-let pako = require('pako');
 console.log('working');
 
 async function makeDownload() {
@@ -21,51 +20,27 @@ async function makeDownload() {
     let thefile = await fetch(file_source)
         .then(res => res.blob())
         .then(blob => {
-            console.log('blob obtained');
-            console.log(blob);
+            // console.log('blob obtained');
+            // console.log(blob);
             tar.addFile('testfile.txt', blob );
     });
 
     // Take the tar and make a download link with it.
     let written = await tar.write()
         .then( (tarblob) => {
-            console.log('tar written');
-            console.log(tarblob);
+            // console.log('tar written');
+            // console.log(tarblob);
 
-            // Compress the tar file.
-            const reader = new FileReader();
-            let tgzfile, compressedFile;
-            reader.onload = function() {
-                console.log('reader result');
-                console.log(reader.result);
+            // Remove the placeholder and put in the download link.
+            let download_link = document.createElement('a');
+            let click_to_download_txt = document.createTextNode('Click to download archive');
 
-                tgzfile = pako.gzip(new Uint16Array(reader.result));
-                console.log('created zip');
-                console.log(tgzfile);
+            target_location.removeChild(download_placeholder);
+            download_link.setAttribute('href', URL.createObjectURL(tarblob) );
+            download_link.setAttribute('download', filename);
 
-                compressedFile = new Blob(new Uint8Array(tgzfile));
-                console.log('new compressed file:');
-                console.log(compressedFile);
-
-                // Remove the placeholder and put in the download link.
-                let download_link = document.createElement('a');
-                let click_to_download_txt = document.createTextNode('Click to download archive');
-
-                target_location.removeChild(download_placeholder);
-                console.log('compressed file:');
-                console.log(compressedFile);
-                download_link.setAttribute('href', URL.createObjectURL(compressedFile) );
-                download_link.setAttribute('download', filename);
-
-                download_link.appendChild(click_to_download_txt);
-                target_location.appendChild(download_link);
-            }
-            reader.readAsArrayBuffer(tarblob);
-
+            download_link.appendChild(click_to_download_txt);
+            target_location.appendChild(download_link);
     });
 
 }
-
-module.exports = {
-    'makeDownload': makeDownload
-};
