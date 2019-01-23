@@ -7,7 +7,7 @@ Ok, so here's the plan:
 * Use javascript to get the detail from it and construct the desired course.
     * Slap the boilerplate course in there too while we're at it.
     * And pre-set the gating workaround.
-* Use browserified versions of tar and gzip to deliver the final file.
+* Tar up the final file so they can download it. (Turns out no need to gzip.)
 * Do this all client-side so we don't need to run a secure server.
 * Run this out of GitHub Pages, maybe get a custom URL to point at it.
 
