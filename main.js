@@ -4,6 +4,8 @@ console.log('working');
 
 async function makeDownload() {
 
+    let boilerplateLocation = "https://harvardx.github.io/edx_course_templater/boilerplate_course.json";
+
     // Placeholder for things that take a long time to tar up.
     let target_location = document.getElementById('dlink');
     let download_placeholder = document.createElement('p');
@@ -15,6 +17,12 @@ async function makeDownload() {
 
     // Get ready to add them files.
     let tar = new tarball.TarWriter();
+
+    // Get the JSON that describes the boilerplate course.
+    readCourseJSON(boilerplateLocation, function(text){
+        var data = JSON.parse(text);
+        console.log(data);
+    });
 
     // Add the files as you get them.
     let thefile = await fetch(file_source)
@@ -43,4 +51,17 @@ async function makeDownload() {
             target_location.appendChild(download_link);
     });
 
+}
+
+function readCourseJSON(filepath){
+    let courseObj = {};
+    let rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", filepath, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
 }
