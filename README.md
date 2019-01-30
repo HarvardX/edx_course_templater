@@ -12,3 +12,5 @@ Ok, so here's the plan:
 * Run this out of GitHub Pages, maybe get a custom URL to point at it.
 
 Currently using [TarballJS](https://github.com/ankitrohatgi/tarballjs), a snapshot of which is included in this repo.
+
+Originally I was going to use a JSON file to keep track of the boilerplate course, but honestly it's overkill. Using `find path/to/folder -type f > course_structure.txt` makes a flat file that will work just fine.
