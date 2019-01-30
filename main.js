@@ -45,7 +45,7 @@ async function makeDownload() {
             });
         }
 
-        // Construct a tarball from that file.
+        // Construct a tarball from the flat file.
         course_tarball = await makeTarFromFlatFile(result, boilerplate_path, makeDownloadLink);
 
     });
@@ -97,7 +97,7 @@ async function makeTarFromFlatFile(f, path, makeDownloadLink){
 
     textlines.forEach(async function(row){
 
-        console.log(row);
+        // console.log(row);
 
         // Taking off the ./ from start of each. Artifact of using "find" command.
         if(row.slice(0,2) == './'){
@@ -112,17 +112,17 @@ async function makeTarFromFlatFile(f, path, makeDownloadLink){
             let thefile = await fetch(path + row)
                 .then(res => res.blob())
                 .then(blob => {
-                    console.log('blob obtained');
-                    console.log(blob);
+                    // console.log('blob obtained');
+                    // console.log(blob);
                     // Sweet functionality note: folders are added automatically
                     // because the row text has the folder name and a slash.
                     tar.addFile(row, blob );
                     filecounter++;
-                    if(filecounter == textlines.length){
-                        console.log('tar complete');
-                        makeDownloadLink(tar);
-                    }
             });
+        }
+        if(filecounter == textlines.length){
+            console.log('tar complete');
+            makeDownloadLink(tar);
         }
 
     });
