@@ -11,6 +11,14 @@ Ok, so here's the plan:
 * Do this all client-side so we don't need to run a secure server.
 * Run this out of GitHub Pages, maybe get a custom URL to point at it.
 
-Currently using [TarballJS](https://github.com/ankitrohatgi/tarballjs), a snapshot of which is included in this repo.
+Currently using [TarballJS](https://github.com/ankitrohatgi/tarballjs), a snapshot of which is included in this repo. Creation of tarball from boilerplate is now working!
 
 Originally I was going to use a JSON file to keep track of the boilerplate course, but honestly it's overkill. Using `find path/to/folder -type f > course_structure.txt` makes a flat file that will work just fine.
+
+Current plan for template:
+* Keep a few template files lying around.
+* Load in the course/(run_id).xml file, and edit it to add the right number of template chapters.
+    * Use meaningful filenames and iteration rather than randomization.
+    * For instance, instead of fa79dc97acb75acbf97df.xml, use chap_1.xml, chap_1_ss_3.xml, and chap_1_ss_3_unit_3.xml
+* Do similar stuff with the template sequentials and verticals.
+* Add those edited files to the tarball, possibly using addTextFile to make things simpler for me.
