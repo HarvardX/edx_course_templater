@@ -4,8 +4,6 @@ console.log('working');
 
 async function makeDownload() {
 
-    let boilerplateLocation = "https://harvardx.github.io/edx_course_templater/boilerplate_course.json";
-
     // Placeholder for things that take a long time to tar up.
     let target_location = document.getElementById('dlink');
     let download_placeholder = document.createElement('p');
@@ -15,13 +13,131 @@ async function makeDownload() {
     download_placeholder.appendChild(creating_file);
     target_location.appendChild(download_placeholder);
 
-    // Get ready to add them files.
-    let tar = new tarball.TarWriter();
+    // We're just downloading the boilerplate tarball right now.
+    let boilerplate_path = "https://harvardx.github.io/edx_course_templater/boilerplate_course/";
+    let boilerplate_structure_path = "https://harvardx.github.io/edx_course_templater/boilerplate_course.txt";
+    let course_tarball;
 
-    // Get the JSON that describes the boilerplate course.
-    readCourseJSON(boilerplateLocation, function(result){
-        console.log(result);
+
+    // Get the flat file that describes the boilerplate course.
+    let boilerplate_flat = await readCourseFlatFile(file_source, async function(result){
+
+        // console.log('course structure:');
+        // console.log(result);
+
+        // Take the tar and make a download link with it.
+        function makeDownloadLink(tar){
+            let written = tar.write()
+                .then( (tarblob) => {
+                    // console.log('tar written');
+                    // console.log(tarblob);
+
+                    // Remove the placeholder and put in the download link.
+                    let download_link = document.createElement('a');
+                    let click_to_download_txt = document.createTextNode('Click to download archive');
+
+                    target_location.removeChild(download_placeholder);
+                    download_link.setAttribute('href', URL.createObjectURL(tarblob) );
+                    download_link.setAttribute('download', filename);
+
+                    download_link.appendChild(click_to_download_txt);
+                    target_location.appendChild(download_link);
+            });
+        }
+
+        // Construct a tarball from that file.
+        course_tarball = await makeTarFromFlatFile(result, boilerplate_path, makeDownloadLink);
+
     });
+}
+
+function readCourseFlatFile(filepath, callback){
+    console.log('reading course flat file ' + filepath);
+
+    let rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("text/plain");
+    rawFile.onreadystatechange = function() {
+        // console.log(rawFile.readyState, rawFile.status);
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            // console.log('file:');
+            // console.log(rawFile.responseText);
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.open("GET", filepath, true);
+    rawFile.send(null);
+
+}
+
+function readCourseJSON(filepath, callback){
+    console.log('reading course json ' + filepath);
+
+    let rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.onreadystatechange = function() {
+        // console.log(rawFile.readyState, rawFile.status);
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            // console.log('file:');
+            // console.log(rawFile.responseText);
+            callback(JSON.parse(rawFile.responseText));
+        }
+    }
+    rawFile.open("GET", filepath, true);
+    rawFile.send(null);
+}
+
+
+async function makeTarFromFlatFile(f, path, makeDownloadLink){
+    let textlines = f.split('\n');
+    console.log('Making course tarball from...');
+    console.log(textlines);
+
+    let tar = new tarball.TarWriter();
+    let filecounter = 0;
+
+    textlines.forEach(async function(row){
+
+        console.log(row);
+
+        // Taking off the ./ from start of each. Artifact of using "find" command.
+        if(row.slice(0,2) == './'){
+            row = row.slice(2);
+        }
+
+        // Ignore invisible files.
+        if(row[0] == '.') {
+            filecounter++;
+        }else{
+            // Add the files as you get them.
+            let thefile = await fetch(path + row)
+                .then(res => res.blob())
+                .then(blob => {
+                    console.log('blob obtained');
+                    console.log(blob);
+                    // Sweet functionality note: folders are added automatically
+                    // because the row text has the folder name and a slash.
+                    tar.addFile(row, blob );
+                    filecounter++;
+                    if(filecounter == textlines.length){
+                        console.log('tar complete');
+                        makeDownloadLink(tar);
+                    }
+            });
+        }
+
+    });
+
+}
+
+
+// missing pieces here. This one is not well-developed.
+async function makeTarFromJSON(j, path){
+    console.log('Making course tarball from...');
+    console.log(j);
+
+
+    let tar = new tarball.TarWriter();
+    let file_source = document.getElementById('filesource').value;
 
     // Add the files as you get them.
     let thefile = await fetch(file_source)
@@ -32,34 +148,6 @@ async function makeDownload() {
             tar.addFile('testfile.txt', blob );
     });
 
-    // Take the tar and make a download link with it.
-    let written = await tar.write()
-        .then( (tarblob) => {
-            // console.log('tar written');
-            // console.log(tarblob);
+    return tar;
 
-            // Remove the placeholder and put in the download link.
-            let download_link = document.createElement('a');
-            let click_to_download_txt = document.createTextNode('Click to download archive');
-
-            target_location.removeChild(download_placeholder);
-            download_link.setAttribute('href', URL.createObjectURL(tarblob) );
-            download_link.setAttribute('download', filename);
-
-            download_link.appendChild(click_to_download_txt);
-            target_location.appendChild(download_link);
-    });
-
-}
-
-async function readCourseJSON(filepath, callback){
-    let rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback( JSON.parse(rawFile.responseText) );
-        }
-    }
-    rawFile.open("GET", filepath, true);
-    rawFile.send(null);
 }
