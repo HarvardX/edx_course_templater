@@ -15,6 +15,28 @@ $(document).ready(function(){
         // console.log(e);
         constructCourseTemplate();
     });
+
+    $('input[name="corecontent"]').on('change', function(){
+        if($('input[name="corecontent"]:checked').val() === 'spec'){
+            $('#whatcustom').removeClass('disabled');
+        }else{
+            $('#whatcustom').addClass('disabled');
+        }
+    });
+    $('#whatcustom').on('focus', function(){
+        $('#usespec').click();
+    });
+
+    $('input[name="corecontent"]').on('change', function(){
+        if($('input[name="corecontent"]:checked').val() === 'prob'){
+            $('#numprob').removeClass('disabled');
+        }else{
+            $('#numprob').addClass('disabled');
+        }
+    });
+    $('#numprob').on('focus', function(){
+        $('#useprob').click();
+    });
 });
 
 
@@ -39,11 +61,8 @@ function constructCourseTemplate(){
     let pages = $('#numpages').val();
 
     // Core part of the page
-    let coreTag = '';
-    if( $('#usehtml')[0].checked  ){ coreTag = 'html'; }
-    if( $('#usevideo')[0].checked ){ coreTag = 'video'; }
-    if( $('#useprob')[0].checked  ){ coreTag = 'problem'; }
-    if( $('#usespec')[0].checked  ){ coreTag = $('#whatcustom').val(); }
+    let coreTag = $('input[name="corecontent"]:checked').val();
+    if( coreTag === 'spec' ){ coreTag = $('#whatcustom').val(); }
 
     let numCoreElements = 1;
     if(coreTag === 'problem'){
@@ -69,11 +88,6 @@ function constructCourseTemplate(){
 
         for(let ss = 0; ss < subsections; ss++){
             let sequential_innards = '';
-
-            // add tags for subsection header page
-            if(subsHaveHeaders){
-
-            }
 
             for(let p = 0; p < pages; p++){
                 let vertical_innards = '';
@@ -146,9 +160,16 @@ function constructCourseTemplate(){
                 sequential_innards += '<vertical url_name=' + vert_file + '/>\n';
             }
 
+            // add tags for subsection header page
+            if(subsHaveHeaders){
+                let head_tag = $('input[name="unitheaders"]:checked').val();
+                console.log(head_tag);
+            }
+
             // add tags for subsection footer page
             if(subsHaveFooters){
-
+                let foot_tag = $('input[name="unitfooters"]:checked').val();
+                console.log(foot_tag);
             }
 
             // add sequential tag to template
