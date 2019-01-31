@@ -20,8 +20,9 @@ h4{
     display:none;
 }
 .submitbutton{
-    background-color: #00a;
-    font-weight: bold;
+    background-color: #900;
+    font-weight: 600;
+    font-size: 16px;
     color: white;
     padding: 6px;
 }
