@@ -69,24 +69,6 @@ function readCourseFlatFile(filepath, callback){
 
 }
 
-function readCourseJSON(filepath, callback){
-    console.log('reading course json ' + filepath);
-
-    let rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.onreadystatechange = function() {
-        // console.log(rawFile.readyState, rawFile.status);
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            // console.log('file:');
-            // console.log(rawFile.responseText);
-            callback(JSON.parse(rawFile.responseText));
-        }
-    }
-    rawFile.open("GET", filepath, true);
-    rawFile.send(null);
-}
-
-
 async function makeTarFromFlatFile(f, path, makeDownloadLink){
     let textlines = f.split('\n');
     console.log('Making course tarball from...');
@@ -126,28 +108,5 @@ async function makeTarFromFlatFile(f, path, makeDownloadLink){
         }
 
     });
-
-}
-
-
-// missing pieces here. This one is not well-developed.
-async function makeTarFromJSON(j, path){
-    console.log('Making course tarball from...');
-    console.log(j);
-
-
-    let tar = new tarball.TarWriter();
-    let file_source = document.getElementById('filesource').value;
-
-    // Add the files as you get them.
-    let thefile = await fetch(file_source)
-        .then(res => res.blob())
-        .then(blob => {
-            // console.log('blob obtained');
-            // console.log(blob);
-            tar.addFile('testfile.txt', blob );
-    });
-
-    return tar;
 
 }
