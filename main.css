@@ -16,6 +16,9 @@ h4{
     flex: 1 1 15em;
     padding: 0px 20px 0px 20px;
 }
+.disabled {
+    color: lightgrey;
+}
 .hidden{
     display:none;
 }
