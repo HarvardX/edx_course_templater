@@ -4,14 +4,63 @@
     <meta charset="utf-8">
     <script src="tarballjs/tarball.js"></script>
     <script src="main.js"></script>
+    <style>
+        h1, h2, h3{
+            margin:12px 0px 12px 0px;
+        }
+        .container{
+            display:flex;
+            justify-content:space-around;
+            flex-wrap:wrap;
+        }
+        .container div {
+            flex: 1 1 15em;
+            padding: 0px 20px 0px 20px;
+        }
+    </style>
 </head>
 <body>
+    <h1 style="">HarvardX Course Template Builder</h1>
     <form id="goodform" onsubmit="return false">
-        Filename: <input type="text" name="name" value="test.tar.gz" id="filename"><br/>
-        File source:<br/>
-        <textarea name="text" id="filesource">https://harvardx.github.io/edx_course_templater/boilerplate_course.txt</textarea><br/>
+        <div class="container">
+        <div>
+            <h2>Required Items</h2>
+            There are <input type="number" name="sections" value="6" id="numsections" style="width:3em;" required> sections of content.<br/>
+            <span style="color:grey;">(Not counting intro and wrap-up.)</span><br/>
+            Each section has about <input type="number" name="subs" value="3" id="numsubsections" style="width:3em;" required> subsections with about <input type="number" name="subs" value="4" id="numsubsections" style="width:3em;" required> pages each.<br/>
+            <br/>
+            My typical content page is...<br/>
+            <input type="number" name="htmls"     value="1" id="numhtml"   style="width:3em;" required> text or HTML components<br/>
+            <input type="number" name="videos"    value="1" id="numvideo"  style="width:3em;" required> videos<br/>
+            <input type="number" name="probs"     value="0" id="numhtml"   style="width:3em;" required> problems<br/>
+            <input type="number" name="cutomtags" value="0" id="numcustom" style="width:3em;" required> special components: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+            <br/>
+            <input type="checkbox" name="headerpage" id="headerpage"> <label for="headerpage">The first page in most subsections is different.</label><br/>
+            <input type="checkbox" name="footerpage" id="footerpage"> <label for="footerpage">The last page in most subsections is different.</label><br/>
+            <input type="checkbox" name="headerss" id="headerss"> <label for="headerss">The first subsection in most sections is different.</label><br/>
+            <input type="checkbox" name="footerss" id="footerss"> <label for="footerss">The last subsection in most sections is different.</label><br/>
+        </div>
+        <div>
+            <h2>Options</h2>
+            <input type="checkbox" name="vhti" id="doep"> <label for="doep">Each page has a discussion</label><br/>
+            <input type="checkbox" name="dhti" id="dhti"> <label for="dhti">Each discussion has a text intro</label><br/>
+            <input type="checkbox" name="vhti" id="vhti"> <label for="vhti">Each video has a text intro</label><br/>
+            <input type="checkbox" name="vhqa" id="vhqa"> <label for="vhqa">Each video has a question afterward</label><br/>
+            <h3>Include...</h3>
+            <input type="checkbox" checked name="syllabus" id="syllabus"> <label for="syllabus">Syllabus</label><br/>
+            <input type="checkbox" checked name="related" id="related"> <label for="related">Related Courses</label><br/>
+            <input type="checkbox"         name="faq" id="faq"> <label for="faq">FAQ</label><br/>
+            <input type="checkbox"         name="calendar" id="calendar"> <label for="calendar">Calendar</label><br/>
+            <input type="checkbox"         name="glossary" id="glossary"> <label for="glossary">Glossary</label><br/>
+            <input type="checkbox"         name="resources" id="resources"> <label for="resources">Resources</label><br/>
+            <h2>Defaults</h2>
+            Filename: <input type="text" name="name" value="course.tar.gz" id="filename"><br/>
+            Boilerplate source: <input type="text" name="text" value="https://harvardx.github.io/edx_course_templater/boilerplate_course.txt" id="filesource"><br/>
+            <br/>
+        </div>
+        </div>
         <input type="submit" value="Create downloadable file" onclick="makeDownload()">
     </form>
-    <p id="dlink"></p>
+    <p id="dlink" aria-live="polite"></p>
 </body>
 </html>
