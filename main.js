@@ -2,16 +2,26 @@
 
 console.log('working');
 
+$(document).ready(function(){
+    $('.headfoot').on('change', function(){
+        $(this).siblings('div:first-of-type').slideToggle();
+    });
+});
+
+// This builds the user-defined part of the course, without the boilerplate.
+function constructCourseTemplate(){
+
+}
+
+// This is our "main"
 async function makeDownload() {
 
-    // Placeholder for things that take a long time to tar up.
-    let target_location = document.getElementById('dlink');
-    let download_placeholder = document.createElement('p');
-    let creating_file = document.createTextNode('Creating tar file...');
-    let filename = document.getElementById('filename').value;
-    let file_source = document.getElementById('filesource').value;
-    download_placeholder.appendChild(creating_file);
-    target_location.appendChild(download_placeholder);
+    // Insert placeholder text while we wait for things to tar up.
+    let target_location = $('#dlink');
+    let download_placeholder = $('<p>Creating tar file...</p>');
+    let filename = $('#filename').val();
+    let file_source = $('#filesource').val();
+    target_location.append(download_placeholder);
 
     // We're just downloading the boilerplate tarball right now.
     let boilerplate_path = "https://harvardx.github.io/edx_course_templater/boilerplate_course/";
@@ -33,15 +43,11 @@ async function makeDownload() {
                     // console.log(tarblob);
 
                     // Remove the placeholder and put in the download link.
-                    let download_link = document.createElement('a');
-                    let click_to_download_txt = document.createTextNode('Click to download archive');
-
-                    target_location.removeChild(download_placeholder);
-                    download_link.setAttribute('href', URL.createObjectURL(tarblob) );
-                    download_link.setAttribute('download', filename);
-
-                    download_link.appendChild(click_to_download_txt);
-                    target_location.appendChild(download_link);
+                    let download_link = $('<a>Click to download archive</a>');
+                    download_placeholder.remove();
+                    download_link.attr('href', URL.createObjectURL(tarblob) );
+                    download_link.attr('download', filename);
+                    target_location.append(download_link);
             });
         }
 
