@@ -18,30 +18,30 @@
             Each section has about <strong><input type="number" name="subs" value="3" id="numsubsections" style="width:3em;" required> subsections</strong> with about <strong><input type="number" name="pages" value="4" id="numpages" style="width:3em;" required> pages</strong> each.<br/>
 
             <h3>The typical content page is...</h3>
-            <input type="radio" name="corecontent" value="html"  id="usehtml"  checked > <label for="usehtml">A text or HTML component</label><br/>
-            <input type="radio" name="corecontent" value="video" id="usevideo"         > <label for="usevideo">A video</label><br/>
-            <input type="radio" name="corecontent" value="prob"  id="useprob"          > <input type="number" name="probs" value="3" id="numprob" style="width:3em;" class="disabled" required> <label for="useprob"> problems</label><br/>
-            <input type="radio" name="corecontent" value="spec"  id="usespec"          > <label for="usespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em;" class="disabled"><br/>
+            <input type="radio" name="corecontent" value="html"     id="usehtml"  checked > <label for="usehtml">A text or HTML component</label><br/>
+            <input type="radio" name="corecontent" value="video"    id="usevideo"         > <label for="usevideo">A video</label><br/>
+            <input type="radio" name="corecontent" value="problem"  id="useprob"          > <input type="number" name="probs" value="3" id="numprob" style="width:3em;" class="disabled" required> <label for="useprob"> problems</label><br/>
+            <input type="radio" name="corecontent" value="special"  id="usespec"          > <label for="usespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em;" class="disabled"><br/>
 
             <h3>Intro/Outro</h3>
             <div>
                 <input class="headfoot" type="checkbox" name="headerpage" id="headerpage"> <label for="headerpage">The first page in most subsections is different.</label><br/>
                 <div class="hidden">
                     <h4>These pages are...</h4>
-                    <input type="radio" name="unitheaders" value="html"  id="uhusehtml" checked > <label for="uhusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="unitheaders" value="video" id="uhusevideo"        > <label for="uhusevideo">A video<br/>
-                    <input type="radio" name="unitheaders" value="prob"  id="uhuseprob"         > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="uhuseprob"> problems<br/>
-                    <input type="radio" name="unitheaders" value="spec"  id="uhusespec"         > <label for="uhusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="unitheaders" value="html"     id="uhusehtml" checked > <label for="uhusehtml">A text or HTML component</label><br/>
+                    <input type="radio" name="unitheaders" value="video"    id="uhusevideo"        > <label for="uhusevideo">A video<br/>
+                    <input type="radio" name="unitheaders" value="problem"  id="uhuseprob"         > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="uhuseprob"> problems<br/>
+                    <input type="radio" name="unitheaders" value="special"  id="uhusespec"         > <label for="uhusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div>
                 <input class="headfoot" type="checkbox" name="footerpage" id="footerpage"> <label for="footerpage">The last page in most subsections is different.</label><br/>
                 <div class="hidden">
                     <h4>These pages are...</h4>
-                    <input type="radio" name="unitfooters" value="html"  id="ufusehtml"         > <label for="ufusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="unitfooters" value="video" id="ufusevideo"        > <label for="ufusevideo">A video<br/>
-                    <input type="radio" name="unitfooters" value="prob"  id="ufuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="ufuseprob"> problems<br/>
-                    <input type="radio" name="unitfooters" value="spec"  id="ufusespec"         > <label for="ufusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="unitfooters" value="html"     id="ufusehtml"         > <label for="ufusehtml">A text or HTML component</label><br/>
+                    <input type="radio" name="unitfooters" value="video"    id="ufusevideo"        > <label for="ufusevideo">A video<br/>
+                    <input type="radio" name="unitfooters" value="problem"  id="ufuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="ufuseprob"> problems<br/>
+                    <input type="radio" name="unitfooters" value="special"  id="ufusespec"         > <label for="ufusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div class="disabled">
@@ -49,10 +49,10 @@
                 <div class="hidden">
                     <h4>These subsections are...</h4>
                     <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
-                    <input type="radio" name="ssheaders" value="html"  id="sshusehtml"          > <label for="sshusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="ssheaders" value="video" id="sshusevideo" checked > <label for="sshusevideo">A video<br/>
-                    <input type="radio" name="ssheaders" value="prob"  id="sshuseprob"          > <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob"> problems<br/>
-                    <input type="radio" name="ssheaders" value="spec"  id="sshusespec"          > <label for="sshusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="ssheaders" value="html"     id="sshusehtml"          > <label for="sshusehtml">A text or HTML component</label><br/>
+                    <input type="radio" name="ssheaders" value="video"    id="sshusevideo" checked > <label for="sshusevideo">A video<br/>
+                    <input type="radio" name="ssheaders" value="problem"  id="sshuseprob"          > <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob"> problems<br/>
+                    <input type="radio" name="ssheaders" value="special"  id="sshusespec"          > <label for="sshusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div class="disabled">
@@ -60,10 +60,10 @@
                 <div class="hidden">
                     <h4>These subsections are...</h4>
                     <input type="number" name="probs" value="2" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
-                    <input type="radio" name="ssfooters" value="html"  id="pfusehtml"         > <label for="pfusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="ssfooters" value="video" id="pfusevideo"        > <label for="pfusevideo">A video<br/>
-                    <input type="radio" name="ssfooters" value="prob"  id="pfuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="pfuseprob"> problems<br/>
-                    <input type="radio" name="ssfooters" value="spec"  id="pfusespec"         > <label for="pfusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="ssfooters" value="html"     id="pfusehtml"         > <label for="pfusehtml">A text or HTML component</label><br/>
+                    <input type="radio" name="ssfooters" value="video"    id="pfusevideo"        > <label for="pfusevideo">A video<br/>
+                    <input type="radio" name="ssfooters" value="problem"  id="pfuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="pfuseprob"> problems<br/>
+                    <input type="radio" name="ssfooters" value="special"  id="pfusespec"         > <label for="pfusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
         </div>

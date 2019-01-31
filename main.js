@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
 
     $('input[name="corecontent"]').on('change', function(){
-        if($('input[name="corecontent"]:checked').val() === 'spec'){
+        if($('input[name="corecontent"]:checked').val() === 'special'){
             $('#whatcustom').removeClass('disabled');
         }else{
             $('#whatcustom').addClass('disabled');
@@ -28,7 +28,7 @@ $(document).ready(function(){
     });
 
     $('input[name="corecontent"]').on('change', function(){
-        if($('input[name="corecontent"]:checked').val() === 'prob'){
+        if($('input[name="corecontent"]:checked').val() === 'problem'){
             $('#numprob').removeClass('disabled');
         }else{
             $('#numprob').addClass('disabled');
@@ -62,7 +62,7 @@ function constructCourseTemplate(){
 
     // Core part of the page
     let coreTag = $('input[name="corecontent"]:checked').val();
-    if( coreTag === 'spec' ){ coreTag = $('#whatcustom').val(); }
+    if( coreTag === 'special' ){ coreTag = $('#whatcustom').val(); }
 
     let numCoreElements = 1;
     if(coreTag === 'problem'){
