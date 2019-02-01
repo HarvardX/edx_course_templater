@@ -2,54 +2,193 @@
 
 console.log('working');
 
-async function makeDownload() {
-
-    // Placeholder for things that take a long time to tar up.
-    let target_location = document.getElementById('dlink');
-    let download_placeholder = document.createElement('p');
-    let creating_file = document.createTextNode('Creating tar file...');
-    let filename = document.getElementById('filename').value;
-    let file_source = document.getElementById('filesource').value;
-    download_placeholder.appendChild(creating_file);
-    target_location.appendChild(download_placeholder);
-
-    // We're just downloading the boilerplate tarball right now.
-    let boilerplate_path = "https://harvardx.github.io/edx_course_templater/boilerplate_course/";
-    let boilerplate_structure_path = "https://harvardx.github.io/edx_course_templater/boilerplate_course.txt";
-    let course_tarball;
-
-
-    // Get the flat file that describes the boilerplate course.
-    let boilerplate_flat = await readCourseFlatFile(file_source, async function(result){
-
-        // console.log('course structure:');
-        // console.log(result);
-
-        // Take the tar and make a download link with it.
-        function makeDownloadLink(tar){
-            let written = tar.write()
-                .then( (tarblob) => {
-                    // console.log('tar written');
-                    // console.log(tarblob);
-
-                    // Remove the placeholder and put in the download link.
-                    let download_link = document.createElement('a');
-                    let click_to_download_txt = document.createTextNode('Click to download archive');
-
-                    target_location.removeChild(download_placeholder);
-                    download_link.setAttribute('href', URL.createObjectURL(tarblob) );
-                    download_link.setAttribute('download', filename);
-
-                    download_link.appendChild(click_to_download_txt);
-                    target_location.appendChild(download_link);
-            });
-        }
-
-        // Construct a tarball from the flat file.
-        course_tarball = await makeTarFromFlatFile(result, boilerplate_path, makeDownloadLink);
-
+$(document).ready(function(){
+    // Visibility toggle for headers and footers.
+    $('.headfoot').on('change', function(){
+        $(this).siblings('div:first-of-type').slideToggle();
     });
+
+    // When the page loads, or when anything changes,
+    // build the template by which we make the tarball.
+    constructCourseTemplate();
+    $('input').on('change', function(e){
+        // console.log(e);
+        console.log(constructCourseTemplate());
+    });
+
+    $('input[name="corecontent"]').on('change', function(){
+        if($('input[name="corecontent"]:checked').val() === 'special'){
+            $('#whatcustom').removeClass('disabled');
+        }else{
+            $('#whatcustom').addClass('disabled');
+        }
+    });
+    $('#whatcustom').on('focus', function(){
+        $('#usespec').click();
+    });
+
+    $('input[name="corecontent"]').on('change', function(){
+        if($('input[name="corecontent"]:checked').val() === 'problem'){
+            $('#numprob').removeClass('disabled');
+        }else{
+            $('#numprob').addClass('disabled');
+        }
+    });
+    $('#numprob').on('focus', function(){
+        $('#useprob').click();
+    });
+});
+
+
+// This builds the user-defined part of the course, without the boilerplate.
+function constructCourseTemplate(){
+    // The template is an array of objects that look like this:
+    // {
+    //  'path': 'path to final file',
+    //  'text': 'inner xml for file'
+    // }
+    let template = [];
+
+    let sections = $('#numsections').val();
+    let subsections = $('#numsubsections').val();
+    let pages = $('#numpages').val();
+
+    // Core part of the page
+    let coreTag = $('input[name="corecontent"]:checked').val();
+    if( coreTag === 'special' ){ coreTag = $('#whatcustom').val(); }
+
+    let numCoreElements = 1;
+    if(coreTag === 'problem'){
+        numCoreElements = Number($('#numprob').val());
+    }
+
+    // problem on every page
+    let prob_on_every_page = $('#poep')[0].checked;
+    // discussion on every page
+    let disc_on_every_page = $('#doep')[0].checked;
+    // discussion has text intro
+    let disc_has_intro = $('#dhti')[0].checked;
+    // video has text intro
+    let vid_has_intro = $('#vhti')[0].checked;
+
+    let subsHaveHeaders = $('#headerpage')[0].checked;
+    let subsHaveFooters = $('#footerpage')[0].checked;
+    let sectHaveHeaders = $('#headerss')[0].checked;
+    let sectHaveFooters = $('#footerss')[0].checked;
+
+    for(let s = 0; s < sections; s++){
+        let chapter_innards = '';
+
+        for(let ss = 0; ss < subsections; ss++){
+            let sequential_innards = '';
+
+            for(let p = 0; p < pages; p++){
+                let vertical_innards = '';
+
+                if(vid_has_intro){
+                    if(coreTag == 'video'){
+                        let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
+                        vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
+                        template.push({
+                            'path': 'html/' + vhti_file,
+                            'text': '<html filename="' + vhti_file.slice(0,-4) + '" >\n</html>'
+                        });
+                        template.push({
+                            'path': 'html/' + vhti_file.slice(0,-3)+'html',
+                            'text': '<html>\n</html>'
+                        });
+                    }
+                }
+
+                // add content page tags
+                for(let cf = 0; cf < numCoreElements; cf++){
+                    let core_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_' + coreTag + '_' + (cf+1) + '.xml'
+                    vertical_innards += '<' + coreTag + ' url_name="' + core_file.slice(0,-4) + '" />\n';
+                    if(coreTag === 'html'){
+                        template.push({
+                            'path': 'html/' + core_file,
+                            'text': '<html filename="' + core_file.slice(0,-4) + '" />'
+                        });
+                        template.push({
+                            'path': 'html/' + core_file.slice(0,-3)+'html',
+                            'text': '<html>\n</html>'
+                        });
+                    }else{
+                        template.push({
+                            'path': coreTag + '/' + core_file,
+                            'text': '<' + coreTag +'>\n</' + coreTag + '>'
+                        });
+                    }
+                }
+
+                if(prob_on_every_page){
+                    let poep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
+                    vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
+                    template.push({
+                        'path': 'problem/' + poep_file,
+                        'text': '<problem>\n</problem>'
+                    });
+
+                }
+
+                if(disc_on_every_page){
+                    if(disc_has_intro){
+                        let dhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_discintro.xml';
+                        vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
+                        template.push({
+                            'path': 'html/' + dhti_file,
+                            'text': '<html>\n</html>'
+                        });
+                        template.push({
+                            'path': 'html/' + dhti_file.slice(0,-3)+'html',
+                            'text': '<html>\n</html>'
+                        });
+                    }
+                    let doep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
+                    vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
+                    // no need to add to template, only declared inline.
+                }
+
+                // add vertical tag to template
+                let vert_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '.xml';
+                template.push({
+                    'path': 'vertical/' + vert_file,
+                    'text': '<vertical>\n' + vertical_innards + '</vertical>'
+                });
+                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
+            }
+
+            // add tags for subsection header page
+            if(subsHaveHeaders){
+                let head_tag = $('input[name="unitheaders"]:checked').val();
+                // console.log(head_tag);
+            }
+
+            // add tags for subsection footer page
+            if(subsHaveFooters){
+                let foot_tag = $('input[name="unitfooters"]:checked').val();
+                // console.log(foot_tag);
+            }
+
+            // add sequential tag to template
+            let seq_file = 's_' + (s+1) + '_ss_' + (ss+1) + '.xml';
+            template.push({
+                'path': 'sequential/' + seq_file,
+                'text': '<sequential>\n' + sequential_innards + '</sequential>'
+            });
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
+        }
+        // add chapter tag to template
+        template.push({
+            'path': 'chapter/s_' + (s+1) + '.xml',
+            'text': '<chapter>\n' + chapter_innards + '</chapter>'
+        });
+
+    }
+
+    return template;
 }
+
 
 function readCourseFlatFile(filepath, callback){
     console.log('reading course flat file ' + filepath);
@@ -69,13 +208,43 @@ function readCourseFlatFile(filepath, callback){
 
 }
 
-async function makeTarFromFlatFile(f, path, makeDownloadLink){
+function makeNewCourseXML(template){
+
+    // console.log(template);
+
+    let new_chapters = template.filter(function(row){
+        return row.path.slice(0,7) === 'chapter';
+    });
+
+    // console.log(new_chapters);
+
+    let course_xml = '<course advanced_modules="[&quot;openassessment&quot;, &quot;word_cloud&quot;, &quot;lti_consumer&quot;, &quot;split_test&quot;, &quot;library_content&quot;, &quot;poll&quot;, &quot;survey&quot;, &quot;ubcpi&quot;, &quot;drag-and-drop-v2&quot;, &quot;done&quot;]" cert_html_view_enabled="true" display_name="HarvardX Boilerplate" language="en" start="&quot;2030-01-01T00:00:00+00:00&quot;">\n';
+    course_xml += '  <chapter url_name="ae4d34a5898348ec8f02796adfd3c211"/>\n';
+
+    for(let i = 0; i < new_chapters.length; i++){
+        // Cutting off course/ and .xml from path.
+        course_xml += '  <chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />\n'
+    }
+
+    course_xml += '  <chapter url_name="bc94ec689194454dbc8148b3e53fc80c"/>\n'
+    course_xml += '  <chapter url_name="cceae70553594a3dbdd65da2d9e7fd11"/>\n'
+    course_xml += '  <wiki slug="HarvardX.HX102.3T2018"/>\n'
+    course_xml += '</course>'
+
+    return course_xml;
+}
+
+async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
     let textlines = f.split('\n');
     console.log('Making course tarball from...');
-    console.log(textlines);
+    // console.log(textlines);
 
     let tar = new tarball.TarWriter();
     let filecounter = 0;
+
+    template.forEach((temp_row) => {
+        tar.addTextFile(temp_row.path, temp_row.text);
+    });
 
     textlines.forEach(async function(row){
 
@@ -96,9 +265,15 @@ async function makeTarFromFlatFile(f, path, makeDownloadLink){
                 .then(blob => {
                     // console.log('blob obtained');
                     // console.log(blob);
-                    // Sweet functionality note: folders are added automatically
-                    // because the row text has the folder name and a slash.
-                    tar.addFile(row, blob );
+                    if(row.slice(0,7) == 'course/'){
+                        let newXML = makeNewCourseXML(template);
+                        // console.log(newXML);
+                        tar.addTextFile(row, newXML);
+                    }else{
+                        // Sweet functionality note: folders are added automatically
+                        // because the row text has the folder name and a slash.
+                        tar.addFile(row, blob);
+                    }
                     filecounter++;
             });
         }
@@ -109,4 +284,51 @@ async function makeTarFromFlatFile(f, path, makeDownloadLink){
 
     });
 
+}
+
+
+// This is our "main"
+async function makeDownload() {
+
+    // Insert placeholder text while we wait for things to tar up.
+    let target_location = $('#dlink');
+    let download_placeholder = $('<p>Creating tar file...</p>');
+    let filename = $('#filename').val();
+    target_location.append(download_placeholder);
+
+    // Get the parts of the template that aren't boilerplate.
+    let template = constructCourseTemplate();
+
+    // Path to the boilerplate parts of the template.
+    let boilerplate_structure_file = $('#filesource').val();
+    let boilerplate_structure_path = boilerplate_structure_file.slice(0,-4)+'/';
+    let course_tarball;
+
+
+    // Get the flat file that describes the boilerplate course.
+    let boilerplate_flat = await readCourseFlatFile(boilerplate_structure_file, async function(result){
+
+        // console.log('course structure:');
+        // console.log(result);
+
+        // Take the tar and make a download link with it.
+        function makeDownloadLink(tar){
+            let written = tar.write()
+                .then( (tarblob) => {
+                    // console.log('tar written');
+                    // console.log(tarblob);
+
+                    // Remove the placeholder and put in the download link.
+                    let download_link = $('<a>Click to download archive</a>');
+                    download_placeholder.remove();
+                    download_link.attr('href', URL.createObjectURL(tarblob) );
+                    download_link.attr('download', filename);
+                    target_location.append(download_link);
+            });
+        }
+
+        // Construct a tarball from the flat file.
+        course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, makeDownloadLink);
+
+    });
 }

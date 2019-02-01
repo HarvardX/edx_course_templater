@@ -1,0 +1,31 @@
+body{
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+h1, h2, h3{
+    margin:12px 0px 12px 0px;
+}
+h4{
+    margin: 2px;
+}
+.container{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+.container div {
+    flex: 1 1 15em;
+    padding: 0px 20px 0px 20px;
+}
+.disabled {
+    color: lightgrey;
+}
+.hidden{
+    display:none;
+}
+.submitbutton{
+    background-color: #900;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    padding: 6px;
+}
