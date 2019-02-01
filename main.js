@@ -88,10 +88,10 @@ function constructCourseTemplate(){
                 if(vid_has_intro){
                     if(coreTag == 'video'){
                         let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
-                        vertical_innards += '<html url_name="' + vhti_file + '" />\n';
+                        vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
                         template.push({
                             'path': 'html/' + vhti_file,
-                            'text': '<html>\n</html>'
+                            'text': '<html filename="' + vhti_file.slice(0,-4) + '" >\n</html>'
                         });
                         template.push({
                             'path': 'html/' + vhti_file.slice(0,-3)+'html',
@@ -103,22 +103,27 @@ function constructCourseTemplate(){
                 // add content page tags
                 for(let cf = 0; cf < numCoreElements; cf++){
                     let core_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_' + coreTag + '_' + (cf+1) + '.xml'
-                    vertical_innards += '<' + coreTag + ' url_name="' + core_file + '" />\n';
-                    template.push({
-                        'path': coreTag + '/' + core_file,
-                        'text': '<' + coreTag +'>\n</' + coreTag + '>'
-                    });
+                    vertical_innards += '<' + coreTag + ' url_name="' + core_file.slice(0,-4) + '" />\n';
                     if(coreTag === 'html'){
+                        template.push({
+                            'path': 'html/' + core_file,
+                            'text': '<html filename="' + core_file.slice(0,-4) + '" />'
+                        });
                         template.push({
                             'path': 'html/' + core_file.slice(0,-3)+'html',
                             'text': '<html>\n</html>'
+                        });
+                    }else{
+                        template.push({
+                            'path': coreTag + '/' + core_file,
+                            'text': '<' + coreTag +'>\n</' + coreTag + '>'
                         });
                     }
                 }
 
                 if(prob_on_every_page){
                     let poep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
-                    vertical_innards += '<problem url_name="' + poep_file + '" />\n';
+                    vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
                     template.push({
                         'path': 'problem/' + poep_file,
                         'text': '<problem>\n</problem>'
@@ -129,7 +134,7 @@ function constructCourseTemplate(){
                 if(disc_on_every_page){
                     if(disc_has_intro){
                         let dhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_discintro.xml';
-                        vertical_innards += '<html url_name="' + dhti_file + '" />\n';
+                        vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
                         template.push({
                             'path': 'html/' + dhti_file,
                             'text': '<html>\n</html>'
@@ -140,7 +145,7 @@ function constructCourseTemplate(){
                         });
                     }
                     let doep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
-                    vertical_innards += '<discussion url_name="' + doep_file + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
+                    vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
                     // no need to add to template, only declared inline.
                 }
 
@@ -150,19 +155,19 @@ function constructCourseTemplate(){
                     'path': 'vertical/' + vert_file,
                     'text': '<vertical>\n' + vertical_innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="' + vert_file + '" />\n';
+                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
             }
 
             // add tags for subsection header page
             if(subsHaveHeaders){
                 let head_tag = $('input[name="unitheaders"]:checked').val();
-                console.log(head_tag);
+                // console.log(head_tag);
             }
 
             // add tags for subsection footer page
             if(subsHaveFooters){
                 let foot_tag = $('input[name="unitfooters"]:checked').val();
-                console.log(foot_tag);
+                // console.log(foot_tag);
             }
 
             // add sequential tag to template
@@ -171,7 +176,7 @@ function constructCourseTemplate(){
                 'path': 'sequential/' + seq_file,
                 'text': '<sequential>\n' + sequential_innards + '</sequential>'
             });
-            chapter_innards += '  <sequential url_name="' + seq_file + '" />\n';
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
         // add chapter tag to template
         template.push({
@@ -203,7 +208,7 @@ function readCourseFlatFile(filepath, callback){
 
 }
 
-async function makeNewCourseXML(template){
+function makeNewCourseXML(template){
 
     // console.log(template);
 
@@ -211,7 +216,7 @@ async function makeNewCourseXML(template){
         return row.path.slice(0,7) === 'chapter';
     });
 
-    console.log(new_chapters);
+    // console.log(new_chapters);
 
     let course_xml = '<course advanced_modules="[&quot;openassessment&quot;, &quot;word_cloud&quot;, &quot;lti_consumer&quot;, &quot;split_test&quot;, &quot;library_content&quot;, &quot;poll&quot;, &quot;survey&quot;, &quot;ubcpi&quot;, &quot;drag-and-drop-v2&quot;, &quot;done&quot;]" cert_html_view_enabled="true" display_name="HarvardX Boilerplate" language="en" start="&quot;2030-01-01T00:00:00+00:00&quot;">\n';
     course_xml += '  <chapter url_name="ae4d34a5898348ec8f02796adfd3c211"/>\n';
@@ -226,7 +231,6 @@ async function makeNewCourseXML(template){
     course_xml += '  <wiki slug="HarvardX.HX102.3T2018"/>\n'
     course_xml += '</course>'
 
-    console.log(course_xml);
     return course_xml;
 }
 
@@ -244,7 +248,7 @@ async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
 
     textlines.forEach(async function(row){
 
-        console.log(row);
+        // console.log(row);
 
         // Taking off the ./ from start of each. Artifact of using "find" command.
         if(row.slice(0,2) == './'){
@@ -260,10 +264,11 @@ async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
                 .then(res => res.blob())
                 .then(blob => {
                     // console.log('blob obtained');
-                    // console.log(row);
                     // console.log(blob);
                     if(row.slice(0,7) == 'course/'){
-                        tar.addTextFile(row, makeNewCourseXML(template));
+                        let newXML = makeNewCourseXML(template);
+                        // console.log(newXML);
+                        tar.addTextFile(row, newXML);
                     }else{
                         // Sweet functionality note: folders are added automatically
                         // because the row text has the folder name and a slash.
