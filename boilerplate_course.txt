@@ -160,7 +160,6 @@
 ./static/MatchingA_Elements_Zoo.js
 ./static/Bear.jpg
 ./static/guesser.js
-./boilerplate_course.txt
 ./assets/assets.xml
 ./vertical/9567b1e9c4d24c77880b7302e4690253.xml
 ./vertical/caa831b525ae4ba1912c2cc9fcd2029a.xml
