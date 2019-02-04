@@ -110,8 +110,8 @@ function constructCourseTemplate(){
             if(subsHaveHeaders){
                 let head_tag = $('input[name="unitheaders"]:checked').val();
                 // console.log(head_tag);
-                if( head_tag === 'special' ){ head_tag = $('#whatcustom').val(); }
-                let num_head_elements = head_tag === 'problem' ? Number($('#numprob').val()) : 1;
+                if( head_tag === 'special' ){ head_tag = $('#whatcustomhead').val(); }
+                let num_head_elements = head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
                 let h_tags = makeContentPageTags(s, ss, 'head', head_tag, num_head_elements);
 
                 template.push(...h_tags.array);
@@ -188,8 +188,8 @@ function constructCourseTemplate(){
             if(subsHaveFooters){
                 let foot_tag = $('input[name="unitfooters"]:checked').val();
                 // console.log(foot_tag);
-                if( foot_tag === 'special' ){ foot_tag = $('#whatcustom').val(); }
-                let num_foot_elements = foot_tag === 'problem' ? Number($('#numprob').val()) : 1;
+                if( foot_tag === 'special' ){ foot_tag = $('#whatcustomfoot').val(); }
+                let num_foot_elements = foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
                 let f_tags = makeContentPageTags(s, ss, 'foot', foot_tag, num_foot_elements);
 
                 template.push(...f_tags.array);
