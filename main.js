@@ -231,36 +231,35 @@ function constructCourseTemplate(){
 
     }
 
-    // Pages. Syllabus and Related are always included.
-    // let use_syllabus_page  = $('#syllabus')[0].checked;
-    // let use_related_page   = $('#related')[0].checked;
+    // Syllabus and related are currently automatically included.
+    let policies = {
+        // 'syllabus': $('#syllabus')[0].checked,
+        // 'related': $('#related')[0].checked,
+        'calendar': $('#calendar')[0].checked,
+        'FAQ': $('#faq')[0].checked,
+        'glossary': $('#glossary')[0].checked,
+        'resources': $('#resources')[0].checked
+    };
 
-    // Right now this isn't working and I'm not sure why.
-    // Leaving it uncommented for now.
-    let use_faq_page       = $('#faq')[0].checked;
-    let use_calendar_page  = $('#calendar')[0].checked;
-    let use_glossary_page  = $('#glossary')[0].checked;
-    let use_resources_page = $('#resources')[0].checked;
-
-    if(use_faq_page){
+    if(policies.FAQ){
         template.push({
-            'path': 'tabs/faq.html',
+            'path': 'tabs/FAQ.html',
             'text': '<h3>FAQ placeholder</h3>'
         });
     }
-    if(use_calendar_page){
+    if(policies.calendar){
         template.push({
             'path': 'tabs/calendar.html',
             'text': '<h3>Calendar placeholder</h3>'
         });
     }
-    if(use_glossary_page){
+    if(policies.glossary){
         template.push({
             'path': 'tabs/glossary.html',
             'text': '<h3>Glossary placeholder</h3>'
         });
     }
-    if(use_resources_page){
+    if(policies.resources){
         template.push({
             'path': 'tabs/resources.html',
             'text': '<h3>Resources placeholder</h3>'
@@ -268,7 +267,7 @@ function constructCourseTemplate(){
     }
 
 
-    return template;
+    return {'template': template, 'policies': policies};
 }
 
 
@@ -291,6 +290,31 @@ function readCourseFile(filepath, callback){
 }
 
 
+// Returns raw, prettified text for revised policies/(run)/policy.json file.
+async function makeNewCoursePolicy(policies, path, run, callback){
+
+    // console.log(policies);
+
+    let policy_file = await readCourseFile(path + 'policies/' + run + '/policy.json', async function(j){
+        j = JSON.parse(j);
+        Object.keys(policies).forEach(k => {
+            if(policies[k]){
+                j['course/' + run].tabs.push({
+                    'course_staff_only': false,
+                    'name': k.charAt(0).toUpperCase() + k.slice(1),
+                    'type': 'static_tab',
+                    'url_slug': k
+                });
+            }
+        });
+        // console.log(j);
+        callback(JSON.stringify(j, null, 2));
+    });
+
+}
+
+
+// Returns raw, prettified text for revised course/(run).xml file.
 async function makeNewCourseXML(template, path, run, callback){
 
     // console.log(template);
@@ -309,14 +333,14 @@ async function makeNewCourseXML(template, path, run, callback){
             // Insert new chapters after the first chapter in the boilerplate.
             course.find('chapter:nth-child(' + (i+1) + ')').after(newtag)
         }
-        console.log(course);
+        // console.log(course);
         callback(vkbeautify.xml(course[0].outerHTML, 2));
     });
 
 }
 
 
-async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
+async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloadLink){
     // Make an array and throw out blank lines.
     let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
     console.log('Making course tarball from...');
@@ -349,9 +373,9 @@ async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
                 .then(blob => {
                     // console.log('blob obtained');
                     // console.log(blob);
-                    if(row.slice(0,7) == 'course/'){
+                    if(row.startsWith('course/')){
                         let newXML = makeNewCourseXML(template, path, run, function(xml){
-                            // console.log('new course_run.xml file')
+                            // console.log('new course/(run).xml file')
                             // console.log(row);
                             // console.log(xml);
                             tar.addTextFile(row, xml);
@@ -361,7 +385,20 @@ async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
                                 makeDownloadLink(tar);
                             }
                         });
-                    }else{
+                    }else if(row.startsWith('policies/' + run + '/policy.json')){
+                        let newXML = makeNewCoursePolicy(policies, path, run, function(j){
+                            // console.log('new policies/(run)/json.xml file')
+                            // console.log(row);
+                            // console.log(j);
+                            tar.addTextFile(row, j);
+                            filecounter++;
+                            if(filecounter == textlines.length){
+                                console.log('tar complete');
+                                makeDownloadLink(tar);
+                            }
+                        });
+                    }
+                    else{
                         // Sweet functionality note: folders are added automatically
                         // because the row text has the folder name and a slash.
                         tar.addFile(row, blob);
@@ -389,7 +426,9 @@ async function makeDownload() {
     target_location.append(download_placeholder);
 
     // Get the parts of the template that aren't boilerplate.
-    let template = constructCourseTemplate();
+    let new_course = constructCourseTemplate()
+    let template = new_course.template;
+    let policies = new_course.policies;
 
     // Path to the boilerplate parts of the template.
     let boilerplate_structure_file = $('#filesource').val();
@@ -423,7 +462,7 @@ async function makeDownload() {
             }
 
             // Construct a tarball from the flat file.
-            course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, run, makeDownloadLink);
+            course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, policies, run, makeDownloadLink);
 
         });
 
