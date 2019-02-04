@@ -186,6 +186,43 @@ function constructCourseTemplate(){
 
     }
 
+    // Pages. Syllabus and Related are always included.
+    // let use_syllabus_page  = $('#syllabus')[0].checked;
+    // let use_related_page   = $('#related')[0].checked;
+
+    // Right now this isn't working and I'm not sure why.
+    // Leaving it uncommented for now.
+    let use_faq_page       = $('#faq')[0].checked;
+    let use_calendar_page  = $('#calendar')[0].checked;
+    let use_glossary_page  = $('#glossary')[0].checked;
+    let use_resources_page = $('#resources')[0].checked;
+
+    if(use_faq_page){
+        template.push({
+            'path': 'tabs/faq.html',
+            'text': '<h3>FAQ placeholder</h3>'
+        });
+    }
+    if(use_calendar_page){
+        template.push({
+            'path': 'tabs/calendar.html',
+            'text': '<h3>Calendar placeholder</h3>'
+        });
+    }
+    if(use_glossary_page){
+        template.push({
+            'path': 'tabs/glossary.html',
+            'text': '<h3>Glossary placeholder</h3>'
+        });
+    }
+    if(use_resources_page){
+        template.push({
+            'path': 'tabs/resources.html',
+            'text': '<h3>Resources placeholder</h3>'
+        });
+    }
+
+
     return template;
 }
 
