@@ -39,6 +39,34 @@ $(document).ready(function(){
     });
 });
 
+// add content page tags
+function makeContentPageTags(s, ss, p, tag, num_elem){
+    let temp = [];
+    let innards = '';
+
+    for(let n = 0; n < num_elem; n++){
+        let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + tag + '_' + (n+1) + '.xml';
+        innards += '<' + tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
+        if(tag === 'html'){
+            temp.push({
+                'path': 'html/' + head_file,
+                'text': '<html display_name="Text/HTML" filename="' + head_file.slice(0,-4) + '" />'
+            });
+            temp.push({
+                'path': 'html/' + head_file.slice(0,-3)+'html',
+                'text': '<html>\n</html>'
+            });
+        }else{
+            temp.push({
+                'path': tag + '/' + head_file,
+                'text': '<' + tag +' display_name="' + tag + '">\n</' + tag + '>'
+            });
+        }
+    }
+    return {'array': temp, 'innards': innards};
+
+}
+
 
 // This builds the user-defined part of the course, without the boilerplate.
 function constructCourseTemplate(){
@@ -62,13 +90,9 @@ function constructCourseTemplate(){
         numCoreElements = Number($('#numprob').val());
     }
 
-    // problem on every page
     let prob_on_every_page = $('#poep')[0].checked;
-    // discussion on every page
     let disc_on_every_page = $('#doep')[0].checked;
-    // discussion has text intro
     let disc_has_intro = $('#dhti')[0].checked;
-    // video has text intro
     let vid_has_intro = $('#vhti')[0].checked;
 
     let subsHaveHeaders = $('#headerpage')[0].checked;
@@ -88,32 +112,13 @@ function constructCourseTemplate(){
                 // console.log(head_tag);
                 if( head_tag === 'special' ){ head_tag = $('#whatcustom').val(); }
                 let num_head_elements = head_tag === 'problem' ? Number($('#numprob').val()) : 1;
-                let header_innards = '';
+                let h_tags = makeContentPageTags(s, ss, 'head', head_tag, num_head_elements);
 
-                // add content page tags
-                for(let n = 0; n < num_head_elements; n++){
-                    let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + head_tag + '_' + (n+1) + '.xml';
-                    header_innards += '<' + head_tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
-                    if(head_tag === 'html'){
-                        template.push({
-                            'path': 'html/' + head_file,
-                            'text': '<html display_name="Text/HTML" filename="' + head_file.slice(0,-4) + '" />'
-                        });
-                        template.push({
-                            'path': 'html/' + head_file.slice(0,-3)+'html',
-                            'text': '<html>\n</html>'
-                        });
-                    }else{
-                        template.push({
-                            'path': head_tag + '/' + head_file,
-                            'text': '<' + head_tag +' display_name="' + head_tag + '">\n</' + head_tag + '>'
-                        });
-                    }
-                }
+                template.push(...h_tags.array);
 
                 template.push({
                     'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + header_innards + '</vertical>'
+                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_head" />\n';
 
@@ -138,25 +143,9 @@ function constructCourseTemplate(){
                 }
 
                 // add content page tags
-                for(let cf = 0; cf < numCoreElements; cf++){
-                    let core_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_' + coreTag + '_' + (cf+1) + '.xml'
-                    vertical_innards += '<' + coreTag + ' url_name="' + core_file.slice(0,-4) + '" />\n';
-                    if(coreTag === 'html'){
-                        template.push({
-                            'path': 'html/' + core_file,
-                            'text': '<html display_name="Text/HTML" filename="' + core_file.slice(0,-4) + '" />'
-                        });
-                        template.push({
-                            'path': 'html/' + core_file.slice(0,-3)+'html',
-                            'text': '<html>\n</html>'
-                        });
-                    }else{
-                        template.push({
-                            'path': coreTag + '/' + core_file,
-                            'text': '<' + coreTag +' display_name="' + coreTag + '">\n</' + coreTag + '>'
-                        });
-                    }
-                }
+                let c_tags = makeContentPageTags(s, ss, p, coreTag, numCoreElements);
+                template.push(...c_tags.array);
+                vertical_innards += c_tags.innards;
 
                 if(prob_on_every_page){
                     let poep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
@@ -201,32 +190,13 @@ function constructCourseTemplate(){
                 // console.log(foot_tag);
                 if( foot_tag === 'special' ){ foot_tag = $('#whatcustom').val(); }
                 let num_foot_elements = foot_tag === 'problem' ? Number($('#numprob').val()) : 1;
-                let footer_innards = '';
+                let f_tags = makeContentPageTags(s, ss, 'foot', foot_tag, num_foot_elements);
 
-                // add content page tags
-                for(let n = 0; n < num_foot_elements; n++){
-                    let foot_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot_' + foot_tag + '_' + (n+1) + '.xml';
-                    footer_innards += '<' + foot_tag + ' url_name="' + foot_file.slice(0,-4) + '" />\n';
-                    if(foot_tag === 'html'){
-                        template.push({
-                            'path': 'html/' + foot_file,
-                            'text': '<html display_name="Text/HTML" filename="' + foot_file.slice(0,-4) + '" />'
-                        });
-                        template.push({
-                            'path': 'html/' + foot_file.slice(0,-3)+'html',
-                            'text': '<html>\n</html>'
-                        });
-                    }else{
-                        template.push({
-                            'path': foot_tag + '/' + foot_file,
-                            'text': '<' + foot_tag +' display_name="' + foot_tag + '">\n</' + foot_tag + '>'
-                        });
-                    }
-                }
+                template.push(...f_tags.array);
 
                 template.push({
                     'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + footer_innards + '</vertical>'
+                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_foot" />\n';
 
