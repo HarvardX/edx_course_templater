@@ -272,8 +272,8 @@ function constructCourseTemplate(){
 }
 
 
-function readCourseFlatFile(filepath, callback){
-    console.log('reading course flat file ' + filepath);
+function readCourseFile(filepath, callback){
+    console.log('reading file ' + filepath);
 
     let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("text/plain");
@@ -290,7 +290,8 @@ function readCourseFlatFile(filepath, callback){
 
 }
 
-function makeNewCourseXML(template){
+
+async function makeNewCourseXML(template, path, run, callback){
 
     // console.log(template);
 
@@ -300,23 +301,22 @@ function makeNewCourseXML(template){
 
     // console.log(new_chapters);
 
-    let course_xml = '<course advanced_modules="[&quot;openassessment&quot;, &quot;word_cloud&quot;, &quot;lti_consumer&quot;, &quot;split_test&quot;, &quot;library_content&quot;, &quot;poll&quot;, &quot;survey&quot;, &quot;ubcpi&quot;, &quot;drag-and-drop-v2&quot;, &quot;done&quot;]" cert_html_view_enabled="true" display_name="HarvardX Boilerplate" language="en" start="&quot;2030-01-01T00:00:00+00:00&quot;">\n';
-    course_xml += '  <chapter url_name="ae4d34a5898348ec8f02796adfd3c211"/>\n';
+    let course_xml = await readCourseFile(path + 'course/' + run + '.xml', async function(coursefile){
+        let course = $(coursefile);
+        for(let i = 0; i < new_chapters.length; i++){
+            // Cutting off course/ and .xml from paths.
+            let newtag = $('<chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />');
+            // Insert new chapters after the first chapter in the boilerplate.
+            course.find('chapter:nth-child(' + (i+1) + ')').after(newtag)
+        }
+        console.log(course);
+        callback(vkbeautify.xml(course[0].outerHTML, 2));
+    });
 
-    for(let i = 0; i < new_chapters.length; i++){
-        // Cutting off course/ and .xml from path.
-        course_xml += '  <chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />\n'
-    }
-
-    course_xml += '  <chapter url_name="bc94ec689194454dbc8148b3e53fc80c"/>\n'
-    course_xml += '  <chapter url_name="cceae70553594a3dbdd65da2d9e7fd11"/>\n'
-    course_xml += '  <wiki slug="HarvardX.HX102.3T2018"/>\n'
-    course_xml += '</course>'
-
-    return course_xml;
 }
 
-async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
+
+async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
     // Make an array and throw out blank lines.
     let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
     console.log('Making course tarball from...');
@@ -350,22 +350,28 @@ async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
                     // console.log('blob obtained');
                     // console.log(blob);
                     if(row.slice(0,7) == 'course/'){
-                        let newXML = makeNewCourseXML(template);
-                        // console.log('new course_run.xml file')
-                        // console.log(row);
-                        // console.log(newXML);
-                        tar.addTextFile(row, newXML);
+                        let newXML = makeNewCourseXML(template, path, run, function(xml){
+                            // console.log('new course_run.xml file')
+                            // console.log(row);
+                            // console.log(xml);
+                            tar.addTextFile(row, xml);
+                            filecounter++;
+                            if(filecounter == textlines.length){
+                                console.log('tar complete');
+                                makeDownloadLink(tar);
+                            }
+                        });
                     }else{
                         // Sweet functionality note: folders are added automatically
                         // because the row text has the folder name and a slash.
                         tar.addFile(row, blob);
+                        filecounter++;
+                        if(filecounter == textlines.length){
+                            console.log('tar complete');
+                            makeDownloadLink(tar);
+                        }
                     }
-                    filecounter++;
             });
-        }
-        if(filecounter == textlines.length){
-            console.log('tar complete');
-            makeDownloadLink(tar);
         }
 
     });
@@ -390,31 +396,37 @@ async function makeDownload() {
     let boilerplate_structure_path = boilerplate_structure_file.slice(0,-4)+'/';
     let course_tarball;
 
+    let course_run = await readCourseFile(boilerplate_structure_path + 'course.xml', async function(coursefile){
+        let run = $(coursefile).attr('url_name');
+        // console.log(run);
 
-    // Get the flat file that describes the boilerplate course.
-    let boilerplate_flat = await readCourseFlatFile(boilerplate_structure_file, async function(result){
+        // Get the flat file that describes the boilerplate course.
+        let boilerplate_flat = await readCourseFile(boilerplate_structure_file, async function(result){
 
-        // console.log('course structure:');
-        // console.log(result);
+            // console.log('course structure:');
+            // console.log(result);
 
-        // Take the tar and make a download link with it.
-        function makeDownloadLink(tar){
-            let written = tar.write()
-                .then( (tarblob) => {
-                    // console.log('tar written');
-                    // console.log(tarblob);
+            // Take the tar and make a download link with it.
+            function makeDownloadLink(tar){
+                let written = tar.write()
+                    .then( (tarblob) => {
+                        // console.log('tar written');
+                        // console.log(tarblob);
 
-                    // Remove the placeholder and put in the download link.
-                    let download_link = $('<a>Click to download archive</a>');
-                    download_placeholder.remove();
-                    download_link.attr('href', URL.createObjectURL(tarblob) );
-                    download_link.attr('download', filename);
-                    target_location.append(download_link);
-            });
-        }
+                        // Remove the placeholder and put in the download link.
+                        let download_link = $('<a>Click to download archive</a>');
+                        download_placeholder.remove();
+                        download_link.attr('href', URL.createObjectURL(tarblob) );
+                        download_link.attr('download', filename);
+                        target_location.append(download_link);
+                });
+            }
 
-        // Construct a tarball from the flat file.
-        course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, makeDownloadLink);
+            // Construct a tarball from the flat file.
+            course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, run, makeDownloadLink);
+
+        });
 
     });
+
 }
