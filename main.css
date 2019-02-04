@@ -29,3 +29,20 @@ h4{
     color: white;
     padding: 6px;
 }
+
+.abouttext{
+    display:none;
+    border: 1px solid grey;
+    background-color: #eee;
+    padding: 0px 12px 0px 12px;
+}
+
+.aboutbox{
+    float:right;
+}
+
+.showabout{
+    float:right;
+    background-color: #555;
+    color: white;
+}

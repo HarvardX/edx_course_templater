@@ -2,12 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>HX Template Builder</title>
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script src="tarballjs/tarball.js"></script>
+    <script src="vkbeautify/vkbeautify.js"></script>
     <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
+    <div id="aboutbox" class="aboutbox">
+        <div id="abouttext" class="abouttext" aria-hidden="true">
+            <p>
+                This page builds edX course templates. Put in your selections,
+                click the "Create downloadable file" button, and you'll be able
+                to download a tar file suitable for uploading to edX. Remember
+                that uploading this file will overwrite anything that currently
+                exists in your course, so use this early in your process.
+            </p>
+            <p>Created by Colin Fredericks for HarvardX, February 2019.</p>
+        </div>
+        <button id="showabout" class="showabout" aria-controls="abouttext" aria-expanded="false">Wot's this then?</button>
+    </div>
     <h1><span style="color:#900;">Harvard</span><span style="color:#b90;">X</span> Course Template Builder</h1>
     <form id="goodform" onsubmit="return false">
         <div class="container">
@@ -29,9 +44,9 @@
                 <div class="hidden">
                     <h4>These pages are...</h4>
                     <input type="radio" name="unitheaders" value="html"     id="uhusehtml" checked > <label for="uhusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="unitheaders" value="video"    id="uhusevideo"        > <label for="uhusevideo">A video<br/>
-                    <input type="radio" name="unitheaders" value="problem"  id="uhuseprob"         > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="uhuseprob"> problems<br/>
-                    <input type="radio" name="unitheaders" value="special"  id="uhusespec"         > <label for="uhusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="unitheaders" value="video"    id="uhusevideo"        > <label for="uhusevideo">A video</label><br/>
+                    <input type="radio" name="unitheaders" value="problem"  id="uhuseprob"         > <input type="number" name="probs" value="3" id="numsshprob" style="width:3em;" required> <label for="uhuseprob"> problems</label><br/>
+                    <input type="radio" name="unitheaders" value="special"  id="uhusespec"         > <label for="uhusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustomhead" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div>
@@ -39,9 +54,9 @@
                 <div class="hidden">
                     <h4>These pages are...</h4>
                     <input type="radio" name="unitfooters" value="html"     id="ufusehtml"         > <label for="ufusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="unitfooters" value="video"    id="ufusevideo"        > <label for="ufusevideo">A video<br/>
-                    <input type="radio" name="unitfooters" value="problem"  id="ufuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="ufuseprob"> problems<br/>
-                    <input type="radio" name="unitfooters" value="special"  id="ufusespec"         > <label for="ufusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="unitfooters" value="video"    id="ufusevideo"        > <label for="ufusevideo">A video</label><br/>
+                    <input type="radio" name="unitfooters" value="problem"  id="ufuseprob" checked > <input type="number" name="probs" value="3" id="numssfprob" style="width:3em;" required> <label for="ufuseprob"> problems</label><br/>
+                    <input type="radio" name="unitfooters" value="special"  id="ufusespec"         > <label for="ufusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustomfoot" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div class="disabled">
@@ -50,9 +65,9 @@
                     <h4>These subsections are...</h4>
                     <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssheaders" value="html"     id="sshusehtml"          > <label for="sshusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="ssheaders" value="video"    id="sshusevideo" checked > <label for="sshusevideo">A video<br/>
-                    <input type="radio" name="ssheaders" value="problem"  id="sshuseprob"          > <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob"> problems<br/>
-                    <input type="radio" name="ssheaders" value="special"  id="sshusespec"          > <label for="sshusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="ssheaders" value="video"    id="sshusevideo" checked > <label for="sshusevideo">A video</label><br/>
+                    <input type="radio" name="ssheaders" value="problem"  id="sshuseprob"          > <input type="number" name="probs" value="1" id="numshprob" style="width:3em;" required> <label for="sshuseprob"> problems</label><br/>
+                    <input type="radio" name="ssheaders" value="special"  id="sshusespec"          > <label for="sshusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
             <div class="disabled">
@@ -61,9 +76,9 @@
                     <h4>These subsections are...</h4>
                     <input type="number" name="probs" value="2" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssfooters" value="html"     id="pfusehtml"         > <label for="pfusehtml">A text or HTML component</label><br/>
-                    <input type="radio" name="ssfooters" value="video"    id="pfusevideo"        > <label for="pfusevideo">A video<br/>
-                    <input type="radio" name="ssfooters" value="problem"  id="pfuseprob" checked > <input type="number" name="probs" value="3" id="numhtml" style="width:3em;" required> <label for="pfuseprob"> problems<br/>
-                    <input type="radio" name="ssfooters" value="special"  id="pfusespec"         > <label for="pfusespec">A special component: <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
+                    <input type="radio" name="ssfooters" value="video"    id="pfusevideo"        > <label for="pfusevideo">A video</label><br/>
+                    <input type="radio" name="ssfooters" value="problem"  id="pfuseprob" checked > <input type="number" name="probs" value="3" id="numsfprob" style="width:3em;" required> <label for="pfuseprob"> problems</label><br/>
+                    <input type="radio" name="ssfooters" value="special"  id="pfusespec"         > <label for="pfusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
         </div>
@@ -74,14 +89,14 @@
             <input type="checkbox" name="dhti" id="dhti"> <label for="dhti">Each discussion has a text intro</label><br/>
             <input type="checkbox" name="vhti" id="vhti"> <label for="vhti">Each video has a text intro</label><br/>
 
-            <div style="color:lightgrey;">
+            <div class="disabled">
             <h3>Include...</h3>
-            <input type="checkbox" checked name="syllabus" id="syllabus"> <label for="syllabus">Syllabus</label><br/>
-            <input type="checkbox" checked name="related" id="related"> <label for="related">Related Courses</label><br/>
-            <input type="checkbox"         name="faq" id="faq"> <label for="faq">FAQ</label><br/>
-            <input type="checkbox"         name="calendar" id="calendar"> <label for="calendar">Calendar</label><br/>
-            <input type="checkbox"         name="glossary" id="glossary"> <label for="glossary">Glossary</label><br/>
-            <input type="checkbox"         name="resources" id="resources"> <label for="resources">Resources</label><br/>
+            <input type="checkbox" checked disabled name="syllabus" id="syllabus"> <label for="syllabus">Syllabus</label><br/>
+            <input type="checkbox" checked disabled name="related" id="related"> <label for="related">Related Courses</label><br/>
+            <input type="checkbox"         disabled name="faq" id="faq"> <label for="faq">FAQ</label><br/>
+            <input type="checkbox"         disabled name="calendar" id="calendar"> <label for="calendar">Calendar</label><br/>
+            <input type="checkbox"         disabled name="glossary" id="glossary"> <label for="glossary">Glossary</label><br/>
+            <input type="checkbox"         disabled name="resources" id="resources"> <label for="resources">Resources</label><br/>
             </div>
             <h2>Defaults</h2>
             Filename: <input type="text" name="name" value="course.tar.gz" id="filename"><br/>
