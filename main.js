@@ -92,8 +92,8 @@ function constructCourseTemplate(){
 
                 // add content page tags
                 for(let n = 0; n < num_head_elements; n++){
-                    let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + head_tag + '_' + (n+1) + '.xml'
-                    vertical_innards += '<' + head_tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
+                    let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + head_tag + '_' + (n+1) + '.xml';
+                    header_innards += '<' + head_tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
                     if(head_tag === 'html'){
                         template.push({
                             'path': 'html/' + head_file,
@@ -112,10 +112,10 @@ function constructCourseTemplate(){
                 }
 
                 template.push({
-                    'path': 'vertical/' + head_file,
+                    'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head.xml',
                     'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + header_innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="' + head_file + '" />\n';
+                sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_head" />\n';
 
             }
 
@@ -205,8 +205,8 @@ function constructCourseTemplate(){
 
                 // add content page tags
                 for(let n = 0; n < num_foot_elements; n++){
-                    let foot_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot_' + foot_tag + '_' + (n+1) + '.xml'
-                    vertical_innards += '<' + foot_tag + ' url_name="' + foot_file.slice(0,-4) + '" />\n';
+                    let foot_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot_' + foot_tag + '_' + (n+1) + '.xml';
+                    footer_innards += '<' + foot_tag + ' url_name="' + foot_file.slice(0,-4) + '" />\n';
                     if(foot_tag === 'html'){
                         template.push({
                             'path': 'html/' + foot_file,
@@ -225,10 +225,10 @@ function constructCourseTemplate(){
                 }
 
                 template.push({
-                    'path': 'vertical/' + foot_file,
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + footer_innards + '</vertical>'
+                    'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot.xml',
+                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + footer_innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="' + foot_file + '" />\n';
+                sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_foot" />\n';
 
             }
 
