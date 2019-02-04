@@ -8,6 +8,21 @@ $(document).ready(function(){
         $(this).siblings('div:first-of-type').slideToggle();
     });
 
+    // About box slide
+    $('#showabout').on('click tap', function(){
+        if($(this).attr('aria-expanded') === 'false'){
+            $(this).attr('aria-expanded','true');
+            $(this).text('Righty-o.');
+            $('#abouttext').attr('aria-hidden','false');
+            $('#abouttext').show();
+        }else{
+            $(this).attr('aria-expanded','false');
+            $('#abouttext').attr('aria-hidden','true');
+            $('#abouttext').hide();
+            $(this).text('Wot\'s this then?');
+        }
+    });
+
     // When the page loads, or when anything changes,
     // build the template by which we make the tarball.
     constructCourseTemplate();
@@ -39,26 +54,35 @@ $(document).ready(function(){
     });
 });
 
+// Makes the pair of files you need for HTML in edX.
+// The "filename" here should have .xml at the end.
+function makeHTMLFilePair(filename){
+    return [
+        {
+            'path': 'html/' + filename,
+            'text': '<html display_name="Text/HTML" filename="' + filename.slice(0,-4) + '" />'
+        },
+        {
+            'path': 'html/' + filename.slice(0,-3)+'html',
+            'text': '<html>\n</html>'
+        }
+    ];
+}
+
+
 // add content page tags
-function makeContentPageTags(h_name, tag, num_elem){
+function makeContentPageTags(name, tag, num_elem){
     let temp = [];
     let innards = '';
 
     for(let n = 0; n < num_elem; n++){
-        let head_file = h_name + tag + '_' + (n+1) + '.xml';
-        innards += '<' + tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
+        let filename = name + '_' + tag + '_' + (n+1) + '.xml';
+        innards += '<' + tag + ' url_name="' + filename.slice(0,-4) + '" />\n';
         if(tag === 'html'){
-            temp.push({
-                'path': 'html/' + head_file,
-                'text': '<html display_name="Text/HTML" filename="' + head_file.slice(0,-4) + '" />'
-            });
-            temp.push({
-                'path': 'html/' + head_file.slice(0,-3)+'html',
-                'text': '<html>\n</html>'
-            });
+            temp.push(...makeHTMLFilePair(filename));
         }else{
             temp.push({
-                'path': tag + '/' + head_file,
+                'path': tag + '/' + filename,
                 'text': '<' + tag +' display_name="' + tag + '">\n</' + tag + '>'
             });
         }
@@ -112,16 +136,16 @@ function constructCourseTemplate(){
                 // console.log(head_tag);
                 if( head_tag === 'special' ){ head_tag = $('#whatcustomhead').val(); }
                 let num_head_elements = head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
-                let h_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_';
+                let h_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head';
                 let h_tags = makeContentPageTags(h_name, head_tag, num_head_elements);
 
                 template.push(...h_tags.array);
 
                 template.push({
-                    'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head.xml',
+                    'path': 'vertical/' + h_name + '.xml',
                     'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_head" />\n';
+                sequential_innards += '  <vertical url_name="' + h_name + '" />\n';
 
             }
 
@@ -132,25 +156,18 @@ function constructCourseTemplate(){
                     if(coreTag == 'video'){
                         let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
                         vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
-                        template.push({
-                            'path': 'html/' + vhti_file,
-                            'text': '<html filename="' + vhti_file.slice(0,-4) + '" >\n</html>'
-                        });
-                        template.push({
-                            'path': 'html/' + vhti_file.slice(0,-3)+'html',
-                            'text': '<html display_name="Text/HTML">\n</html>'
-                        });
+                        template.push(...makeHTMLFilePair(vhti_file));
                     }
                 }
 
                 // add content page tags
-                let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_';
+                let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) ;
                 let c_tags = makeContentPageTags(c_name, coreTag, numCoreElements);
                 template.push(...c_tags.array);
                 vertical_innards += c_tags.innards;
 
                 if(prob_on_every_page){
-                    let poep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
+                    let poep_file = c_name + '_problem_x.xml';
                     vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
                     template.push({
                         'path': 'problem/' + poep_file,
@@ -161,24 +178,17 @@ function constructCourseTemplate(){
 
                 if(disc_on_every_page){
                     if(disc_has_intro){
-                        let dhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_discintro.xml';
+                        let dhti_file = c_name + '_discintro.xml';
                         vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
-                        template.push({
-                            'path': 'html/' + dhti_file,
-                            'text': '<html display_name="Text/HTML">\n</html>'
-                        });
-                        template.push({
-                            'path': 'html/' + dhti_file.slice(0,-3)+'html',
-                            'text': '<html>\n</html>'
-                        });
+                        template.push(...makeHTMLFilePair(dhti_file));
                     }
-                    let doep_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_problem_x.xml';
+                    let doep_file = c_name + '_problem_x.xml';
                     vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
                     // no need to add to template, only declared inline.
                 }
 
                 // add vertical tag to template
-                let vert_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '.xml';
+                let vert_file = c_name + '.xml';
                 template.push({
                     'path': 'vertical/' + vert_file,
                     'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
@@ -192,16 +202,16 @@ function constructCourseTemplate(){
                 // console.log(foot_tag);
                 if( foot_tag === 'special' ){ foot_tag = $('#whatcustomfoot').val(); }
                 let num_foot_elements = foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
-                let f_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_';
+                let f_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot';
                 let f_tags = makeContentPageTags(f_name, foot_tag, num_foot_elements);
 
                 template.push(...f_tags.array);
 
                 template.push({
-                    'path': 'vertical/' + 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot.xml',
+                    'path': 'vertical/' + f_name + '.xml',
                     'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="s_' + (s+1) + '_ss_' + (ss+1) + '_p_foot" />\n';
+                sequential_innards += '  <vertical url_name="' + f_name + '" />\n';
 
             }
 

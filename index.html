@@ -2,12 +2,26 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>HX Template Builder</title>
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script src="tarballjs/tarball.js"></script>
     <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
+    <div id="aboutbox" class="aboutbox">
+        <div id="abouttext" class="abouttext" aria-hidden="true">
+            <p>
+                This page builds edX course templates. Put in your selections,
+                click the "Create downloadable file" button, and you'll be able
+                to download a tar file suitable for uploading to edX. Remember
+                that uploading this file will overwrite anything that currently
+                exists in your course, so use this early in your process.
+            </p>
+            <p>Created by Colin Fredericks for HarvardX, February 2019.</p>
+        </div>
+        <button id="showabout" class="showabout" aria-controls="abouttext" aria-expanded="false">Wot's this then?</button>
+    </div>
     <h1><span style="color:#900;">Harvard</span><span style="color:#b90;">X</span> Course Template Builder</h1>
     <form id="goodform" onsubmit="return false">
         <div class="container">
