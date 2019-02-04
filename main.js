@@ -40,12 +40,12 @@ $(document).ready(function(){
 });
 
 // add content page tags
-function makeContentPageTags(s, ss, p, tag, num_elem){
+function makeContentPageTags(h_name, tag, num_elem){
     let temp = [];
     let innards = '';
 
     for(let n = 0; n < num_elem; n++){
-        let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + tag + '_' + (n+1) + '.xml';
+        let head_file = h_name + tag + '_' + (n+1) + '.xml';
         innards += '<' + tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
         if(tag === 'html'){
             temp.push({
@@ -112,7 +112,8 @@ function constructCourseTemplate(){
                 // console.log(head_tag);
                 if( head_tag === 'special' ){ head_tag = $('#whatcustomhead').val(); }
                 let num_head_elements = head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
-                let h_tags = makeContentPageTags(s, ss, 'head', head_tag, num_head_elements);
+                let h_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_';
+                let h_tags = makeContentPageTags(h_name, head_tag, num_head_elements);
 
                 template.push(...h_tags.array);
 
@@ -143,7 +144,8 @@ function constructCourseTemplate(){
                 }
 
                 // add content page tags
-                let c_tags = makeContentPageTags(s, ss, p, coreTag, numCoreElements);
+                let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_';
+                let c_tags = makeContentPageTags(c_name, coreTag, numCoreElements);
                 template.push(...c_tags.array);
                 vertical_innards += c_tags.innards;
 
@@ -190,7 +192,8 @@ function constructCourseTemplate(){
                 // console.log(foot_tag);
                 if( foot_tag === 'special' ){ foot_tag = $('#whatcustomfoot').val(); }
                 let num_foot_elements = foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
-                let f_tags = makeContentPageTags(s, ss, 'foot', foot_tag, num_foot_elements);
+                let f_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_';
+                let f_tags = makeContentPageTags(f_name, foot_tag, num_foot_elements);
 
                 template.push(...f_tags.array);
 
