@@ -153,9 +153,9 @@ function constructCourseTemplate(){
                 let vert_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '.xml';
                 template.push({
                     'path': 'vertical/' + vert_file,
-                    'text': '<vertical>\n' + vertical_innards + '</vertical>'
+                    'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical  display_name="Unit ' + (p+1) + '" url_name="' + vert_file.slice(0,-4) + '" />\n';
+                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
             }
 
             // add tags for subsection header page
@@ -235,9 +235,11 @@ function makeNewCourseXML(template){
 }
 
 async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
-    let textlines = f.split('\n');
+    // Make an array and throw out blank lines.
+    let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
     console.log('Making course tarball from...');
-    // console.log(textlines);
+    console.log(textlines);
+
 
     let tar = new tarball.TarWriter();
     let filecounter = 0;
@@ -267,6 +269,8 @@ async function makeTarFromFlatFile(f, path, template, makeDownloadLink){
                     // console.log(blob);
                     if(row.slice(0,7) == 'course/'){
                         let newXML = makeNewCourseXML(template);
+                        // console.log('new course_run.xml file')
+                        // console.log(row);
                         // console.log(newXML);
                         tar.addTextFile(row, newXML);
                     }else{
