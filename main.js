@@ -95,7 +95,7 @@ function constructCourseTemplate(){
                         });
                         template.push({
                             'path': 'html/' + vhti_file.slice(0,-3)+'html',
-                            'text': '<html>\n</html>'
+                            'text': '<html display_name="Text/HTML">\n</html>'
                         });
                     }
                 }
@@ -107,7 +107,7 @@ function constructCourseTemplate(){
                     if(coreTag === 'html'){
                         template.push({
                             'path': 'html/' + core_file,
-                            'text': '<html filename="' + core_file.slice(0,-4) + '" />'
+                            'text': '<html display_name="Text/HTML" filename="' + core_file.slice(0,-4) + '" />'
                         });
                         template.push({
                             'path': 'html/' + core_file.slice(0,-3)+'html',
@@ -116,7 +116,7 @@ function constructCourseTemplate(){
                     }else{
                         template.push({
                             'path': coreTag + '/' + core_file,
-                            'text': '<' + coreTag +'>\n</' + coreTag + '>'
+                            'text': '<' + coreTag +' display_name="' + coreTag + '">\n</' + coreTag + '>'
                         });
                     }
                 }
@@ -126,7 +126,7 @@ function constructCourseTemplate(){
                     vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
                     template.push({
                         'path': 'problem/' + poep_file,
-                        'text': '<problem>\n</problem>'
+                        'text': '<problem display_name="Problem">\n</problem>'
                     });
 
                 }
@@ -137,7 +137,7 @@ function constructCourseTemplate(){
                         vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
                         template.push({
                             'path': 'html/' + dhti_file,
-                            'text': '<html>\n</html>'
+                            'text': '<html display_name="Text/HTML">\n</html>'
                         });
                         template.push({
                             'path': 'html/' + dhti_file.slice(0,-3)+'html',
@@ -155,7 +155,7 @@ function constructCourseTemplate(){
                     'path': 'vertical/' + vert_file,
                     'text': '<vertical>\n' + vertical_innards + '</vertical>'
                 });
-                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
+                sequential_innards += '  <vertical  display_name="Unit ' + (p+1) + '" url_name="' + vert_file.slice(0,-4) + '" />\n';
             }
 
             // add tags for subsection header page
@@ -174,14 +174,14 @@ function constructCourseTemplate(){
             let seq_file = 's_' + (s+1) + '_ss_' + (ss+1) + '.xml';
             template.push({
                 'path': 'sequential/' + seq_file,
-                'text': '<sequential>\n' + sequential_innards + '</sequential>'
+                'text': '<sequential display_name="Subsection ' + (ss+1) + '">\n' + sequential_innards + '</sequential>'
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
         // add chapter tag to template
         template.push({
             'path': 'chapter/s_' + (s+1) + '.xml',
-            'text': '<chapter>\n' + chapter_innards + '</chapter>'
+            'text': '<chapter display_name="Section ' + (s+1) + '">\n' + chapter_innards + '</chapter>'
         });
 
     }
