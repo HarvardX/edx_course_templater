@@ -82,6 +82,43 @@ function constructCourseTemplate(){
         for(let ss = 0; ss < subsections; ss++){
             let sequential_innards = '';
 
+            // add tags for subsection header page
+            if(subsHaveHeaders){
+                let head_tag = $('input[name="unitheaders"]:checked').val();
+                // console.log(head_tag);
+                if( head_tag === 'special' ){ head_tag = $('#whatcustom').val(); }
+                let num_head_elements = head_tag === 'problem' ? Number($('#numprob').val()) : 1;
+                let header_innards = '';
+
+                // add content page tags
+                for(let n = 0; n < num_head_elements; n++){
+                    let head_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head_' + head_tag + '_' + (n+1) + '.xml'
+                    vertical_innards += '<' + head_tag + ' url_name="' + head_file.slice(0,-4) + '" />\n';
+                    if(head_tag === 'html'){
+                        template.push({
+                            'path': 'html/' + head_file,
+                            'text': '<html display_name="Text/HTML" filename="' + head_file.slice(0,-4) + '" />'
+                        });
+                        template.push({
+                            'path': 'html/' + head_file.slice(0,-3)+'html',
+                            'text': '<html>\n</html>'
+                        });
+                    }else{
+                        template.push({
+                            'path': head_tag + '/' + head_file,
+                            'text': '<' + head_tag +' display_name="' + head_tag + '">\n</' + head_tag + '>'
+                        });
+                    }
+                }
+
+                template.push({
+                    'path': 'vertical/' + head_file,
+                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + header_innards + '</vertical>'
+                });
+                sequential_innards += '  <vertical url_name="' + head_file + '" />\n';
+
+            }
+
             for(let p = 0; p < pages; p++){
                 let vertical_innards = '';
 
@@ -158,16 +195,41 @@ function constructCourseTemplate(){
                 sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
             }
 
-            // add tags for subsection header page
-            if(subsHaveHeaders){
-                let head_tag = $('input[name="unitheaders"]:checked').val();
-                // console.log(head_tag);
-            }
-
             // add tags for subsection footer page
             if(subsHaveFooters){
                 let foot_tag = $('input[name="unitfooters"]:checked').val();
                 // console.log(foot_tag);
+                if( foot_tag === 'special' ){ foot_tag = $('#whatcustom').val(); }
+                let num_foot_elements = foot_tag === 'problem' ? Number($('#numprob').val()) : 1;
+                let footer_innards = '';
+
+                // add content page tags
+                for(let n = 0; n < num_foot_elements; n++){
+                    let foot_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot_' + foot_tag + '_' + (n+1) + '.xml'
+                    vertical_innards += '<' + foot_tag + ' url_name="' + foot_file.slice(0,-4) + '" />\n';
+                    if(foot_tag === 'html'){
+                        template.push({
+                            'path': 'html/' + foot_file,
+                            'text': '<html display_name="Text/HTML" filename="' + foot_file.slice(0,-4) + '" />'
+                        });
+                        template.push({
+                            'path': 'html/' + foot_file.slice(0,-3)+'html',
+                            'text': '<html>\n</html>'
+                        });
+                    }else{
+                        template.push({
+                            'path': foot_tag + '/' + foot_file,
+                            'text': '<' + foot_tag +' display_name="' + foot_tag + '">\n</' + foot_tag + '>'
+                        });
+                    }
+                }
+
+                template.push({
+                    'path': 'vertical/' + foot_file,
+                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + footer_innards + '</vertical>'
+                });
+                sequential_innards += '  <vertical url_name="' + foot_file + '" />\n';
+
             }
 
             // add sequential tag to template
