@@ -28,9 +28,15 @@
         <div class="container">
         <div>
             <h2>Course Structure</h2>
-            There are <strong><input type="number" name="sections" value="6" id="numsections" style="width:3em;" required> sections</strong> of content.<br/>
+            <div class="sectionrename">
+                <input type="text" name="sectionname" value="Section" id="sectionname"> →
+                <input type="text" name="subsectionname" value="Subsection" id="subsectionname"> →
+                <input type="text" name="unitname" value="Unit" id="unitname">
+            </div>
+            There are <strong><input type="number" name="sections" value="6" id="numsections" style="width:3em;" required> <span class="sectiontext">section</span>s</strong> of content.<br/>
             <span style="color:grey; font-size: 10pt;">(Not counting intro and wrap-up.)</span><br/>
-            Each section has about <strong><input type="number" name="subs" value="3" id="numsubsections" style="width:3em;" required> subsections</strong> with about <strong><input type="number" name="pages" value="4" id="numpages" style="width:3em;" required> pages</strong> each.<br/>
+            Each <span class="sectiontext">section</span> has about <strong><input type="number" name="subs" value="3" id="numsubsections" style="width:3em;" required> <span class="subsectiontext">subsection</span>s</strong>
+            with about <strong><input type="number" name="pages" value="4" id="numpages" style="width:3em;" required> <span class="unittext">unit</span>s</strong> each.<br/>
 
             <h3>The typical content page is...</h3>
             <input type="radio" name="corecontent" value="html"     id="usehtml"  checked > <label for="usehtml">A text or HTML component</label><br/>
@@ -40,7 +46,7 @@
 
             <h3>Intro/Outro</h3>
             <div>
-                <input class="headfoot" type="checkbox" name="headerpage" id="headerpage"> <label for="headerpage">The first page in most subsections is different.</label><br/>
+                <input class="headfoot" type="checkbox" name="headerpage" id="headerpage"> <label for="headerpage">The first page in most <span class="subsectiontext">subsection</span>s is different.</label><br/>
                 <div class="hidden">
                     <h4>These pages are...</h4>
                     <input type="radio" name="unitheaders" value="html"     id="uhusehtml" checked > <label for="uhusehtml">A text or HTML component</label><br/>
@@ -50,7 +56,7 @@
                 </div>
             </div>
             <div>
-                <input class="headfoot" type="checkbox" name="footerpage" id="footerpage"> <label for="footerpage">The last page in most subsections is different.</label><br/>
+                <input class="headfoot" type="checkbox" name="footerpage" id="footerpage"> <label for="footerpage">The last page in most <span class="subsectiontext">subsection</span>s is different.</label><br/>
                 <div class="hidden">
                     <h4>These pages are...</h4>
                     <input type="radio" name="unitfooters" value="html"     id="ufusehtml"         > <label for="ufusehtml">A text or HTML component</label><br/>
@@ -60,9 +66,9 @@
                 </div>
             </div>
             <div>
-                <input class="headfoot" type="checkbox" name="headerss" id="headerss"> <label for="headerss">The first subsection in most sections is different.</label><br/>
+                <input class="headfoot" type="checkbox" name="headerss" id="headerss"> <label for="headerss">The first <span class="subsectiontext">subsection</span> in most <span class="sectiontext">section</span>s is different.</label><br/>
                 <div class="hidden">
-                    <h4>These subsections are...</h4>
+                    <h4>These <span class="subsectiontext">subsection</span>s are...</h4>
                     <input type="number" name="pages" value="1" id="numheadpages" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssheaders" value="html"     id="sshusehtml"          > <label for="sshusehtml">A text or HTML component</label><br/>
                     <input type="radio" name="ssheaders" value="video"    id="sshusevideo" checked > <label for="sshusevideo">A video</label><br/>
@@ -71,9 +77,9 @@
                 </div>
             </div>
             <div>
-                <input class="headfoot" type="checkbox" name="footerss" id="footerss"> <label for="footerss">The last subsection in most sections is different.</label><br/>
+                <input class="headfoot" type="checkbox" name="footerss" id="footerss"> <label for="footerss">The last <span class="subsectiontext">subsection</span> in most <span class="sectiontext">section</span>s is different.</label><br/>
                 <div class="hidden">
-                    <h4>These subsections are...</h4>
+                    <h4>These <span class="subsectiontext">subsection</span>s are...</h4>
                     <input type="number" name="pages" value="2" id="numfootpages" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssfooters" value="html"     id="pfusehtml"         > <label for="pfusehtml">A text or HTML component</label><br/>
                     <input type="radio" name="ssfooters" value="video"    id="pfusevideo"        > <label for="pfusevideo">A video</label><br/>
@@ -106,7 +112,7 @@
         </div>
         </div>
         <br/>
-        <input class="submitbutton" type="submit" value="Create downloadable file" onclick="makeDownload()">
+        <input class="submitbutton" type="submit" value="Create downloadable file" onclick="makeDownload();">
     </form>
     <p id="dlink" aria-live="polite"></p>
 </body>

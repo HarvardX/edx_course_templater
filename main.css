@@ -12,7 +12,7 @@ h4{
     justify-content:space-around;
     flex-wrap:wrap;
 }
-.container div {
+.container > div {
     flex: 1 1 20em;
     padding: 0px 20px 0px 20px;
 }
@@ -45,4 +45,8 @@ h4{
     float:right;
     background-color: #555;
     color: white;
+}
+
+.sectionrename input{
+    width: 7em;
 }

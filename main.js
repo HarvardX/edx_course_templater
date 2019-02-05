@@ -3,6 +3,15 @@
 console.log('working');
 
 $(document).ready(function(){
+
+    // Don't submit the form when someone hits "enter".
+    $("form").keypress(function(e) {
+      //Enter key
+      if (e.which == 13) {
+        return false;
+      }
+    });
+
     // Visibility toggle for headers and footers.
     $('.headfoot').on('change', function(){
         $(this).siblings('div:first-of-type').slideToggle();
@@ -52,6 +61,16 @@ $(document).ready(function(){
     $('#numprob').on('focus', function(){
         $('#useprob').click();
     });
+
+    $('#sectionname').on('input', function(){
+        $('.sectiontext').text($(this).val().toLowerCase());
+    });
+    $('#subsectionname').on('input', function(){
+        $('.subsectiontext').text($(this).val().toLowerCase());
+    });
+    $('#unitname').on('input', function(){
+        $('.unittext').text($(this).val().toLowerCase());
+    });
 });
 
 // Makes the pair of files you need for HTML in edX.
@@ -92,7 +111,7 @@ function makeContentPageTags(name, tag, num_elem){
 }
 
 // Make the core of a subsection
-function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components){
+function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components, u_name){
     let temp = [];
     let innards = '';
     let prob_on_every_page = $('#poep')[0].checked;
@@ -142,7 +161,7 @@ function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components){
         let vert_file = c_name + '.xml';
         temp.push({
             'path': 'vertical/' + vert_file,
-            'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
+            'text': '<vertical display_name="' + u_name + ' ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
         });
         innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
     }
@@ -162,6 +181,10 @@ function constructCourseTemplate(){
     let sections = $('#numsections').val();
     let subsections = $('#numsubsections').val();
     let pages = $('#numpages').val();
+
+    let s_name = $('#sectionname').val();
+    let ss_name = $('#subsectionname').val();
+    let u_name = $('#unitname').val();
 
     // Core part of the page
     let coreTag = $('input[name="corecontent"]:checked').val();
@@ -188,7 +211,7 @@ function constructCourseTemplate(){
             if( s_head_tag === 'special' ){ s_head_tag = $('#whatcustom').val(); }
             let num_head_components = (s_head_tag === 'problem') ? Number($('#numshprob').val()) : 1;
 
-            let sect_head = makeSequentialCore(s, 'intro', head_pages, s_head_tag, num_head_components);
+            let sect_head = makeSequentialCore(s, 'intro', head_pages, s_head_tag, num_head_components, u_name);
             let sequential_innards = sect_head.innards;
             template.push(...sect_head.array);
 
@@ -196,7 +219,7 @@ function constructCourseTemplate(){
             let seq_file = 's_' + (s+1) + '_ss_head.xml';
             template.push({
                 'path': 'sequential/' + seq_file,
-                'text': '<sequential display_name="Intro Subsection">\n' + sequential_innards + '</sequential>'
+                'text': '<sequential display_name="Intro ' + ss_name + '">\n' + sequential_innards + '</sequential>'
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
@@ -217,14 +240,14 @@ function constructCourseTemplate(){
 
                 template.push({
                     'path': 'vertical/' + h_name + '.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
+                    'text': '<vertical display_name="' + u_name + ' ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="' + h_name + '" />\n';
 
             }
 
             // Build the core pages of the sequence.
-            let ss_core = makeSequentialCore(s, ss, pages, coreTag, num_core_components);
+            let ss_core = makeSequentialCore(s, ss, pages, coreTag, num_core_components, u_name);
             sequential_innards += ss_core.innards;
             template.push(...ss_core.array);
 
@@ -241,7 +264,7 @@ function constructCourseTemplate(){
 
                 template.push({
                     'path': 'vertical/' + f_name + '.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
+                    'text': '<vertical display_name="' + u_name + ' ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="' + f_name + '" />\n';
 
@@ -251,7 +274,7 @@ function constructCourseTemplate(){
             let seq_file = 's_' + (s+1) + '_ss_' + (ss+1) + '.xml';
             template.push({
                 'path': 'sequential/' + seq_file,
-                'text': '<sequential display_name="Subsection ' + (ss+1) + '">\n' + sequential_innards + '</sequential>'
+                'text': '<sequential display_name="' + ss_name + ' ' + (ss+1) + '">\n' + sequential_innards + '</sequential>'
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
@@ -264,7 +287,7 @@ function constructCourseTemplate(){
             if( s_foot_tag === 'special' ){ s_foot_tag = $('#whatcustom').val(); }
             let num_foot_components = (s_foot_tag === 'problem') ? Number($('#numsfprob').val()) : 1;
 
-            let sect_foot = makeSequentialCore(s, 'intro', foot_pages, s_foot_tag, num_foot_components);
+            let sect_foot = makeSequentialCore(s, 'intro', foot_pages, s_foot_tag, num_foot_components, u_name);
             let sequential_innards = sect_foot.innards;
             template.push(...sect_foot.array);
 
@@ -272,7 +295,7 @@ function constructCourseTemplate(){
             let seq_file = 's_' + (s+1) + '_ss_foot.xml';
             template.push({
                 'path': 'sequential/' + seq_file,
-                'text': '<sequential display_name="Outro Subsection">\n' + sequential_innards + '</sequential>'
+                'text': '<sequential display_name="Outro ' + ss_name + '">\n' + sequential_innards + '</sequential>'
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
 
@@ -281,7 +304,7 @@ function constructCourseTemplate(){
         // add chapter tag to template
         template.push({
             'path': 'chapter/s_' + (s+1) + '.xml',
-            'text': '<chapter display_name="Section ' + (s+1) + '">\n' + chapter_innards + '</chapter>'
+            'text': '<chapter display_name="' + s_name + ' ' + (s+1) + '">\n' + chapter_innards + '</chapter>'
         });
 
     }
