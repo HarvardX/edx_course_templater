@@ -12,8 +12,8 @@ h4{
     justify-content:space-around;
     flex-wrap:wrap;
 }
-.container div {
-    flex: 1 1 15em;
+.container > div {
+    flex: 1 1 20em;
     padding: 0px 20px 0px 20px;
 }
 .disabled {
@@ -45,4 +45,8 @@ h4{
     float:right;
     background-color: #555;
     color: white;
+}
+
+.sectionrename input{
+    width: 7em;
 }

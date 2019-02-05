@@ -3,6 +3,15 @@
 console.log('working');
 
 $(document).ready(function(){
+
+    // Don't submit the form when someone hits "enter".
+    $("form").keypress(function(e) {
+      //Enter key
+      if (e.which == 13) {
+        return false;
+      }
+    });
+
     // Visibility toggle for headers and footers.
     $('.headfoot').on('change', function(){
         $(this).siblings('div:first-of-type').slideToggle();
@@ -52,6 +61,16 @@ $(document).ready(function(){
     $('#numprob').on('focus', function(){
         $('#useprob').click();
     });
+
+    $('#sectionname').on('input', function(){
+        $('.sectiontext').text($(this).val().toLowerCase());
+    });
+    $('#subsectionname').on('input', function(){
+        $('.subsectiontext').text($(this).val().toLowerCase());
+    });
+    $('#unitname').on('input', function(){
+        $('.unittext').text($(this).val().toLowerCase());
+    });
 });
 
 // Makes the pair of files you need for HTML in edX.
@@ -64,7 +83,7 @@ function makeHTMLFilePair(filename){
         },
         {
             'path': 'html/' + filename.slice(0,-3)+'html',
-            'text': '<html>\n</html>'
+            'text': ''
         }
     ];
 }
@@ -91,6 +110,64 @@ function makeContentPageTags(name, tag, num_elem){
 
 }
 
+// Make the core of a subsection
+function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components, u_name){
+    let temp = [];
+    let innards = '';
+    let prob_on_every_page = $('#poep')[0].checked;
+    let disc_on_every_page = $('#doep')[0].checked;
+    let disc_has_intro = $('#dhti')[0].checked;
+    let vid_has_intro = $('#vhti')[0].checked;
+
+    for(let p = 0; p < num_pages; p++){
+        let vertical_innards = '';
+
+        if(vid_has_intro){
+            if(coreTag == 'video'){
+                let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
+                vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
+                temp.push(...makeHTMLFilePair(vhti_file));
+            }
+        }
+
+        // add content page tags
+        let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) ;
+        let c_tags = makeContentPageTags(c_name, coreTag, num_core_components);
+        temp.push(...c_tags.array);
+        vertical_innards += c_tags.innards;
+
+        if(prob_on_every_page){
+            let poep_file = c_name + '_problem_x.xml';
+            vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
+            temp.push({
+                'path': 'problem/' + poep_file,
+                'text': '<problem display_name="Problem">\n</problem>'
+            });
+
+        }
+
+        if(disc_on_every_page){
+            if(disc_has_intro){
+                let dhti_file = c_name + '_discintro.xml';
+                vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
+                temp.push(...makeHTMLFilePair(dhti_file));
+            }
+            let doep_file = c_name + '_problem_x.xml';
+            vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
+            // no need to add to template, only declared inline.
+        }
+
+        // add vertical tag to template
+        let vert_file = c_name + '.xml';
+        temp.push({
+            'path': 'vertical/' + vert_file,
+            'text': '<vertical display_name="' + u_name + ' ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
+        });
+        innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
+    }
+
+    return {'array': temp, 'innards': innards};
+}
 
 // This builds the user-defined part of the course, without the boilerplate.
 function constructCourseTemplate(){
@@ -105,27 +182,47 @@ function constructCourseTemplate(){
     let subsections = $('#numsubsections').val();
     let pages = $('#numpages').val();
 
+    let s_name = $('#sectionname').val();
+    let ss_name = $('#subsectionname').val();
+    let u_name = $('#unitname').val();
+
     // Core part of the page
     let coreTag = $('input[name="corecontent"]:checked').val();
     if( coreTag === 'special' ){ coreTag = $('#whatcustom').val(); }
 
-    let numCoreElements = 1;
+    let num_core_components = 1;
     if(coreTag === 'problem'){
-        numCoreElements = Number($('#numprob').val());
+        num_core_components = Number($('#numprob').val());
     }
-
-    let prob_on_every_page = $('#poep')[0].checked;
-    let disc_on_every_page = $('#doep')[0].checked;
-    let disc_has_intro = $('#dhti')[0].checked;
-    let vid_has_intro = $('#vhti')[0].checked;
 
     let subsHaveHeaders = $('#headerpage')[0].checked;
     let subsHaveFooters = $('#footerpage')[0].checked;
-    let sectHaveHeaders = $('#headerss')[0].checked;
-    let sectHaveFooters = $('#footerss')[0].checked;
+    let sectsHaveHeaders = $('#headerss')[0].checked;
+    let sectsHaveFooters = $('#footerss')[0].checked;
+    let use_hxjs = $('#hxjs')[0].checked;
 
     for(let s = 0; s < sections; s++){
         let chapter_innards = '';
+
+        if(sectsHaveHeaders){
+            // Not currently making header/footer sections for headers/footers.
+            let head_pages = $('#numheadpages').val();
+            let s_head_tag = $('input[name="ssheaders"]:checked').val();
+            if( s_head_tag === 'special' ){ s_head_tag = $('#whatcustom').val(); }
+            let num_head_components = (s_head_tag === 'problem') ? Number($('#numshprob').val()) : 1;
+
+            let sect_head = makeSequentialCore(s, 'intro', head_pages, s_head_tag, num_head_components, u_name);
+            let sequential_innards = sect_head.innards;
+            template.push(...sect_head.array);
+
+            // add sequential tag to template
+            let seq_file = 's_' + (s+1) + '_ss_head.xml';
+            template.push({
+                'path': 'sequential/' + seq_file,
+                'text': '<sequential display_name="Intro ' + ss_name + '">\n' + sequential_innards + '</sequential>'
+            });
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
+        }
 
         for(let ss = 0; ss < subsections; ss++){
             let sequential_innards = '';
@@ -135,7 +232,7 @@ function constructCourseTemplate(){
                 let head_tag = $('input[name="unitheaders"]:checked').val();
                 // console.log(head_tag);
                 if( head_tag === 'special' ){ head_tag = $('#whatcustomhead').val(); }
-                let num_head_elements = head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
+                let num_head_elements = (head_tag === 'problem') ? Number($('#numsshprob').val()) : 1;
                 let h_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head';
                 let h_tags = makeContentPageTags(h_name, head_tag, num_head_elements);
 
@@ -143,65 +240,23 @@ function constructCourseTemplate(){
 
                 template.push({
                     'path': 'vertical/' + h_name + '.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
+                    'text': '<vertical display_name="' + u_name + ' ' + (ss+1) + ' intro">\n' + h_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="' + h_name + '" />\n';
 
             }
 
-            for(let p = 0; p < pages; p++){
-                let vertical_innards = '';
-
-                if(vid_has_intro){
-                    if(coreTag == 'video'){
-                        let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
-                        vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
-                        template.push(...makeHTMLFilePair(vhti_file));
-                    }
-                }
-
-                // add content page tags
-                let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) ;
-                let c_tags = makeContentPageTags(c_name, coreTag, numCoreElements);
-                template.push(...c_tags.array);
-                vertical_innards += c_tags.innards;
-
-                if(prob_on_every_page){
-                    let poep_file = c_name + '_problem_x.xml';
-                    vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
-                    template.push({
-                        'path': 'problem/' + poep_file,
-                        'text': '<problem display_name="Problem">\n</problem>'
-                    });
-
-                }
-
-                if(disc_on_every_page){
-                    if(disc_has_intro){
-                        let dhti_file = c_name + '_discintro.xml';
-                        vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
-                        template.push(...makeHTMLFilePair(dhti_file));
-                    }
-                    let doep_file = c_name + '_problem_x.xml';
-                    vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
-                    // no need to add to template, only declared inline.
-                }
-
-                // add vertical tag to template
-                let vert_file = c_name + '.xml';
-                template.push({
-                    'path': 'vertical/' + vert_file,
-                    'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
-                });
-                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
-            }
+            // Build the core pages of the sequence.
+            let ss_core = makeSequentialCore(s, ss, pages, coreTag, num_core_components, u_name);
+            sequential_innards += ss_core.innards;
+            template.push(...ss_core.array);
 
             // add tags for subsection footer page
             if(subsHaveFooters){
                 let foot_tag = $('input[name="unitfooters"]:checked').val();
                 // console.log(foot_tag);
                 if( foot_tag === 'special' ){ foot_tag = $('#whatcustomfoot').val(); }
-                let num_foot_elements = foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
+                let num_foot_elements = (foot_tag === 'problem') ? Number($('#numssfprob').val()) : 1;
                 let f_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot';
                 let f_tags = makeContentPageTags(f_name, foot_tag, num_foot_elements);
 
@@ -209,7 +264,7 @@ function constructCourseTemplate(){
 
                 template.push({
                     'path': 'vertical/' + f_name + '.xml',
-                    'text': '<vertical display_name="Subsection ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
+                    'text': '<vertical display_name="' + u_name + ' ' + (ss+1) + ' outro">\n' + f_tags.innards + '</vertical>'
                 });
                 sequential_innards += '  <vertical url_name="' + f_name + '" />\n';
 
@@ -219,56 +274,89 @@ function constructCourseTemplate(){
             let seq_file = 's_' + (s+1) + '_ss_' + (ss+1) + '.xml';
             template.push({
                 'path': 'sequential/' + seq_file,
-                'text': '<sequential display_name="Subsection ' + (ss+1) + '">\n' + sequential_innards + '</sequential>'
+                'text': '<sequential display_name="' + ss_name + ' ' + (ss+1) + '">\n' + sequential_innards + '</sequential>'
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
+
+        if(sectsHaveFooters){
+            // Not currently making header/footer sections for headers/footers.
+            // Not currently making header/footer sections for headers/footers.
+            let foot_pages = $('#numfootpages').val();
+            let s_foot_tag = $('input[name="ssfooters"]:checked').val();
+            if( s_foot_tag === 'special' ){ s_foot_tag = $('#whatcustom').val(); }
+            let num_foot_components = (s_foot_tag === 'problem') ? Number($('#numsfprob').val()) : 1;
+
+            let sect_foot = makeSequentialCore(s, 'intro', foot_pages, s_foot_tag, num_foot_components, u_name);
+            let sequential_innards = sect_foot.innards;
+            template.push(...sect_foot.array);
+
+            // add sequential tag to template
+            let seq_file = 's_' + (s+1) + '_ss_foot.xml';
+            template.push({
+                'path': 'sequential/' + seq_file,
+                'text': '<sequential display_name="Outro ' + ss_name + '">\n' + sequential_innards + '</sequential>'
+            });
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
+
+        }
+
         // add chapter tag to template
         template.push({
             'path': 'chapter/s_' + (s+1) + '.xml',
-            'text': '<chapter display_name="Section ' + (s+1) + '">\n' + chapter_innards + '</chapter>'
+            'text': '<chapter display_name="' + s_name + ' ' + (s+1) + '">\n' + chapter_innards + '</chapter>'
         });
 
     }
 
-    // Pages. Syllabus and Related are always included.
-    // let use_syllabus_page  = $('#syllabus')[0].checked;
-    // let use_related_page   = $('#related')[0].checked;
+    // Syllabus and related are currently automatically included.
+    let policies = {
+        // 'syllabus': $('#syllabus')[0].checked,
+        // 'related': $('#related')[0].checked,
+        'calendar': $('#calendar')[0].checked,
+        'FAQ': $('#faq')[0].checked,
+        'glossary': $('#glossary')[0].checked,
+        'resources': $('#resources')[0].checked,
+        'outline': $('#outline')[0].checked
+    };
 
-    // Right now this isn't working and I'm not sure why.
-    // Leaving it uncommented for now.
-    let use_faq_page       = $('#faq')[0].checked;
-    let use_calendar_page  = $('#calendar')[0].checked;
-    let use_glossary_page  = $('#glossary')[0].checked;
-    let use_resources_page = $('#resources')[0].checked;
+    Object.keys(policies).forEach(k => {
+        if(policies[k]){
+            template.push({
+                'path': 'tabs/' + k.charAt(0).toUpperCase() + k.slice(1),
+                'text': '<h3>' + + k.charAt(0).toUpperCase() + k.slice(1) + ' placeholder</h3>'
+            });
+        }
+    });
 
-    if(use_faq_page){
-        template.push({
-            'path': 'tabs/faq.html',
-            'text': '<h3>FAQ placeholder</h3>'
+    // Add HX-JS to first HTML component on every page.
+    if(use_hxjs){
+        let hxjscode = '<script src="/static/hx.js"></script>\n<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+
+        // Get the locations of all the first HTML elements
+        let all_verticals = template.filter(e => e.path.startsWith('vertical'));
+        let expanded_tags = all_verticals.map( v => v.text.split('\n') );
+        let first_html = expanded_tags.map(t => t.filter( r => r.indexOf('html') > -1 )[0] );
+        let html_urls = first_html.reduce((result,e) => {
+            if(e){
+                result.push($.parseXML(e).children[0].attributes.url_name.value);
+            }
+            return result;
+        }, []);
+        // console.log(html_urls);
+
+        // Add HX-JS to the start of each of them.
+        template.forEach(function(e){
+            html_urls.forEach(function(h){
+                if(e.path == 'html/' + h + '.html'){
+                    e.text = hxjscode + e.text;
+                }
+            });
         });
-    }
-    if(use_calendar_page){
-        template.push({
-            'path': 'tabs/calendar.html',
-            'text': '<h3>Calendar placeholder</h3>'
-        });
-    }
-    if(use_glossary_page){
-        template.push({
-            'path': 'tabs/glossary.html',
-            'text': '<h3>Glossary placeholder</h3>'
-        });
-    }
-    if(use_resources_page){
-        template.push({
-            'path': 'tabs/resources.html',
-            'text': '<h3>Resources placeholder</h3>'
-        });
+
     }
 
-
-    return template;
+    return {'template': template, 'policies': policies};
 }
 
 
@@ -291,6 +379,31 @@ function readCourseFile(filepath, callback){
 }
 
 
+// Returns raw, prettified text for revised policies/(run)/policy.json file.
+async function makeNewCoursePolicy(policies, path, run, callback){
+
+    // console.log(policies);
+
+    let policy_file = await readCourseFile(path + 'policies/' + run + '/policy.json', async function(j){
+        j = JSON.parse(j);
+        Object.keys(policies).forEach(k => {
+            if(policies[k]){
+                j['course/' + run].tabs.push({
+                    'course_staff_only': false,
+                    'name': k.charAt(0).toUpperCase() + k.slice(1),
+                    'type': 'static_tab',
+                    'url_slug': k
+                });
+            }
+        });
+        // console.log(j);
+        callback(JSON.stringify(j, null, 2));
+    });
+
+}
+
+
+// Returns raw, prettified text for revised course/(run).xml file.
 async function makeNewCourseXML(template, path, run, callback){
 
     // console.log(template);
@@ -309,14 +422,14 @@ async function makeNewCourseXML(template, path, run, callback){
             // Insert new chapters after the first chapter in the boilerplate.
             course.find('chapter:nth-child(' + (i+1) + ')').after(newtag)
         }
-        console.log(course);
+        // console.log(course);
         callback(vkbeautify.xml(course[0].outerHTML, 2));
     });
 
 }
 
 
-async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
+async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloadLink){
     // Make an array and throw out blank lines.
     let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
     console.log('Making course tarball from...');
@@ -349,9 +462,9 @@ async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
                 .then(blob => {
                     // console.log('blob obtained');
                     // console.log(blob);
-                    if(row.slice(0,7) == 'course/'){
+                    if(row.startsWith('course/')){
                         let newXML = makeNewCourseXML(template, path, run, function(xml){
-                            // console.log('new course_run.xml file')
+                            // console.log('new course/(run).xml file')
                             // console.log(row);
                             // console.log(xml);
                             tar.addTextFile(row, xml);
@@ -361,7 +474,20 @@ async function makeTarFromFlatFile(f, path, template, run, makeDownloadLink){
                                 makeDownloadLink(tar);
                             }
                         });
-                    }else{
+                    }else if(row.startsWith('policies/' + run + '/policy.json')){
+                        let newXML = makeNewCoursePolicy(policies, path, run, function(j){
+                            // console.log('new policies/(run)/json.xml file')
+                            // console.log(row);
+                            // console.log(j);
+                            tar.addTextFile(row, j);
+                            filecounter++;
+                            if(filecounter == textlines.length){
+                                console.log('tar complete');
+                                makeDownloadLink(tar);
+                            }
+                        });
+                    }
+                    else{
                         // Sweet functionality note: folders are added automatically
                         // because the row text has the folder name and a slash.
                         tar.addFile(row, blob);
@@ -389,7 +515,9 @@ async function makeDownload() {
     target_location.append(download_placeholder);
 
     // Get the parts of the template that aren't boilerplate.
-    let template = constructCourseTemplate();
+    let new_course = constructCourseTemplate()
+    let template = new_course.template;
+    let policies = new_course.policies;
 
     // Path to the boilerplate parts of the template.
     let boilerplate_structure_file = $('#filesource').val();
@@ -423,7 +551,7 @@ async function makeDownload() {
             }
 
             // Construct a tarball from the flat file.
-            course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, run, makeDownloadLink);
+            course_tarball = await makeTarFromFlatFile(result, boilerplate_structure_path, template, policies, run, makeDownloadLink);
 
         });
 
