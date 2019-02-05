@@ -296,31 +296,14 @@ function constructCourseTemplate(){
         'resources': $('#resources')[0].checked
     };
 
-    if(policies.FAQ){
-        template.push({
-            'path': 'tabs/FAQ.html',
-            'text': '<h3>FAQ placeholder</h3>'
-        });
-    }
-    if(policies.calendar){
-        template.push({
-            'path': 'tabs/calendar.html',
-            'text': '<h3>Calendar placeholder</h3>'
-        });
-    }
-    if(policies.glossary){
-        template.push({
-            'path': 'tabs/glossary.html',
-            'text': '<h3>Glossary placeholder</h3>'
-        });
-    }
-    if(policies.resources){
-        template.push({
-            'path': 'tabs/resources.html',
-            'text': '<h3>Resources placeholder</h3>'
-        });
-    }
-
+    Object.keys(policies).forEach(k => {
+        if(policies[k]){
+            template.push({
+                'path': 'tabs/' + k.charAt(0).toUpperCase() + k.slice(1),
+                'text': '<h3>' + + k.charAt(0).toUpperCase() + k.slice(1) + ' placeholder</h3>'
+            });
+        }
+    });
 
     // Add HX-JS to first HTML component on every page.
     if(use_hxjs){
@@ -330,7 +313,12 @@ function constructCourseTemplate(){
         let all_verticals = template.filter(e => e.path.startsWith('vertical'));
         let expanded_tags = all_verticals.map( v => v.text.split('\n') );
         let first_html = expanded_tags.map(t => t.filter( r => r.indexOf('html') > -1 )[0] );
-        let html_urls = first_html.map(e => $.parseXML(e).children[0].attributes.url_name.value);
+        let html_urls = first_html.reduce((result,e) => {
+            if(e){
+                result.push($.parseXML(e).children[0].attributes.url_name.value);
+            }
+            return result;
+        }, []);
         // console.log(html_urls);
 
         // Add HX-JS to the start of each of them.
