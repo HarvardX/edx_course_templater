@@ -59,22 +59,22 @@
                     <input type="radio" name="unitfooters" value="special"  id="ufusespec"         > <label for="ufusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustomfoot" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
-            <div class="disabled">
+            <div>
                 <input class="headfoot" type="checkbox" name="headerss" id="headerss"> <label for="headerss">The first subsection in most sections is different.</label><br/>
                 <div class="hidden">
                     <h4>These subsections are...</h4>
-                    <input type="number" name="probs" value="1" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
+                    <input type="number" name="pages" value="1" id="numheadpages" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssheaders" value="html"     id="sshusehtml"          > <label for="sshusehtml">A text or HTML component</label><br/>
                     <input type="radio" name="ssheaders" value="video"    id="sshusevideo" checked > <label for="sshusevideo">A video</label><br/>
                     <input type="radio" name="ssheaders" value="problem"  id="sshuseprob"          > <input type="number" name="probs" value="1" id="numshprob" style="width:3em;" required> <label for="sshuseprob"> problems</label><br/>
                     <input type="radio" name="ssheaders" value="special"  id="sshusespec"          > <label for="sshusespec">A special component:</label> <input type="text" name="cutomtags" value="lti_consumer" id="whatcustom" style="width:8em; color:grey;"><br/>
                 </div>
             </div>
-            <div class="disabled">
+            <div>
                 <input class="headfoot" type="checkbox" name="footerss" id="footerss"> <label for="footerss">The last subsection in most sections is different.</label><br/>
                 <div class="hidden">
                     <h4>These subsections are...</h4>
-                    <input type="number" name="probs" value="2" id="numhtml" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
+                    <input type="number" name="pages" value="2" id="numfootpages" style="width:3em;" required> <label for="sshuseprob">pages long, each of which is...</label><br/>
                     <input type="radio" name="ssfooters" value="html"     id="pfusehtml"         > <label for="pfusehtml">A text or HTML component</label><br/>
                     <input type="radio" name="ssfooters" value="video"    id="pfusevideo"        > <label for="pfusevideo">A video</label><br/>
                     <input type="radio" name="ssfooters" value="problem"  id="pfuseprob" checked > <input type="number" name="probs" value="3" id="numsfprob" style="width:3em;" required> <label for="pfuseprob"> problems</label><br/>
@@ -104,6 +104,7 @@
             <br/>
         </div>
         </div>
+        <br/>
         <input class="submitbutton" type="submit" value="Create downloadable file" onclick="makeDownload()">
     </form>
     <p id="dlink" aria-live="polite"></p>

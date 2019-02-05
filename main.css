@@ -13,7 +13,7 @@ h4{
     flex-wrap:wrap;
 }
 .container div {
-    flex: 1 1 15em;
+    flex: 1 1 20em;
     padding: 0px 20px 0px 20px;
 }
 .disabled {

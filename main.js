@@ -91,6 +91,64 @@ function makeContentPageTags(name, tag, num_elem){
 
 }
 
+// Make the core of a subsection
+function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components){
+    let temp = [];
+    let innards = '';
+    let prob_on_every_page = $('#poep')[0].checked;
+    let disc_on_every_page = $('#doep')[0].checked;
+    let disc_has_intro = $('#dhti')[0].checked;
+    let vid_has_intro = $('#vhti')[0].checked;
+
+    for(let p = 0; p < num_pages; p++){
+        let vertical_innards = '';
+
+        if(vid_has_intro){
+            if(coreTag == 'video'){
+                let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
+                vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
+                temp.push(...makeHTMLFilePair(vhti_file));
+            }
+        }
+
+        // add content page tags
+        let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) ;
+        let c_tags = makeContentPageTags(c_name, coreTag, num_core_components);
+        temp.push(...c_tags.array);
+        vertical_innards += c_tags.innards;
+
+        if(prob_on_every_page){
+            let poep_file = c_name + '_problem_x.xml';
+            vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
+            temp.push({
+                'path': 'problem/' + poep_file,
+                'text': '<problem display_name="Problem">\n</problem>'
+            });
+
+        }
+
+        if(disc_on_every_page){
+            if(disc_has_intro){
+                let dhti_file = c_name + '_discintro.xml';
+                vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
+                temp.push(...makeHTMLFilePair(dhti_file));
+            }
+            let doep_file = c_name + '_problem_x.xml';
+            vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
+            // no need to add to template, only declared inline.
+        }
+
+        // add vertical tag to template
+        let vert_file = c_name + '.xml';
+        temp.push({
+            'path': 'vertical/' + vert_file,
+            'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
+        });
+        innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
+    }
+
+    return {'array': temp, 'innards': innards};
+}
 
 // This builds the user-defined part of the course, without the boilerplate.
 function constructCourseTemplate(){
@@ -109,23 +167,38 @@ function constructCourseTemplate(){
     let coreTag = $('input[name="corecontent"]:checked').val();
     if( coreTag === 'special' ){ coreTag = $('#whatcustom').val(); }
 
-    let numCoreElements = 1;
+    let num_core_components = 1;
     if(coreTag === 'problem'){
-        numCoreElements = Number($('#numprob').val());
+        num_core_components = Number($('#numprob').val());
     }
-
-    let prob_on_every_page = $('#poep')[0].checked;
-    let disc_on_every_page = $('#doep')[0].checked;
-    let disc_has_intro = $('#dhti')[0].checked;
-    let vid_has_intro = $('#vhti')[0].checked;
 
     let subsHaveHeaders = $('#headerpage')[0].checked;
     let subsHaveFooters = $('#footerpage')[0].checked;
-    let sectHaveHeaders = $('#headerss')[0].checked;
-    let sectHaveFooters = $('#footerss')[0].checked;
+    let sectsHaveHeaders = $('#headerss')[0].checked;
+    let sectsHaveFooters = $('#footerss')[0].checked;
 
     for(let s = 0; s < sections; s++){
         let chapter_innards = '';
+
+        if(sectsHaveHeaders){
+            // Not currently making header/footer sections for headers/footers.
+            let head_pages = $('#numheadpages').val();
+            let s_head_tag = $('input[name="ssheaders"]:checked').val();
+            if( s_head_tag === 'special' ){ s_head_tag = $('#whatcustom').val(); }
+            let num_head_components = (s_head_tag === 'problem') ? Number($('#numshprob').val()) : 1;
+
+            let sect_head = makeSequentialCore(s, 'intro', head_pages, s_head_tag, num_head_components);
+            let sequential_innards = sect_head.innards;
+            template.push(...sect_head.array);
+
+            // add sequential tag to template
+            let seq_file = 's_' + (s+1) + '_ss_head.xml';
+            template.push({
+                'path': 'sequential/' + seq_file,
+                'text': '<sequential display_name="Intro Subsection">\n' + sequential_innards + '</sequential>'
+            });
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
+        }
 
         for(let ss = 0; ss < subsections; ss++){
             let sequential_innards = '';
@@ -135,7 +208,7 @@ function constructCourseTemplate(){
                 let head_tag = $('input[name="unitheaders"]:checked').val();
                 // console.log(head_tag);
                 if( head_tag === 'special' ){ head_tag = $('#whatcustomhead').val(); }
-                let num_head_elements = head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
+                let num_head_elements = (head_tag === 'problem') ? Number($('#numsshprob').val()) : 1;
                 let h_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_head';
                 let h_tags = makeContentPageTags(h_name, head_tag, num_head_elements);
 
@@ -149,59 +222,17 @@ function constructCourseTemplate(){
 
             }
 
-            for(let p = 0; p < pages; p++){
-                let vertical_innards = '';
-
-                if(vid_has_intro){
-                    if(coreTag == 'video'){
-                        let vhti_file = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) + '_vidintro.xml';
-                        vertical_innards += '<html url_name="' + vhti_file.slice(0,-4) + '" />\n';
-                        template.push(...makeHTMLFilePair(vhti_file));
-                    }
-                }
-
-                // add content page tags
-                let c_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_' + (p+1) ;
-                let c_tags = makeContentPageTags(c_name, coreTag, numCoreElements);
-                template.push(...c_tags.array);
-                vertical_innards += c_tags.innards;
-
-                if(prob_on_every_page){
-                    let poep_file = c_name + '_problem_x.xml';
-                    vertical_innards += '<problem url_name="' + poep_file.slice(0,-4) + '" />\n';
-                    template.push({
-                        'path': 'problem/' + poep_file,
-                        'text': '<problem display_name="Problem">\n</problem>'
-                    });
-
-                }
-
-                if(disc_on_every_page){
-                    if(disc_has_intro){
-                        let dhti_file = c_name + '_discintro.xml';
-                        vertical_innards += '<html url_name="' + dhti_file.slice(0,-4) + '" />\n';
-                        template.push(...makeHTMLFilePair(dhti_file));
-                    }
-                    let doep_file = c_name + '_problem_x.xml';
-                    vertical_innards += '<discussion url_name="' + doep_file.slice(0,-4) + '" xblock-family="xblock.v1" discussion_category="Chapter ' + (s+1) + '" />\n'
-                    // no need to add to template, only declared inline.
-                }
-
-                // add vertical tag to template
-                let vert_file = c_name + '.xml';
-                template.push({
-                    'path': 'vertical/' + vert_file,
-                    'text': '<vertical display_name="Unit ' + (p+1) + '" >\n' + vertical_innards + '</vertical>'
-                });
-                sequential_innards += '  <vertical url_name="' + vert_file.slice(0,-4) + '" />\n';
-            }
+            // Build the core pages of the sequence.
+            let ss_core = makeSequentialCore(s, ss, pages, coreTag, num_core_components);
+            sequential_innards += ss_core.innards;
+            template.push(...ss_core.array);
 
             // add tags for subsection footer page
             if(subsHaveFooters){
                 let foot_tag = $('input[name="unitfooters"]:checked').val();
                 // console.log(foot_tag);
                 if( foot_tag === 'special' ){ foot_tag = $('#whatcustomfoot').val(); }
-                let num_foot_elements = foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
+                let num_foot_elements = (foot_tag === 'problem') ? Number($('#numssfprob').val()) : 1;
                 let f_name = 's_' + (s+1) + '_ss_' + (ss+1) + '_p_foot';
                 let f_tags = makeContentPageTags(f_name, foot_tag, num_foot_elements);
 
@@ -223,6 +254,29 @@ function constructCourseTemplate(){
             });
             chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
         }
+
+        if(sectsHaveFooters){
+            // Not currently making header/footer sections for headers/footers.
+            // Not currently making header/footer sections for headers/footers.
+            let foot_pages = $('#numfootpages').val();
+            let s_foot_tag = $('input[name="ssfooters"]:checked').val();
+            if( s_foot_tag === 'special' ){ s_foot_tag = $('#whatcustom').val(); }
+            let num_foot_components = (s_foot_tag === 'problem') ? Number($('#numsfprob').val()) : 1;
+
+            let sect_foot = makeSequentialCore(s, 'intro', foot_pages, s_foot_tag, num_foot_components);
+            let sequential_innards = sect_foot.innards;
+            template.push(...sect_foot.array);
+
+            // add sequential tag to template
+            let seq_file = 's_' + (s+1) + '_ss_foot.xml';
+            template.push({
+                'path': 'sequential/' + seq_file,
+                'text': '<sequential display_name="Outro Subsection">\n' + sequential_innards + '</sequential>'
+            });
+            chapter_innards += '  <sequential url_name="' + seq_file.slice(0,-4) + '" />\n';
+
+        }
+
         // add chapter tag to template
         template.push({
             'path': 'chapter/s_' + (s+1) + '.xml',
