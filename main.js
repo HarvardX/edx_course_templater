@@ -64,7 +64,7 @@ function makeHTMLFilePair(filename){
         },
         {
             'path': 'html/' + filename.slice(0,-3)+'html',
-            'text': '<html>\n</html>'
+            'text': ''
         }
     ];
 }
@@ -176,6 +176,7 @@ function constructCourseTemplate(){
     let subsHaveFooters = $('#footerpage')[0].checked;
     let sectsHaveHeaders = $('#headerss')[0].checked;
     let sectsHaveFooters = $('#footerss')[0].checked;
+    let use_hxjs = $('#hxjs')[0].checked;
 
     for(let s = 0; s < sections; s++){
         let chapter_innards = '';
@@ -320,6 +321,28 @@ function constructCourseTemplate(){
         });
     }
 
+
+    // Add HX-JS to first HTML component on every page.
+    if(use_hxjs){
+        let hxjscode = '<script src="/static/hx.js"></script>\n<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+
+        // Get the locations of all the first HTML elements
+        let all_verticals = template.filter(e => e.path.startsWith('vertical'));
+        let expanded_tags = all_verticals.map( v => v.text.split('\n') );
+        let first_html = expanded_tags.map(t => t.filter( r => r.indexOf('html') > -1 )[0] );
+        let html_urls = first_html.map(e => $.parseXML(e).children[0].attributes.url_name.value);
+        // console.log(html_urls);
+
+        // Add HX-JS to the start of each of them.
+        template.forEach(function(e){
+            html_urls.forEach(function(h){
+                if(e.path == 'html/' + h + '.html'){
+                    e.text = hxjscode + e.text;
+                }
+            });
+        });
+
+    }
 
     return {'template': template, 'policies': policies};
 }
