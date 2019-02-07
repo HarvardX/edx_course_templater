@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     // Don't submit the form when someone hits "enter".
     $("form").keypress(function(e) {
-      //Enter key
+      // Enter key is 13.
       if (e.which == 13) {
         return false;
       }
@@ -430,13 +430,16 @@ async function makeNewCourseXML(template, path, run, new_course_info, callback){
         course.find('wiki').replaceWith('<wiki slug="' + new_slug + '"/>');
 
         for(let i = 0; i < new_chapters.length; i++){
-            // Cutting off course/ and .xml from paths.
+            // Cutting off chapter/ and .xml from paths.
             let newtag = $('<chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />');
             // Insert new chapters after the first chapter in the boilerplate.
             course.find('chapter:nth-child(' + (i+1) + ')').after(newtag);
         }
         // console.log(course);
-        callback(vkbeautify.xml(course[0].outerHTML, 2));
+        callback({
+            'new': vkbeautify.xml(course[0].outerHTML, 2),
+            'old': coursefile
+        });
     });
 
 }
@@ -457,6 +460,16 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
         'number': $('#coursenum').val()
     }
 
+    function incrementAndCheckStatus(num_files){
+        num_files += 1;
+        if(num_files == textlines.length){
+            console.log('tar complete');
+            makeDownloadLink(tar);
+        }else{
+            return num_files;
+        }
+    }
+
     // Make files for all the items in our template.
     template.forEach((temp_row) => {
         tar.addTextFile(temp_row.path, temp_row.text);
@@ -474,7 +487,7 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
 
         // Ignore invisible files.
         if(row[0] == '.') {
-            filecounter++;
+            filecounter = incrementAndCheckStatus(filecounter);
         }else{
             // Add the files as you get them.
             let thefile = await fetch(path + row)
@@ -482,21 +495,17 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
                 .then(blob => {
                     // console.log('blob obtained');
                     // console.log(blob);
+                    let new_row = row.replace(run, new_course_info.run);
                     if(row.startsWith('course/')){
-                        let newXML = makeNewCourseXML(template, path, run, new_course_info, function(xml){
+                        let course = makeNewCourseXML(template, path, run, new_course_info, function(course){
                             // console.log('new course/(run).xml file')
                             // console.log(row);
                             // console.log(xml);
 
-                            // Copying course XML into *both* runs of the course.
-                            tar.addTextFile(row, xml);
-                            let new_row = row.replace(run, new_course_info.run);
-                            tar.addTextFile(new_row, xml);
-                            filecounter++;
-                            if(filecounter == textlines.length){
-                                console.log('tar complete');
-                                makeDownloadLink(tar);
-                            }
+                            // Old course run keeps old XML.
+                            tar.addTextFile(row, course.old);
+                            tar.addTextFile(new_row, course.new);
+                            filecounter = incrementAndCheckStatus(filecounter);
                         });
                     }else if(row.startsWith('course.xml')){
                         // Write course file that points to new run.
@@ -505,21 +514,12 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
                                 + '" org="' + new_course_info.org
                                 + '" course="' + new_course_info.number
                                 + '"/>');
-                        filecounter++;
-                        if(filecounter == textlines.length){
-                            console.log('tar complete');
-                            makeDownloadLink(tar);
-                        }
+                        filecounter = incrementAndCheckStatus(filecounter);
                     }else if(row.startsWith('policies/' + run + '/grading_policy.json')){
                         // Copy old grading policy into both runs.
                         tar.addFile(row, blob);
-                        let new_row = row.replace(run, new_course_info.run);
                         tar.addFile(new_row, blob);
-                        filecounter++;
-                        if(filecounter == textlines.length){
-                            console.log('tar complete');
-                            makeDownloadLink(tar);
-                        }
+                        filecounter = incrementAndCheckStatus(filecounter);
                     }else if(row.startsWith('policies/' + run + '/policy.json')){
                         let newJSON = makeNewCoursePolicy(policies, path, run, new_course_info, function(j){
                             // console.log('new policies/(run)/json.xml file')
@@ -527,24 +527,15 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
                             // console.log(JSON.parse(j));
                             // Copy new policy.json into both runs.
                             tar.addTextFile(row, j);
-                            let new_row = row.replace(run, new_course_info.run);
                             tar.addTextFile(new_row, j);
-                            filecounter++;
-                            if(filecounter == textlines.length){
-                                console.log('tar complete');
-                                makeDownloadLink(tar);
-                            }
+                            filecounter = incrementAndCheckStatus(filecounter);
                         });
                     }
                     else{
                         // Sweet functionality note: folders are added automatically
                         // because the row text has the folder name and a slash.
                         tar.addFile(row, blob);
-                        filecounter++;
-                        if(filecounter == textlines.length){
-                            console.log('tar complete');
-                            makeDownloadLink(tar);
-                        }
+                        filecounter = incrementAndCheckStatus(filecounter);
                     }
             });
         }
