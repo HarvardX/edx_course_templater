@@ -380,22 +380,29 @@ function readCourseFile(filepath, callback){
 
 
 // Returns raw, prettified text for revised policies/(run)/policy.json file.
-async function makeNewCoursePolicy(policies, path, run, callback){
+async function makeNewCoursePolicy(policies, path, run, new_course_info, callback){
 
     // console.log(policies);
 
     let policy_file = await readCourseFile(path + 'policies/' + run + '/policy.json', async function(j){
         j = JSON.parse(j);
-        Object.keys(policies).forEach(k => {
-            if(policies[k]){
-                j['course/' + run].tabs.push({
+        // console.log(j);
+        // Duplicate the existing run info for the new run.
+        j['course/' + new_course_info.run] = JSON.parse(JSON.stringify(j['course/' + run]));
+        // Set course name
+        j['course/' + new_course_info.run].display_name = $('#coursename').val();
+        // Set up the tabs
+        Object.keys(policies).forEach(tab => {
+            if(policies[tab]){
+                j['course/' + new_course_info.run].tabs.push({
                     'course_staff_only': false,
-                    'name': k.charAt(0).toUpperCase() + k.slice(1),
+                    'name': tab.charAt(0).toUpperCase() + tab.slice(1),
                     'type': 'static_tab',
-                    'url_slug': k
+                    'url_slug': tab
                 });
             }
         });
+
         // console.log(j);
         callback(JSON.stringify(j, null, 2));
     });
@@ -404,7 +411,7 @@ async function makeNewCoursePolicy(policies, path, run, callback){
 
 
 // Returns raw, prettified text for revised course/(run).xml file.
-async function makeNewCourseXML(template, path, run, callback){
+async function makeNewCourseXML(template, path, run, new_course_info, callback){
 
     // console.log(template);
 
@@ -416,11 +423,17 @@ async function makeNewCourseXML(template, path, run, callback){
 
     let course_xml = await readCourseFile(path + 'course/' + run + '.xml', async function(coursefile){
         let course = $(coursefile);
+        course.attr('display_name', new_course_info.name);
+
+        // Swap out the old wiki slug for a new one.
+        let new_slug = new_course_info.org + '.' + new_course_info.number + '.' + new_course_info.run;
+        course.find('wiki').replaceWith('<wiki slug="' + new_slug + '"/>');
+
         for(let i = 0; i < new_chapters.length; i++){
             // Cutting off course/ and .xml from paths.
             let newtag = $('<chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />');
             // Insert new chapters after the first chapter in the boilerplate.
-            course.find('chapter:nth-child(' + (i+1) + ')').after(newtag)
+            course.find('chapter:nth-child(' + (i+1) + ')').after(newtag);
         }
         // console.log(course);
         callback(vkbeautify.xml(course[0].outerHTML, 2));
@@ -430,19 +443,26 @@ async function makeNewCourseXML(template, path, run, callback){
 
 
 async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloadLink){
-    // Make an array and throw out blank lines.
+    // Make an array from the flat file and throw out blank lines.
     let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
     console.log('Making course tarball from...');
     console.log(textlines);
 
-
     let tar = new tarball.TarWriter();
     let filecounter = 0;
+    let new_course_info = {
+        'name': $('#coursename').val(),
+        'run': $('#courserun').val(),
+        'org': $('#courseorg').val(),
+        'number': $('#coursenum').val()
+    }
 
+    // Make files for all the items in our template.
     template.forEach((temp_row) => {
         tar.addTextFile(temp_row.path, temp_row.text);
     });
 
+    // Now add in the boilerplate files.
     textlines.forEach(async function(row){
 
         // console.log(row);
@@ -463,23 +483,52 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
                     // console.log('blob obtained');
                     // console.log(blob);
                     if(row.startsWith('course/')){
-                        let newXML = makeNewCourseXML(template, path, run, function(xml){
+                        let newXML = makeNewCourseXML(template, path, run, new_course_info, function(xml){
                             // console.log('new course/(run).xml file')
                             // console.log(row);
                             // console.log(xml);
+
+                            // Copying course XML into *both* runs of the course.
                             tar.addTextFile(row, xml);
+                            let new_row = row.replace(run, new_course_info.run);
+                            tar.addTextFile(new_row, xml);
                             filecounter++;
                             if(filecounter == textlines.length){
                                 console.log('tar complete');
                                 makeDownloadLink(tar);
                             }
                         });
+                    }else if(row.startsWith('course.xml')){
+                        // Write course file that points to new run.
+                        tar.addTextFile('course.xml',
+                            '<course url_name="' + new_course_info.run
+                                + '" org="' + new_course_info.org
+                                + '" course="' + new_course_info.number
+                                + '"/>');
+                        filecounter++;
+                        if(filecounter == textlines.length){
+                            console.log('tar complete');
+                            makeDownloadLink(tar);
+                        }
+                    }else if(row.startsWith('policies/' + run + '/grading_policy.json')){
+                        // Copy old grading policy into both runs.
+                        tar.addFile(row, blob);
+                        let new_row = row.replace(run, new_course_info.run);
+                        tar.addFile(new_row, blob);
+                        filecounter++;
+                        if(filecounter == textlines.length){
+                            console.log('tar complete');
+                            makeDownloadLink(tar);
+                        }
                     }else if(row.startsWith('policies/' + run + '/policy.json')){
-                        let newXML = makeNewCoursePolicy(policies, path, run, function(j){
+                        let newJSON = makeNewCoursePolicy(policies, path, run, new_course_info, function(j){
                             // console.log('new policies/(run)/json.xml file')
                             // console.log(row);
-                            // console.log(j);
+                            // console.log(JSON.parse(j));
+                            // Copy new policy.json into both runs.
                             tar.addTextFile(row, j);
+                            let new_row = row.replace(run, new_course_info.run);
+                            tar.addTextFile(new_row, j);
                             filecounter++;
                             if(filecounter == textlines.length){
                                 console.log('tar complete');
