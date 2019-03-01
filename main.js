@@ -435,7 +435,11 @@ async function makeNewCourseXML(template, path, run, new_course_info, callback){
             // Cutting off chapter/ and .xml from paths.
             let newtag = $('<chapter url_name="' + new_chapters[i].path.slice(8,-4) + '" />');
             // Insert new chapters after the first chapter in the boilerplate.
-            course.find('chapter:nth-child(' + (i+1) + ')').after(newtag);
+            let try_to_insert = course.find('chapter:nth-child(' + (i+1) + ')').after(newtag);
+            if(try_to_insert.length === 0){
+                // Course isn't long enough; maybe it's blank? Insert row anywhere.
+                course.append(newtag);
+            }
         }
         // console.log(course);
         callback({
@@ -566,6 +570,9 @@ async function makeDownload() {
     // Path to the boilerplate parts of the template.
     let boilerplate_structure_repo = $('#sourcerepo').val();
     let boilerplate_structure_file = boilerplate_structure_repo + $('#sourcefile').val();
+    if($('#sourcefile').val() === ""){
+        boilerplate_structure_file = boilerplate_structure_repo + 'blank_course.wtf';
+    }
     let boilerplate_structure_path = boilerplate_structure_file.slice(0,-4)+'/';
     let course_tarball;
 
