@@ -1,0 +1,8 @@
+./course/course.xml
+./course_structure.txt
+./about/overview.html
+./policies/course/policy.json
+./policies/course/grading_policy.json
+./policies/assets.json
+./course.xml
+./assets/assets.xml

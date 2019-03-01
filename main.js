@@ -362,11 +362,14 @@ function readCourseFile(filepath, callback){
     let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("text/plain");
     rawFile.onreadystatechange = function() {
-        // console.log(rawFile.readyState, rawFile.status);
+        console.log(rawFile.readyState, rawFile.status);
         if (rawFile.readyState === 4 && rawFile.status == "200") {
             // console.log('file:');
-            // console.log(rawFile.responseText);
+            console.log(rawFile.responseText);
             callback(rawFile.responseText);
+        }else if(rawFile.readyState === 4 && rawFile.status != "200"){
+            // We didn't load the file. Use a blank course instead.
+            callback(false);
         }
     }
     rawFile.open("GET", filepath, true);
@@ -381,6 +384,7 @@ async function makeNewCoursePolicy(policies, path, run, new_course_info, callbac
     // console.log(policies);
 
     let policy_file = await readCourseFile(path + 'policies/' + run + '/policy.json', async function(j){
+        if(!j){ console.log('No policy file found.'); }
         j = JSON.parse(j);
         let cid = 'course/' + new_course_info.run;
         // console.log(j);
@@ -419,6 +423,7 @@ async function makeNewCourseXML(template, path, run, new_course_info, callback){
     // console.log(new_chapters);
 
     let course_xml = await readCourseFile(path + 'course/' + run + '.xml', async function(coursefile){
+        if(!coursefile){ console.log('No course_run.xml file found.'); }
         let course = $(coursefile);
         course.attr('display_name', new_course_info.name);
 
@@ -559,16 +564,23 @@ async function makeDownload() {
     let policies = new_course.policies;
 
     // Path to the boilerplate parts of the template.
-    let boilerplate_structure_file = $('#filesource').val();
+    let boilerplate_structure_repo = $('#sourcerepo').val();
+    let boilerplate_structure_file = boilerplate_structure_repo + $('#sourcefile').val();
     let boilerplate_structure_path = boilerplate_structure_file.slice(0,-4)+'/';
     let course_tarball;
 
     let course_run = await readCourseFile(boilerplate_structure_path + 'course.xml', async function(coursefile){
+        if(!coursefile){ console.log('No course.xml file found.'); }
         let run = $(coursefile).attr('url_name');
         // console.log(run);
 
         // Get the flat file that describes the boilerplate course.
         let boilerplate_flat = await readCourseFile(boilerplate_structure_file, async function(result){
+
+            if(!result){
+                console.log('No flat file found. Using default blank course.');
+                result = './course/course.xml\n./course_structure.txt\n./about/overview.html\n./policies/course/policy.json\n./policies/course/grading_policy.json\n./policies/assets.json\n./course.xml\n./assets/assets.xml\n';
+            }
 
             // console.log('course structure:');
             // console.log(result);
