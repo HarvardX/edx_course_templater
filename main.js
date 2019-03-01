@@ -40,37 +40,31 @@ $(document).ready(function(){
         console.log(constructCourseTemplate());
     });
 
+    // Interface niceness for greyed-out options
     $('input[name="corecontent"]').on('change', function(){
-        if($('input[name="corecontent"]:checked').val() === 'special'){
+        let whichoption = $('input[name="corecontent"]:checked').val();
+        $('#numprob').addClass('disabled');
+        $('#whatcustom').addClass('disabled');
+        if(whichoption === 'special'){
             $('#whatcustom').removeClass('disabled');
-        }else{
-            $('#whatcustom').addClass('disabled');
+        }else if(whichoption === 'problem'){
+            $('#numprob').removeClass('disabled');
         }
     });
     $('#whatcustom').on('focus', function(){
         $('#usespec').click();
     });
-
-    $('input[name="corecontent"]').on('change', function(){
-        if($('input[name="corecontent"]:checked').val() === 'problem'){
-            $('#numprob').removeClass('disabled');
-        }else{
-            $('#numprob').addClass('disabled');
-        }
-    });
     $('#numprob').on('focus', function(){
         $('#useprob').click();
     });
 
-    $('#sectionname').on('input', function(){
-        $('.sectiontext').text($(this).val().toLowerCase());
+    // Copying terms for s, ss, u across the page
+    ['section','subsection','unit'].forEach(function(t){
+        $('#' + t + 'name').on('input', function(){
+            $('.' + t + 'text').text($(this).val().toLowerCase());
+        })
     });
-    $('#subsectionname').on('input', function(){
-        $('.subsectiontext').text($(this).val().toLowerCase());
-    });
-    $('#unitname').on('input', function(){
-        $('.unittext').text($(this).val().toLowerCase());
-    });
+
 });
 
 // Makes the pair of files you need for HTML in edX.
@@ -107,8 +101,8 @@ function makeContentPageTags(name, tag, num_elem){
         }
     }
     return {'array': temp, 'innards': innards};
-
 }
+
 
 // Make the core of a subsection
 function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components, u_name){
@@ -169,6 +163,7 @@ function makeSequentialCore(s, ss, num_pages, coreTag, num_core_components, u_na
     return {'array': temp, 'innards': innards};
 }
 
+
 // This builds the user-defined part of the course, without the boilerplate.
 function constructCourseTemplate(){
     // The template is an array of objects that look like this:
@@ -186,7 +181,7 @@ function constructCourseTemplate(){
     let ss_name = $('#subsectionname').val();
     let u_name = $('#unitname').val();
 
-    // Core part of the page
+    // Core part of the page - is it a video page, a text page, etc.
     let coreTag = $('input[name="corecontent"]:checked').val();
     if( coreTag === 'special' ){ coreTag = $('#whatcustom').val(); }
 
@@ -360,17 +355,21 @@ function constructCourseTemplate(){
 }
 
 
+// Reads files from the boilerplate course and returns the raw text.
 function readCourseFile(filepath, callback){
     console.log('reading file ' + filepath);
 
     let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("text/plain");
     rawFile.onreadystatechange = function() {
-        // console.log(rawFile.readyState, rawFile.status);
+        console.log(rawFile.readyState, rawFile.status);
         if (rawFile.readyState === 4 && rawFile.status == "200") {
             // console.log('file:');
-            // console.log(rawFile.responseText);
+            console.log(rawFile.responseText);
             callback(rawFile.responseText);
+        }else if(rawFile.readyState === 4 && rawFile.status != "200"){
+            // We didn't load the file. Use a blank course instead.
+            callback(false);
         }
     }
     rawFile.open("GET", filepath, true);
@@ -385,16 +384,18 @@ async function makeNewCoursePolicy(policies, path, run, new_course_info, callbac
     // console.log(policies);
 
     let policy_file = await readCourseFile(path + 'policies/' + run + '/policy.json', async function(j){
+        if(!j){ console.log('No policy file found.'); }
         j = JSON.parse(j);
+        let cid = 'course/' + new_course_info.run;
         // console.log(j);
         // Duplicate the existing run info for the new run.
-        j['course/' + new_course_info.run] = JSON.parse(JSON.stringify(j['course/' + run]));
+        j[cid] = JSON.parse(JSON.stringify(j['course/' + run]));
         // Set course name
-        j['course/' + new_course_info.run].display_name = $('#coursename').val();
+        j[cid].display_name = $('#coursename').val();
         // Set up the tabs
         Object.keys(policies).forEach(tab => {
             if(policies[tab]){
-                j['course/' + new_course_info.run].tabs.push({
+                j[cid].tabs.push({
                     'course_staff_only': false,
                     'name': tab.charAt(0).toUpperCase() + tab.slice(1),
                     'type': 'static_tab',
@@ -422,6 +423,7 @@ async function makeNewCourseXML(template, path, run, new_course_info, callback){
     // console.log(new_chapters);
 
     let course_xml = await readCourseFile(path + 'course/' + run + '.xml', async function(coursefile){
+        if(!coursefile){ console.log('No course_run.xml file found.'); }
         let course = $(coursefile);
         course.attr('display_name', new_course_info.name);
 
@@ -445,6 +447,7 @@ async function makeNewCourseXML(template, path, run, new_course_info, callback){
 }
 
 
+// Composits the template and boilerplate into a combined course.
 async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloadLink){
     // Make an array from the flat file and throw out blank lines.
     let textlines = f.split('\n').filter( (l) => l.trim().length > 0 );
@@ -460,6 +463,7 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
         'number': $('#coursenum').val()
     }
 
+    // Are we done adding files?
     function incrementAndCheckStatus(num_files){
         num_files += 1;
         if(num_files == textlines.length){
@@ -545,7 +549,7 @@ async function makeTarFromFlatFile(f, path, template, policies, run, makeDownloa
 }
 
 
-// This is our "main"
+// This is our "main" that gets called by the submit button
 async function makeDownload() {
 
     // Insert placeholder text while we wait for things to tar up.
@@ -560,16 +564,23 @@ async function makeDownload() {
     let policies = new_course.policies;
 
     // Path to the boilerplate parts of the template.
-    let boilerplate_structure_file = $('#filesource').val();
+    let boilerplate_structure_repo = $('#sourcerepo').val();
+    let boilerplate_structure_file = boilerplate_structure_repo + $('#sourcefile').val();
     let boilerplate_structure_path = boilerplate_structure_file.slice(0,-4)+'/';
     let course_tarball;
 
     let course_run = await readCourseFile(boilerplate_structure_path + 'course.xml', async function(coursefile){
+        if(!coursefile){ console.log('No course.xml file found.'); }
         let run = $(coursefile).attr('url_name');
         // console.log(run);
 
         // Get the flat file that describes the boilerplate course.
         let boilerplate_flat = await readCourseFile(boilerplate_structure_file, async function(result){
+
+            if(!result){
+                console.log('No flat file found. Using default blank course.');
+                result = './course/2016.xml\n./.DS_Store\n./blank_course.txt\n./about/.DS_Store\n./about/overview.html\n./policies/2016/policy.json\n./policies/2016/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./static/.DS_Store\n./assets/assets.xml\n';
+            }
 
             // console.log('course structure:');
             // console.log(result);
@@ -582,6 +593,7 @@ async function makeDownload() {
                         // console.log(tarblob);
 
                         // Remove the placeholder and put in the download link.
+                        // The tar file is inserted as a Data URI.
                         let download_link = $('<a>Click to download archive</a>');
                         download_placeholder.remove();
                         download_link.attr('href', URL.createObjectURL(tarblob) );

@@ -1,0 +1,14 @@
+./course/2016.xml
+./.DS_Store
+./blank_course.txt
+./about/.DS_Store
+./about/overview.html
+./policies/2016/policy.json
+./policies/2016/grading_policy.json
+./policies/assets.json
+./info/updates.items.json
+./info/handouts.html
+./info/updates.html
+./course.xml
+./static/.DS_Store
+./assets/assets.xml
