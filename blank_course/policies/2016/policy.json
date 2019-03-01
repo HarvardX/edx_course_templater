@@ -1,5 +1,5 @@
 {
-    "course/course": {
+    "course/2016": {
         "cert_html_view_enabled": true, 
         "discussion_topics": {
             "General": {
@@ -40,6 +40,12 @@
                 "name": "Progress", 
                 "type": "progress"
             }
-        ]
+        ], 
+        "xml_attributes": {
+            "filename": [
+                "course/course.xml", 
+                "course/course.xml"
+            ]
+        }
     }
 }
