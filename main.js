@@ -579,7 +579,7 @@ async function makeDownload() {
 
             if(!result){
                 console.log('No flat file found. Using default blank course.');
-                result = './course/course.xml\n./course_structure.txt\n./about/overview.html\n./policies/course/policy.json\n./policies/course/grading_policy.json\n./policies/assets.json\n./course.xml\n./assets/assets.xml\n';
+                result = './course/2016.xml\n./.DS_Store\n./blank_course.txt\n./about/.DS_Store\n./about/overview.html\n./policies/2016/policy.json\n./policies/2016/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./static/.DS_Store\n./assets/assets.xml\n';
             }
 
             // console.log('course structure:');
