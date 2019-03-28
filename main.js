@@ -762,7 +762,7 @@ async function makeDownload() {
               download_link.attr('href', URL.createObjectURL(tarblob));
               download_link.attr('download', filename);
               target_location.append(download_link);
-              target_location.scrollIntoView();
+              target_location[0].scrollIntoView();
             });
           }
 
