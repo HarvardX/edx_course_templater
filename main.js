@@ -240,7 +240,7 @@ function constructCourseTemplate() {
         s_head_tag = $('#whatcustom').val();
       }
       let num_head_components =
-        s_head_tag === 'problem' ? Number($('#numshprob').val()) : 1;
+        s_head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
 
       let sect_head = makeSequentialCore(
         s,
@@ -279,7 +279,7 @@ function constructCourseTemplate() {
           head_tag = $('#whatcustomhead').val();
         }
         let num_head_elements =
-          head_tag === 'problem' ? Number($('#numsshprob').val()) : 1;
+          head_tag === 'problem' ? Number($('#numunithprob').val()) : 1;
         let h_name = 's_' + (s + 1) + '_ss_' + (ss + 1) + '_p_head';
         let h_tags = makeContentPageTags(h_name, head_tag, num_head_elements);
 
@@ -319,7 +319,7 @@ function constructCourseTemplate() {
           foot_tag = $('#whatcustomfoot').val();
         }
         let num_foot_elements =
-          foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
+          foot_tag === 'problem' ? Number($('#numunitfprob').val()) : 1;
         let f_name = 's_' + (s + 1) + '_ss_' + (ss + 1) + '_p_foot';
         let f_tags = makeContentPageTags(f_name, foot_tag, num_foot_elements);
 
@@ -365,11 +365,11 @@ function constructCourseTemplate() {
         s_foot_tag = $('#whatcustom').val();
       }
       let num_foot_components =
-        s_foot_tag === 'problem' ? Number($('#numsfprob').val()) : 1;
+        s_foot_tag === 'problem' ? Number($('#numssfprob').val()) : 1;
 
       let sect_foot = makeSequentialCore(
         s,
-        'intro',
+        'outro',
         foot_pages,
         s_foot_tag,
         num_foot_components,
