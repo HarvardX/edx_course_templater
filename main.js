@@ -420,10 +420,11 @@ function constructCourseTemplate() {
 
   Object.keys(policies).forEach(k => {
     if (policies[k]) {
+      let n = k.split('_').slice(-1)[0]; // If it has course_ in front, take that out.
       template.push({
-        path: 'tabs/' + k.charAt(0).toUpperCase() + k.slice(1),
+        path: 'tabs/' + k,
         text:
-          '<h3>' + k.charAt(0).toUpperCase() + k.slice(1) + ' placeholder</h3>'
+          '<h3>' + n.charAt(0).toUpperCase() + n.slice(1) + ' placeholder</h3>'
       });
     }
   });
@@ -507,9 +508,10 @@ async function makeNewCoursePolicy(
       // Set up the tabs
       Object.keys(policies).forEach(tab => {
         if (policies[tab]) {
+          let n = tab.split('_').slice(-1)[0]; // Remove course_ from name.
           j[cid].tabs.push({
             course_staff_only: false,
-            name: tab.charAt(0).toUpperCase() + tab.slice(1),
+            name: n.charAt(0).toUpperCase() + n.slice(1),
             type: 'static_tab',
             url_slug: tab
           });
