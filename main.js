@@ -413,9 +413,9 @@ function constructCourseTemplate() {
     // 'related': $('#related')[0].checked,
     calendar: $('#calendar')[0].checked,
     FAQ: $('#faq')[0].checked,
-    glossary: $('#glossary')[0].checked,
+    course_glossary: $('#glossary')[0].checked,
     resources: $('#resources')[0].checked,
-    outline: $('#outline')[0].checked
+    course_outline: $('#outline')[0].checked
   };
 
   Object.keys(policies).forEach(k => {
