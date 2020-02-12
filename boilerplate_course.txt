@@ -27,6 +27,7 @@
 ./problem/3b1ab1bee76b471ab65619d05735fbb4.xml
 ./problem/fc2ab41e316d4adb990490dc70c7a665.xml
 ./problem/d6101bdef3834306b3504186b48807a7.xml
+./problem/backpack.xml
 ./problem/9a16e36adcd64b98ad060a42a3b987a2.xml
 ./problem/894aafaf3bd149b8ab3dd81b5c5fd5e6.xml
 ./problem/028db345e298493bb335953d8611b8dd.xml
@@ -60,6 +61,7 @@
 ./html/e7f004272f0e41d38894f7bcdd89939f.html
 ./html/ad7265b6d7234f7284b08856baf205a3.html
 ./html/6894652bbfed4c00a94e3533b3fddccb.xml
+./html/fb1c3fec2a794174aba5e87bd0dc938c.html
 ./html/0a93c3cb5cce435eb20ac0001443f7bf.xml
 ./html/ee37f06bab5d4ef3a676f6788bdb412c.xml
 ./html/5c26b2ed5b3447d79076f17b973b71b8.html
@@ -102,11 +104,20 @@
 ./html/d05ae7beee2447a2a98fe35c293a9a95.html
 ./html/d658b8aeef7840b1903587504b7f75a8.xml
 ./html/987158ea28e24f13855ff6abfb3e63e2.xml
+./html/fb1c3fec2a794174aba5e87bd0dc938c.xml
 ./html/aba193b1878240b3b533b81f94d2393d.xml
 ./html/afc11bc7947d44dfb7f8897239d3d939.xml
 ./html/a45488cfc4dc42df8ad033d76be6e976.xml
 ./html/6894652bbfed4c00a94e3533b3fddccb.html
+./about/entrance_exam_enabled.html
+./about/duration.html
+./about/title.html
+./about/short_description.html
 ./about/overview.html
+./about/description.html
+./about/subtitle.html
+./about/entrance_exam_id.html
+./about/entrance_exam_minimum_score_pct.html
 ./policies/3T2018/policy.json
 ./policies/3T2018/grading_policy.json
 ./policies/assets.json
@@ -133,8 +144,10 @@
 ./static/jschannel.js
 ./static/HXPopUpProblems.js
 ./static/Zebra.jpg
+./static/backpack.html
 ./static/slick-theme.css
 ./static/hxGlobalOptions.js
+./static/backpack.xml
 ./static/HXVideoLinks.js
 ./static/VideoLinks.css
 ./static/quote-right.png
@@ -148,6 +161,7 @@
 ./static/slick.woff
 ./static/quote-left.png
 ./static/prism.css
+./static/HXVideoChime.js
 ./static/slick.ttf
 ./static/papaparse.js
 ./static/imageMapResizer.min.js
@@ -163,6 +177,7 @@
 ./static/Ordering.js
 ./static/slick.eot
 ./static/MatchingA_Zoo.html
+./static/backpack.js
 ./static/MatchingA_Elements_Zoo.js
 ./static/Bear.jpg
 ./static/guesser.js

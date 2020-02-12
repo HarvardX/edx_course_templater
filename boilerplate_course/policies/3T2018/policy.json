@@ -1,69 +1,76 @@
 {
     "course/3T2018": {
         "advanced_modules": [
-            "openassessment", 
-            "word_cloud", 
-            "lti_consumer", 
-            "split_test", 
-            "library_content", 
-            "poll", 
-            "survey", 
-            "ubcpi", 
-            "drag-and-drop-v2", 
+            "openassessment",
+            "word_cloud",
+            "lti_consumer",
+            "split_test",
+            "library_content",
+            "poll",
+            "survey",
+            "ubcpi",
+            "drag-and-drop-v2",
             "done"
-        ], 
-        "cert_html_view_enabled": true, 
+        ],
+        "cert_html_view_enabled": true,
         "discussion_topics": {
             "General": {
                 "id": "course"
             }
-        }, 
-        "display_name": "HarvardX Boilerplate", 
-        "language": "en", 
-        "start": "2030-01-01T00:00:00Z", 
+        },
+        "display_coursenumber": "",
+        "display_name": "Boilerplate Course",
+        "language": "en",
+        "start": "2030-01-01T00:00:00Z",
         "tabs": [
             {
-                "course_staff_only": false, 
-                "name": "Home", 
+                "course_staff_only": false,
+                "name": "Home",
                 "type": "course_info"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Course", 
+                "course_staff_only": false,
+                "name": "Course",
                 "type": "courseware"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Textbooks", 
+                "course_staff_only": false,
+                "name": "Textbooks",
                 "type": "textbooks"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Discussion", 
+                "course_staff_only": false,
+                "name": "Discussion",
                 "type": "discussion"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Wiki", 
+                "course_staff_only": false,
+                "name": "Wiki",
                 "type": "wiki"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Progress", 
+                "course_staff_only": false,
+                "name": "Progress",
                 "type": "progress"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Syllabus", 
-                "type": "static_tab", 
+                "course_staff_only": false,
+                "name": "Syllabus",
+                "type": "static_tab",
                 "url_slug": "6cb10b8ef27e486e89f823d877e13240"
-            }, 
+            },
             {
-                "course_staff_only": false, 
-                "name": "Related Courses", 
-                "type": "static_tab", 
+                "course_staff_only": false,
+                "name": "Related Courses",
+                "type": "static_tab",
                 "url_slug": "0e5d0f8c7be1458d9c95176afadd2807"
             }
-        ]
+        ],
+        "xml_attributes": {
+            "filename": [
+                "course/1T2018.xml",
+                "course/1T2018.xml"
+            ]
+        }
     }
 }
