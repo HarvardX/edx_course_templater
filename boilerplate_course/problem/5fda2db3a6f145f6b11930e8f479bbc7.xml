@@ -1,11 +1,5 @@
 <problem display_name="Standard Ordering Problem" markdown="null">
-
-<!--
-This file is used to make the problem work within the edX system.
-You will not need it if you are using this code for other purposes.
- -->
-
-<script type="text/javascript">
+  <script type="text/javascript">
 $(document).ready(function(){
 	console.log('outer ready');
 });
@@ -22,8 +16,7 @@ function logThatThing(ThatThing){
 }
 
 </script>
-
-<script type="loncapa/python">
+  <script type="loncapa/python">
 
 
 from python_lib import HXGraders
@@ -45,23 +38,18 @@ def answercheck(e, ans):
 
 
 </script>
-
-<p>Put all the platforms by Nintendo on this list into their chronological release order, from earliest to most recent.</p>
-
-<p>This is an ordering exercise. Drag items on the left into the slots on the right to put them in the proper order. You do not necessarily need to use all the items or fill all the open slots. Click on the items for a better view if you need it.</p>
-
-<customresponse cfn="answercheck">
-  <jsinput title="Ordering Exercise" gradefn="Ordering.getGrade" get_statefn="Ordering.getState" set_statefn="Ordering.setState" width="780" height="550" html_file="/static/Ordering.html" sop="false"/>
-</customresponse>
-
-<solution>
-  <div class="detailed-solution">
-    <p>Explanation</p>
-		<p>The correct order is NES, SNES, GameCube, Wii, and Switch. The Master System was made by Sega, not Nintendo.</p>
-    <p>This is a placeholder solution. You should replace it with your own.</p>
-    <p>To add an image to the solution, use an HTML "img" tag. Make sure to include alt text.</p>
-    <img src="/static/images/placeholder-image.png" width="400" alt="Description of image, with a primary goal of explaining its     relevance to the problem or concept being illustrated for someone     who is unable to see the image."/>
-  </div>
-</solution>
-
+  <p>Put all the platforms by Nintendo on this list into their chronological release order, from earliest to most recent.</p>
+  <p>This is an ordering exercise. Drag items on the left into the slots on the right to put them in the proper order. You do not necessarily need to use all the items or fill all the open slots. Click on the items for a better view if you need it.</p>
+  <customresponse cfn="answercheck">
+    <jsinput title="Ordering Exercise" gradefn="Ordering.getGrade" get_statefn="Ordering.getState" set_statefn="Ordering.setState" width="780" height="550" html_file="/static/Ordering.html" sop="false"/>
+  </customresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The correct order is NES, SNES, GameCube, Wii, and Switch. The Master System was made by Sega, not Nintendo.</p>
+      <p>This is a placeholder solution. You should replace it with your own.</p>
+      <p>To add an image to the solution, use an HTML "img" tag. Make sure to include alt text.</p>
+      <img src="/static/images/placeholder-image.png" width="400" alt="Description of image, with a primary goal of explaining its     relevance to the problem or concept being illustrated for someone     who is unable to see the image."/>
+    </div>
+  </solution>
 </problem>

@@ -1,5 +1,5 @@
 <problem display_name="More complex example" markdown="null">
-<script type="loncapa/python">
+  <script type="loncapa/python">
 
 
 pepperoni = random.randint(8,12)
@@ -25,14 +25,13 @@ mitigationCostDisp = "%0.2f" % mitigationCost
   <demandhint>
     <hint>Go back to the previous page if you don't remember the formula for this.</hint>
   </demandhint>
-
-<solution>
-  <div class="detailed-solution">
-    <p>Explanation</p>
-    <p>Mitigation cost is:</p>
-    <p>\[ \frac{Cost \ of \ Clean \ Option - Cost \ of \ Dirty \ Option}{Pollution \ of \ Dirty \ Option - Pollution \ of \ Clean \ Option} \]</p>
-    <p>In our case, that's:</p>
-    <p>\[ \frac{$$veggie - $$pepperoni}{$pepCarbon - $vegCarbon} = $$mitigationCostDisp \ per \ ton \ CO_2\]</p>
-  </div>
-</solution>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Mitigation cost is:</p>
+      <p>\[ \frac{Cost \ of \ Clean \ Option - Cost \ of \ Dirty \ Option}{Pollution \ of \ Dirty \ Option - Pollution \ of \ Clean \ Option} \]</p>
+      <p>In our case, that's:</p>
+      <p>\[ \frac{$$veggie - $$pepperoni}{$pepCarbon - $vegCarbon} = $$mitigationCostDisp \ per \ ton \ CO_2\]</p>
+    </div>
+  </solution>
 </problem>

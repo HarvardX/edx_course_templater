@@ -1,11 +1,5 @@
 <problem display_name="Range Guessing Problem" markdown="null">
-
-<!-- You will need to change things in three places: the Course Author section 
-     in the python code below, the Problem Description Section in the HTML
-     farther down, and the solution at the very bottom of this page.
- -->
-
-<script type="loncapa/python">
+  <script type="loncapa/python">
 
 
 from python_lib import HXGraders
@@ -61,10 +55,7 @@ def answercheck(e, ans):
 
 
 </script>
-
-<!-- You don't need to alter this script. -->
-
-<script type="text/javascript">
+  <script type="text/javascript">
 $(document).ready(function(){
 	console.log('outer ready');
 });
@@ -80,38 +71,21 @@ function logThatThing(ThatThing){
 
 }
 </script>
-
-
-<!--    Problem Description Section     -->
-<!-- You should ask your question here. -->
-
-<p>What is the range in dollars for the middle quintile of US household income? </p>
-
-
-<!-- End Problem Description Section -->
-<!-- Don't remove the things below.  -->
-
-
-<p class="sr" aria-hidden="true">
-<span id="lowerlimit">$lowerlimit</span>
-<span id="upperlimit">$upperlimit</span>
-<span id="openclose">$show_open_close</span>
-<span id="istimequestion">$is_time_question</span>
-<span id="maxtime">$max_time</span>
-</p>
-
-<customresponse cfn="answercheck">
-  <jsinput gradefn="guesser.getGrade" get_statefn="guesser.getState" set_statefn="guesser.setState" width="800" height="120" html_file="/static/guesser.html" sop="false"/>
-</customresponse>
-
-<!-- You should include an explanation below for when students click "Show Answer" -->
-
-<solution>
-<div class="detailed-solution">
-<p>Explanation</p>
-<p>Answer: $38,515/year to $62,434/year. Source: US Census Bureau, 2011</p>
-</div>
-</solution>
-
-
+  <p>What is the range in dollars for the middle quintile of US household income? </p>
+  <p class="sr" aria-hidden="true">
+    <span id="lowerlimit">$lowerlimit</span>
+    <span id="upperlimit">$upperlimit</span>
+    <span id="openclose">$show_open_close</span>
+    <span id="istimequestion">$is_time_question</span>
+    <span id="maxtime">$max_time</span>
+  </p>
+  <customresponse cfn="answercheck">
+    <jsinput gradefn="guesser.getGrade" get_statefn="guesser.getState" set_statefn="guesser.setState" width="800" height="120" html_file="/static/guesser.html" sop="false"/>
+  </customresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Answer: $38,515/year to $62,434/year. Source: US Census Bureau, 2011</p>
+    </div>
+  </solution>
 </problem>

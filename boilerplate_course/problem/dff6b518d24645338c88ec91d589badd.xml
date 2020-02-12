@@ -16,7 +16,7 @@ function logThatThing(ThatThing){
 }
 
 </script>
-<script type="loncapa/python">
+  <script type="loncapa/python">
 
 
 from python_lib import HXGraders
