@@ -336,12 +336,12 @@
         },
         "displayname": "backpack.html",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@backpack.html",
-        "import_path": "backpack.html",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
     "backpack.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -353,7 +353,7 @@
         },
         "displayname": "backpack.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@backpack.js",
-        "import_path": "backpack.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -494,7 +494,7 @@
         "thumbnail_location": null
     },
     "hx.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -506,7 +506,7 @@
         },
         "displayname": "hx.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx.js",
-        "import_path": "hx.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -642,6 +642,23 @@
             "leads-to.jpg",
             null
         ]
+    },
+    "lz-string.min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "lz-string.min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "lz-string.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@lz-string.min.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
     },
     "papaparse.js": {
         "contentType": "application/javascript",
