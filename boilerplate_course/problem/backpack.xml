@@ -1,4 +1,4 @@
-<problem display_name="Honor Code" markdown="null" showanswer="never">
+<problem display_name="Honor Code" group_access="{&quot;51&quot;: [1, 2]}" markdown="null" showanswer="never">
   <script type="loncapa/python">
 
 # The CDATA declaration lets us use less-than signs
