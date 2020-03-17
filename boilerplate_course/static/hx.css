@@ -256,7 +256,7 @@ h4.hx-superbold {
 }
 
 .hx-yellowbox a {
-  font-weight:bold !important; 
+  font-weight: bold !important;
 }
 
 .hx-yellowbox h4 {
@@ -654,3 +654,60 @@ span#hx-playpauseword {
 }
 
 /************** End Pop-Up Problems Block *******************/
+
+/***************************************/
+/* This block is for HXEditor.
+/***************************************/
+
+.hxed-save {
+}
+
+.hxed-download {
+}
+
+.hxed-filemenu {
+  background-image: linear-gradient(#f1f1f1, #d9d1d1);
+  font-weight: bold;
+  height: 2.1em;
+  font-size: 0.9rem;
+  border: 1px solid #d2c9c9;
+}
+
+.hxed-currentslot {
+  color: #0075b4;
+}
+
+.hxed-statusmessage {
+  color: #666;
+  flex-grow: 1;
+}
+
+.hxed-persistentnotice {
+  color: darkred;
+  float: right;
+}
+
+.hxed-deletebutton {
+  color: darkred;
+  float: right;
+  font-size: 1.2em;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+}
+
+.hxed-controlbox {
+  display: flex;
+  align-items: baseline;
+}
+
+.hxeditor-control {
+  margin: 2px;
+}
+
+/* Hide the default text in the LMS. */
+.vert .xblock .hx-editor-default {
+  display: none;
+}
+
+/************** End Editor Block *******************/

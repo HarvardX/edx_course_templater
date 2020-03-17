@@ -2,7 +2,7 @@
 // they start with a blank.
 var hx_state = {
   answer: '',
-  data: '{}'
+  data: {}
 };
 
 var last_state = {};
@@ -20,16 +20,16 @@ function inFrame() {
   }
 }
 
-// Returns true if the passed object is small enough, or the false if not.
-function smallEnough(ob) {
+// Returns true if the passed objects are small enough in total, or the false if not.
+function smallEnough(...ob) {
   // Gives us a rough idea of the memory size for the state.
   // Assuming 2 bytes per character, storing no more than 50,000 characters.
   let size = JSON.stringify(ob).length * 2;
+  console.log('Current size: ~' + size + ' bytes.');
   if (size < 100000) {
-    console.log('Current size: ~' + size + ' bytes.');
     return true;
   } else {
-    console.log('Data too large: ' + size + ' bytes. Changes rejected.');
+    console.log('Data too large. Changes rejected.');
     return false;
   }
 }
@@ -40,20 +40,22 @@ function smallEnough(ob) {
 function compressedState() {
   let store_state = {
     answer: hx_state.answer,
-    data: LZString.compressToUTF16(hx_state.data)
+    data: LZString.compressToEncodedURIComponent(JSON.stringify(hx_state.data))
   };
   if (smallEnough(store_state)) {
     return JSON.stringify(store_state);
   } else {
     store_state = {
       answer: hx_state.answer,
-      data: LZString.compressToUTF16(last_state.data)
+      data: LZString.compressToEncodedURIComponent(
+        JSON.stringify(last_state.data)
+      )
     };
     if (smallEnough(last_state)) {
       return JSON.stringify(last_state);
     } else {
       // If the last state is too big too, suspect foul play and revert completely.
-      return JSON.stringify({ answer: '', data: '{}' });
+      return JSON.stringify({ answer: '', data: {} });
     }
   }
 }
@@ -65,7 +67,7 @@ function storeData() {
     // Get the submit button for this problem. Luckily, this is the only problem in the iframe.
     let submit_button = parent_doc.querySelectorAll('button.submit')[0];
     // Click it.
-    submit_button.click();
+    parent.$(submit_button).triggerHandler('click');
     console.log('data stored');
   } else {
     console.log('Not running in iframe; aborted.');
@@ -73,33 +75,44 @@ function storeData() {
 }
 
 function hxSetData(key, input) {
-  var obj = {};
+  // If the key is a string, set hx_state[key] = input.
+  if (typeof key === 'string') {
+    var obj;
 
-  // Parse out the object and set the new info, then write it back.
-  try {
-    obj = JSON.parse(hx_state.data);
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-  obj[key] = input;
-  if (smallEnough(obj)) {
-    hx_state.data = JSON.stringify(obj);
+    // Copy the state data and set the new info, then write it back.
+    try {
+      obj = JSON.parse(JSON.stringify(hx_state.data));
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+    obj[key] = input;
+    if (smallEnough(obj)) {
+      hx_state.data = obj;
+    } else {
+      console.log('Object not stored.');
+      return false;
+    }
+    // Store the info in edX.
+    storeData();
+    return true;
+  } else if (typeof key === 'object') {
+    //if the key is an object, extend hx_state.data with that object.
+    if (smallEnough(key, hx_state.data)) {
+      Object.assign(hx_state.data, key);
+    }
+    storeData();
+    return true;
   } else {
-    console.log('Object not stored.');
+    console.log('hxSetData format not recognized.');
     return false;
   }
-  // Store the info in edX.
-  storeData();
-  return true;
 }
 
 function hxClearData(key) {
   // Parse out the object and remove the info, then write the object back.
   try {
-    obj = JSON.parse(hx_state.data);
     delete hx_state.data[key];
-    hx_state.data = JSON.stringify(obj);
   } catch (err) {
     console.log(err);
     return false;
@@ -111,8 +124,7 @@ function hxClearData(key) {
 
 function hxGetData(key) {
   try {
-    obj = JSON.parse(hx_state.data);
-    return obj[key];
+    return hx_state.data[key];
   } catch (err) {
     console.log(err);
     return null;
@@ -121,13 +133,24 @@ function hxGetData(key) {
 
 function hxGetAllData() {
   try {
-    obj = JSON.parse(hx_state.data);
-    return obj;
+    return hx_state.data;
   } catch (err) {
     console.log(err);
     return null;
   }
 }
+
+function hxClearAllData() {
+  let old_answer = hx_state.answer;
+  hx_state = {
+    answer: old_answer,
+    data: {}
+  };
+  storeData();
+}
+
+// The backpack status. True if loaded, undefined otherwise.
+var hxBackpackLoaded = true;
 
 // This wrapper function is necessary.
 // You can rename it if you want, just make sure the attributes
@@ -163,15 +186,15 @@ var backpack = (function() {
   function setState() {
     // Are we in an iframe?
     if (inFrame()) {
-      console.log('making functions available');
       // If so, make functions available to the outer frame.
       parent.hxSetData = hxSetData;
       parent.hxClearData = hxClearData;
       parent.hxGetData = hxGetData;
       parent.hxGetAllData = hxGetAllData;
+      parent.hxBackpackLoaded = hxBackpackLoaded;
       // Tell the edX page we're ready.
-      parent.parent.postMessage('ready', 'https://edge.edx.org');
-      parent.parent.postMessage('ready', 'https://courses.edx.org');
+      let host = parent.parent.location.origin;
+      parent.parent.postMessage('backpack_ready', host);
     } else {
       console.log('Not running in an iframe.');
     }
@@ -182,7 +205,9 @@ var backpack = (function() {
     // edX stores the state as stringified JSON. Parse it.
     hx_state = JSON.parse(state_string);
     // We compressed the data element when we stored it. Decompress it.
-    hx_state.data = LZString.decompressFromUTF16(hx_state.data);
+    hx_state.data = JSON.parse(
+      LZString.decompressFromEncodedURIComponent(hx_state.data)
+    );
     // Keep the old one so we can discard changes if we need to.
     last_state = hx_state;
     // Set the live state appropriately.
