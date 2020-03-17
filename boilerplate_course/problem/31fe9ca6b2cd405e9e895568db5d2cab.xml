@@ -1,0 +1,70 @@
+<problem display_name="Writing Grader" markdown="null">
+  <script type="loncapa/python">
+# The CDATA declaration lets us use less-than signs
+# without edX thinking that we're starting an XML tag.
+import json
+
+def journalingResponseGrader(ans, new_options={"min_length": 10}):
+
+  options = {"min_length": 10}
+  options.update(new_options)
+
+  # Parse the state and obtain the "answer" string from it.
+  parsed = json.loads(ans)
+  answer = json.loads(parsed["answer"])["answer"]
+  length = json.loads(parsed["answer"])["length"]
+
+  # Checking for sufficient length.
+  if length &gt;= options["min_length"]:
+    return {
+      "input_list": [{
+          "ok": True,
+          "msg": "Thank you for your response.",
+          "grade_decimal": 1
+        }]
+    }
+  else:
+    return {
+      "input_list": [{
+          "ok": False,
+          "msg": "Your response is too short. Please try again.",
+          "grade_decimal": 0
+        }]
+    }
+
+def answercheck(e, ans):
+
+  options = {
+    'min_length': 10   # This is the minimum length in characters of the response.
+  }
+
+  return journalingResponseGrader(ans, options)
+
+
+</script>
+  <script type="text/javascript">
+  var hx_editor_saveslot = 'journaling';
+  
+$(document).ready(function(){
+
+  console.log('outer ready');
+  Logger.log({'save_slot': hx_editor_saveslot});
+});
+
+function logThatThing(ThatThing){
+  console.log(JSON.stringify(ThatThing));
+  // Call the edX logging code.
+  Logger.log("harvardx.StudioAdv" + hx_editor_saveslot, ThatThing);
+}
+</script>
+  <p>Press "Submit" to submit your writing for grading.</p>
+  <customresponse cfn="answercheck">
+    <jsinput title="Journaling Exercise" gradefn="journaling.getGrade" get_statefn="journaling.getState" set_statefn="journaling.setState" width="0" height="0" html_file="/static/journaling.html?saveslot=journaling" sop="false"/>
+  </customresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>You can put commentary here if you want, or you can remove this.</p>
+    </div>
+  </solution>
+</problem>

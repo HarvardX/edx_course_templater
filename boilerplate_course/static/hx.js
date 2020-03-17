@@ -102,6 +102,16 @@ var HXGlobalJS = function() {
       speed: 500,
       location: 'bl' // Bottom Left. bl, br, tl, and tr are all ok.
     },
+    // Default options for Summernote toolbar
+    HXEditorOptions: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link']],
+      ['view', ['fullscreen', 'codeview', 'help']]
+    ],
     // No options for chimes right now.
     ChimeOptions: {}
   };
@@ -196,6 +206,15 @@ var HXGlobalJS = function() {
     scriptArray.push('imageMapResizer.min.js');
   }
 
+  // Do we load the Summernote editor?
+  var editors = $('.hx-editor:visible');
+  if (editors.length > 0) {
+    logThatThing({ editor: 'found' });
+    scriptArray.push('summernote-lite.min.js');
+    scriptArray.push('HXEditor.js');
+    var HXED;
+  }
+
   // Do we load HXVideoLinks for... um... HarvardX video links?
   // And HXPopUpProblems for pop-up problems, and Chime for etc.
   // Set hxLocalOptions.dontLoadVideoStuff: true to avoid this,
@@ -215,17 +234,17 @@ var HXGlobalJS = function() {
   // - and, for the chimes, there needs to be that timer.
   var allVideos = $('.video');
   if (loadVideoStuff) {
-    if (allVideos.length) {
+    if (allVideos.length > 0) {
       logThatThing({ video: 'found' });
       scriptArray.push('HXVideoLinks.js');
       var HXVL;
       // Only do pop-up problems if the right timer is in place.
-      if (window.HXPUPTimer.length !== 0) {
+      if (window.HXPUPTimer.length > 0) {
         scriptArray.push('HXPopUpProblems.js');
         var HXPUP;
       }
       // Only do video chimes if the right timer is in place.
-      if (window.HXChimeTimer.length !== 0) {
+      if (window.HXChimeTimer.length > 0) {
         scriptArray.push('HXVideoChime.js');
         var HXVC;
       }
@@ -296,15 +315,40 @@ var HXGlobalJS = function() {
       bakframe.css('display', 'none');
       $('body').append(bakframe);
 
-      // See later for hearBackpackLoad,
-      // the function that listens for the frame to load.
+      // See later for the function that listens for the frame to load.
+    }
+
+    /**************************************/
+    // Load css for the editor and insert a "Loading" note.
+    // Set data-saveslot attrib to select save slot.
+    /**************************************/
+    if (editors.length) {
+      $('head').append(
+        $(
+          '<link rel="stylesheet" href="' +
+            courseAssetURL +
+            'summernote-lite.min.css" type="text/css" />'
+        )
+      );
+      // Insert a loading indicator.
+      let edit_box = $(
+        '<div class="hx-loading-indicator"> Editor loading...</div>'
+      );
+      let spinner = $('<span class="fa fa-spinner fa-pulse"></span>');
+      edit_box.prepend(spinner);
+      editors.append(edit_box);
+      // If the backpack is in place, start the editors.
+      // Otherwise, this will get fired once the backpack loads.
+      if (hxBackpackLoaded && typeof HXED === 'undefined') {
+        HXED = new HXEditor(hxOptions.useBackpack, hxOptions.HXEditorOptions);
+      }
     }
 
     /**************************************/
     // If we have videos, instantiate the functions
     // that handle pop-up links and problems.
     /**************************************/
-    if (allVideos.length && loadVideoStuff) {
+    if (allVideos.length > 0 && loadVideoStuff) {
       $('head').append(
         $(
           '<link rel="stylesheet" href="' +
@@ -1170,28 +1214,40 @@ var HXGlobalJS = function() {
   // Learner Backpack utility function!
   // Did the backpack load properly? Listen for the load event.
   // Verify origin and publish functions.
-  function hearBackpackLoad(e) {
-    // Only accept from Qualtrics.
-    if (
-      e.origin !== 'https://courses.edx.org' &&
-      e.origin !== 'https://edge.edx.org'
-    ) {
-      return;
-    }
+  $(window)
+    .off('message.hx')
+    .on('message.hx', function(e) {
+      var data = e.originalEvent.data;
 
-    // Only accept objects with the right form.
-    if (typeof e.data === 'string') {
-      if (e.data === 'ready') {
-        console.log('Backpack ready.');
-        let iframe_window = $('#hxbackpackframe')[0].contentWindow;
-        window.hxSetData = iframe_window.hxSetData;
-        window.hxClearData = iframe_window.hxSetData;
-        window.hxGetData = iframe_window.hxGetData;
-        window.hxGetAllData = iframe_window.hxGetAllData;
+      // Only accept from same origin. Won't work in Studio.
+      if (e.originalEvent.origin !== location.origin) {
+        return;
       }
-    }
-  }
-  addEventListener('message', hearBackpackLoad, false);
+
+      // Only accept objects with the right form.
+      if (typeof data === 'string') {
+        if (data === 'backpack_ready') {
+          console.log('Backpack ready.');
+          let iframe_window = $('#hxbackpackframe')[0].contentWindow;
+          window.hxSetData = iframe_window.hxSetData;
+          window.hxClearData = iframe_window.hxSetData;
+          window.hxGetData = iframe_window.hxGetData;
+          window.hxGetAllData = iframe_window.hxGetAllData;
+          window.hxBackpackLoaded = iframe_window.hxBackpackLoaded;
+          // If we're using editors on this page, load them.
+          if (
+            hxOptions.useBackpack &&
+            editors.length > 0 &&
+            typeof HXED === 'undefined'
+          ) {
+            HXED = new HXEditor(
+              hxOptions.useBackpack,
+              hxOptions.HXEditorOptions
+            );
+          }
+        }
+      }
+    });
 
   // Converts hh:mm:ss to a number of seconds for time-based problems.
   // If it's passed a number, it just spits that back out as seconds.
@@ -1287,6 +1343,7 @@ var HXGlobalJS = function() {
   window.isExternalLink = isExternalLink;
   window.popDataMap = popDataMap;
   window.jumpToTime = jumpToTime;
+  window.hxBackpackLoaded = $('#hxbackpackframe').length > 0; // Gets set when backpack loads.
 };
 
 $(document).ready(function() {
