@@ -48,7 +48,7 @@
         ]
     },
     "HXEditor.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -65,7 +65,7 @@
         "thumbnail_location": null
     },
     "HXPopUpProblems.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -82,7 +82,7 @@
         "thumbnail_location": null
     },
     "HXVideoChime.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -99,7 +99,7 @@
         "thumbnail_location": null
     },
     "HXVideoLinks.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -511,7 +511,7 @@
         "thumbnail_location": null
     },
     "hx.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -528,7 +528,7 @@
         "thumbnail_location": null
     },
     "hxGlobalOptions.js": {
-        "contentType": "application/javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -540,7 +540,7 @@
         },
         "displayname": "hxGlobalOptions.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hxGlobalOptions.js",
-        "import_path": "hxGlobalOptions.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -569,7 +569,7 @@
         ]
     },
     "imageMapResizer.min.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -586,7 +586,7 @@
         "thumbnail_location": null
     },
     "intro_accessible.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -712,7 +712,7 @@
         "thumbnail_location": null
     },
     "prism.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -845,7 +845,7 @@
         "thumbnail_location": null
     },
     "slick.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -903,7 +903,7 @@
         "thumbnail_location": null
     },
     "slick.woff": {
-        "contentType": "application/octet-stream",
+        "contentType": "application/font-woff",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -937,7 +937,7 @@
         "thumbnail_location": null
     },
     "summernote-lite.min.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "text/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -988,7 +988,7 @@
         "thumbnail_location": null
     },
     "summernote.woff": {
-        "contentType": "application/octet-stream",
+        "contentType": "application/font-woff",
         "content_son": {
             "category": "asset",
             "course": "HX102",

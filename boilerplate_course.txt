@@ -4,13 +4,6 @@
 ./video/ae4e919f58414daaa8b0b37a68574d8d.xml
 ./video/cea0b870293e4e18bff77488ea95ce97.xml
 ./course/3T2018.xml
-./drafts/problem/5fda2db3a6f145f6b11930e8f479bbc7.xml
-./drafts/problem/3b1ab1bee76b471ab65619d05735fbb4.xml
-./drafts/html/f8cae38940bc4df3b7a82df67aeec3cd.html
-./drafts/html/f8cae38940bc4df3b7a82df67aeec3cd.xml
-./drafts/html/ee37f06bab5d4ef3a676f6788bdb412c.xml
-./drafts/html/ee37f06bab5d4ef3a676f6788bdb412c.html
-./drafts/vertical/8e4af5759ec54ba186080d0950cbf501.xml
 ./sequential/4c3256728d004f519ea6c0ded151ab6f.xml
 ./sequential/1381e42de1b242a792af3b814e60c700.xml
 ./sequential/e2861d0cf83344bbacfb7db8775f5a03.xml

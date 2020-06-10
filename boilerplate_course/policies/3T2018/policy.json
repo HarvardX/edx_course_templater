@@ -13,6 +13,7 @@
             "done"
         ],
         "cert_html_view_enabled": true,
+        "days_early_for_beta": 100.0,
         "discussion_topics": {
             "General": {
                 "id": "course"
