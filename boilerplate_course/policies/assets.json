@@ -511,7 +511,7 @@
         "thumbnail_location": null
     },
     "hx.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -741,7 +741,7 @@
         },
         "displayname": "python_lib.zip",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@python_lib.zip",
-        "import_path": "python_lib.zip",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
