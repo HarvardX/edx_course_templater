@@ -65,6 +65,12 @@
                 "name": "Related Courses",
                 "type": "static_tab",
                 "url_slug": "0e5d0f8c7be1458d9c95176afadd2807"
+            },
+            {
+                "course_staff_only": false,
+                "name": "FAQ",
+                "type": "static_tab",
+                "url_slug": "a4e2f7762c34432997c0a303daab50b3"
             }
         ],
         "xml_attributes": {

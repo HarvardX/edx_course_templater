@@ -17,7 +17,7 @@ def answercheck(e, ans):
 </script>
   <script type="text/javascript">
 $(document).ready(function(){
-  console.log('outer ready');
+  console.log('writing outer ready');
 });
 
 function logThatThing(ThatThing){
@@ -28,7 +28,7 @@ function logThatThing(ThatThing){
 </script>
   <p>Press "Submit" to submit your writing for grading.</p>
   <customresponse cfn="answercheck">
-    <jsinput title="Journaling Exercise" gradefn="journaling.getGrade" get_statefn="journaling.getState" set_statefn="journaling.setState" width="0" height="0" html_file="/static/journaling.html?saveslot=Second_Draft" sop="false"/>
+    <jsinput title="Journaling Exercise" gradefn="journaling.getGrade" get_statefn="journaling.getState" set_statefn="journaling.setState" width="10" height="10" html_file="/static/journaling.html?saveslot=Second_Draft" sop="false"/>
   </customresponse>
   <solution>
     <div class="detailed-solution">
