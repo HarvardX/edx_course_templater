@@ -7,9 +7,11 @@ As per usual, these will overwrite your existing course, so don't import them on
 All of this runs client-side. No server is needed.
 
 Pro Notes:
-* Ready for use in production. Version 1.0.0
-* We're using [TarballJS](https://github.com/ankitrohatgi/tarballjs) to make tar files, and [vkbeautify](https://github.com/vkiryukhin/vkBeautify) to pretty-print. Both are MIT-licensed. Snapshots of them are included in this repo.
-* You can point this at your own boilerplate course if you want. You'll need an index file. Download and unzip your course, and run `find path/to/folder -type f > course_structure.txt` to create a flat file that describes the course structure. Here's [our boilerplate structure](https://github.com/HarvardX/edx_course_templater/blob/master/boilerplate_course.txt) if you want an example of what yours should look like.
+
+- Ready for use in production. Version 1.0.0
+- We're using [TarballJS](https://github.com/ankitrohatgi/tarballjs) to make tar files, and [vkbeautify](https://github.com/vkiryukhin/vkBeautify) to pretty-print. Both are MIT-licensed. Snapshots of them are included in this repo.
+- You can point this at your own boilerplate course if you want. You'll need an index file. Download and unzip your course, and run `find path/to/folder -type f > course_structure.txt` to create a flat file that describes the course structure. Here's [our boilerplate structure](https://github.com/HarvardX/edx_course_templater/blob/master/boilerplate_course.txt) if you want an example of what yours should look like.
 
 Written by Colin Fredericks for HarvardX.
-Last update: November 20th, 2019.
+Last code update: November 20th, 2019.
+Last update to boilerplate course: January 4th, 2021
