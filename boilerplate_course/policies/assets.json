@@ -619,6 +619,40 @@
         "locked": false,
         "thumbnail_location": null
     },
+    "journaling.html": {
+        "contentType": "text/html",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "journaling.html",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "journaling.html",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@journaling.html",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "journaling.js": {
+        "contentType": "text/javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "journaling.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "journaling.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@journaling.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
     "jschannel.js": {
         "contentType": "application/javascript",
         "content_son": {

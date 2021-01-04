@@ -17,7 +17,7 @@ def answercheck(e, ans):
 </script>
   <script type="text/javascript">
 $(document).ready(function(){
-	console.log('outer ready');
+	console.log('textbox outer ready');
 });
 function logThatThing(ThatThing){
 	console.log(JSON.stringify(ThatThing));
