@@ -48,7 +48,7 @@
         ]
     },
     "HXEditor.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
