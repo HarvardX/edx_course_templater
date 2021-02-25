@@ -705,9 +705,8 @@ span#hx-playpauseword {
   margin: 2px;
 }
 
-/* Hide the default text in the LMS. */
-.vert .xblock .hx-editor-default {
-  display: none;
+.note-editable {
+  height: 5em;
 }
 
 /************** End Editor Block *******************/
