@@ -1,8 +1,8 @@
 body{
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
-h1, h2, h3{
-    margin:12px 0px 12px 0px;
+h2, h3{
+    margin:16px 0px 4px 0px;
 }
 h4{
     margin: 2px;
@@ -49,4 +49,8 @@ h4{
 
 .sectionrename input{
     width: 7em;
+}
+
+.custom_repo{
+  display: none;
 }
