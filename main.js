@@ -74,6 +74,7 @@ $(document).ready(function() {
     $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
   });
 
+  // Dropdown for choosing use case: hx, blank course, or custom repo
   $('#user').on('input', function(e) {
     if (e.target.value === 'blank') {
       $('#sourcerepo').val('').val('');
