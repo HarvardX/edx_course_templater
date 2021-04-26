@@ -65,7 +65,7 @@
         "thumbnail_location": null
     },
     "HXPopUpProblems.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -490,6 +490,40 @@
         "displayname": "guesser.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@guesser.js",
         "import_path": "guesser.js",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "hx-min.css": {
+        "contentType": "text/css",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "hx-min.css",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "hx-min.css",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx-min.css",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "hx-min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "hx-min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "hx-min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx-min.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
