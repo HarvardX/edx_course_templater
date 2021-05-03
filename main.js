@@ -77,8 +77,8 @@ $(document).ready(function() {
   // Dropdown for choosing use case: hx, blank course, or custom repo
   $('#user').on('input', function(e) {
     if (e.target.value === 'blank') {
-      $('#sourcerepo').val('').val('');
-      $('#sourcefile').val('').val('');
+      $('#sourcerepo').val('');
+      $('#sourcefile').val('');
       $('.custom_repo').hide();
     } else if (e.target.value === 'harvardx') {
       $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
@@ -91,7 +91,7 @@ $(document).ready(function() {
       $('#sourcefile').val('');
       $('.custom_repo').show();
     }
-    $('name_and_number').attr('disabled', false);
+    $('#name_and_number input').attr('disabled', false);
   });
 });
 
