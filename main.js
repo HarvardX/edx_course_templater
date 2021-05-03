@@ -90,6 +90,8 @@ $(document).ready(function() {
       $('.custom_repo').hide();
     } else if (e.target.value === 'custom') {
       $('.custom_repo').show();
+      $('#sourcerepo').val('https://raw.githubusercontent.com/((Organization/Repo/master))');
+      $('#sourcefile').val('course_file.txt');
     }
     $('#name_and_number input').attr('disabled', false);
     $('#filename').attr('disabled', false);
