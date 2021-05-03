@@ -69,26 +69,33 @@ $(document).ready(function() {
     });
   });
 
-  // Update the output filename when the number and run change
+  // Update the output filename when the number, run, or user changes
   $('#coursenum,#courserun').on('input', function(e) {
     $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
   });
 
   // Dropdown for choosing use case: hx, blank course, or custom repo
   $('#user').on('input', function(e) {
+    $('#courseorg').val('UniversityX');
+    $('#coursenum').val('UX101');
+    $('#sourcerepo').val('');
+    $('#sourcefile').val('');
     if (e.target.value === 'blank') {
-      $('#sourcerepo').val('').val('');
-      $('#sourcefile').val('').val('');
       $('.custom_repo').hide();
     } else if (e.target.value === 'harvardx') {
+      $('#courseorg').val('HarvardX');
+      $('#coursenum').val('HX101');
       $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
       $('#sourcefile').val('harvard_boilerplate_course.txt');
       $('.custom_repo').hide();
     } else if (e.target.value === 'custom') {
-      $('#sourcerepo').val('');
-      $('#sourcefile').val('');
       $('.custom_repo').show();
+      $('#sourcerepo').val('https://raw.githubusercontent.com/((Organization/Repo/master))');
+      $('#sourcefile').val('course_file.txt');
     }
+    $('#name_and_number input').attr('disabled', false);
+    $('#filename').attr('disabled', false);
+    $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
   });
 });
 
@@ -99,7 +106,7 @@ function makeHTMLFilePair(filename) {
       path: 'html/' + filename,
       text: '<html display_name="Text/HTML" filename="' +
         filename.slice(0, -4) +
-        '" />'
+        '" editor="raw" />'
     },
     {
       path: 'html/' + filename.slice(0, -3) + 'html',
@@ -449,14 +456,14 @@ function constructCourseTemplate() {
 
   // Add HX-JS to first HTML component on every page.
   if (use_hxjs) {
+    let hxjscode =
+      '<script src="/static/hx.js" type="text/javascript"></script>\n' +
+      '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+
     if($('#user').val() === 'harvardx'){
-      let hxjscode =
+      hxjscode =
         '<script src="https://stage.static.vpal.harvard.edu/cdn/universal/hx.js" type="text/javascript"></script>\n' +
         '<link rel="stylesheet" type="text/css" href="https://stage.static.vpal.harvard.edu/cdn/universal/hx.css" />';
-    }else{
-      let hxjscode =
-        '<script src="/static/hx.js" type="text/javascript"></script>\n' +
-        '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
     }
 
     // Get the locations of all the first HTML elements
@@ -773,7 +780,7 @@ async function makeDownload() {
           if (!result) {
             console.log('No flat file found. Using default blank course.');
             result =
-              './course/2016.xml\n./.DS_Store\n./blank_course.txt\n./about/.DS_Store\n./about/overview.html\n./policies/2016/policy.json\n./policies/2016/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./static/.DS_Store\n./assets/assets.xml\n';
+              './course/2022.xml\n./about/overview.html\n./policies/2022/policy.json\n./policies/2022/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./assets/assets.xml\n';
           }
 
           // console.log('course structure:');
