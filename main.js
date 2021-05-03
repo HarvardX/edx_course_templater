@@ -76,19 +76,19 @@ $(document).ready(function() {
 
   // Dropdown for choosing use case: hx, blank course, or custom repo
   $('#user').on('input', function(e) {
+    $('#courseorg').val('UniversityX');
+    $('#coursenum').val('UX101');
+    $('#sourcerepo').val('');
+    $('#sourcefile').val('');
     if (e.target.value === 'blank') {
-      $('#sourcerepo').val('');
-      $('#sourcefile').val('');
       $('.custom_repo').hide();
     } else if (e.target.value === 'harvardx') {
-      $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
-      $('#sourcefile').val('harvard_boilerplate_course.txt');
       $('#courseorg').val('HarvardX');
       $('#coursenum').val('HX101');
+      $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
+      $('#sourcefile').val('harvard_boilerplate_course.txt');
       $('.custom_repo').hide();
     } else if (e.target.value === 'custom') {
-      $('#sourcerepo').val('');
-      $('#sourcefile').val('');
       $('.custom_repo').show();
     }
     $('#name_and_number input').attr('disabled', false);
