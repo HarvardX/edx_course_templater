@@ -104,7 +104,7 @@ function makeHTMLFilePair(filename) {
       path: 'html/' + filename,
       text: '<html display_name="Text/HTML" filename="' +
         filename.slice(0, -4) +
-        '" />'
+        '" editor="raw" />'
     },
     {
       path: 'html/' + filename.slice(0, -3) + 'html',
