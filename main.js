@@ -70,7 +70,7 @@ $(document).ready(function() {
   });
 
   // Update the output filename when the number, run, or user changes
-  $('#coursenum,#courserun,#user').on('input', function(e) {
+  $('#coursenum,#courserun').on('input', function(e) {
     $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
   });
 
@@ -93,6 +93,7 @@ $(document).ready(function() {
     }
     $('#name_and_number input').attr('disabled', false);
     $('#filename').attr('disabled', false);
+    $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
   });
 });
 
