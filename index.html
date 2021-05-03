@@ -42,8 +42,6 @@
     <div class="container">
       <div>
         <!-- <h2>Defaults</h2> -->
-        <label for="filename">Output filename</label>
-        <input type="text" name="name" value="" id="filename" /><br />
         <label for="user">Use which defaults?</label>
         <select name="user" value="nochoice" id="user" required>
           <option value="nochoice" disabled selected></option>
@@ -57,6 +55,8 @@
           <label for="sourcefile">Boilerplate source file</label>
           <input type="text" name="sourcefile" value="" id="sourcefile" /><br />
         </div>
+        <label for="filename">Output filename</label>
+        <input type="text" name="name" value="" id="filename" disabled /><br />
       </div>
       <div id="name_and_number">
         <label for="coursename">Course Name:</label>
