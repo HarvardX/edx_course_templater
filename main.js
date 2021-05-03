@@ -63,21 +63,41 @@ $(document).ready(function() {
     $('#' + t + 'name').on('input', function() {
       $('.' + t + 'text').text(
         $(this)
-          .val()
-          .toLowerCase()
+        .val()
+        .toLowerCase()
       );
     });
+  });
+
+  // Update the output filename when the number and run change
+  $('#coursenum,#courserun').on('input', function(e) {
+    $('#filename').val($('#coursenum').val() + '_' + $('#courserun').val() + '.tar.gz');
+  });
+
+  // Dropdown for choosing use case: hx, blank course, or custom repo
+  $('#user').on('input', function(e) {
+    if (e.target.value === 'blank') {
+      $('#sourcerepo').val('').val('');
+      $('#sourcefile').val('').val('');
+      $('.custom_repo').hide();
+    } else if (e.target.value === 'harvardx') {
+      $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
+      $('#sourcefile').val('harvard_boilerplate_course.txt');
+      $('.custom_repo').hide();
+    } else if (e.target.value === 'custom') {
+      $('#sourcerepo').val('');
+      $('#sourcefile').val('');
+      $('.custom_repo').show();
+    }
   });
 });
 
 // Makes the pair of files you need for HTML in edX.
 // The "filename" here should have .xml at the end.
 function makeHTMLFilePair(filename) {
-  return [
-    {
+  return [{
       path: 'html/' + filename,
-      text:
-        '<html display_name="Text/HTML" filename="' +
+      text: '<html display_name="Text/HTML" filename="' +
         filename.slice(0, -4) +
         '" />'
     },
@@ -105,7 +125,10 @@ function makeContentPageTags(name, tag, num_elem) {
       });
     }
   }
-  return { array: temp, innards: innards };
+  return {
+    array: temp,
+    innards: innards
+  };
 }
 
 // Make the core of a subsection
@@ -180,8 +203,7 @@ function makeSequentialCore(
     let vert_file = c_name + '.xml';
     temp.push({
       path: 'vertical/' + vert_file,
-      text:
-        '<vertical display_name="' +
+      text: '<vertical display_name="' +
         u_name +
         ' ' +
         (p + 1) +
@@ -192,7 +214,10 @@ function makeSequentialCore(
     innards += '  <vertical url_name="' + vert_file.slice(0, -4) + '" />\n';
   }
 
-  return { array: temp, innards: innards };
+  return {
+    array: temp,
+    innards: innards
+  };
 }
 
 // This builds the user-defined part of the course, without the boilerplate.
@@ -257,8 +282,7 @@ function constructCourseTemplate() {
       let seq_file = 's_' + (s + 1) + '_ss_head.xml';
       template.push({
         path: 'sequential/' + seq_file,
-        text:
-          '<sequential display_name="Intro ' +
+        text: '<sequential display_name="Intro ' +
           ss_name +
           '">\n' +
           sequential_innards +
@@ -287,8 +311,7 @@ function constructCourseTemplate() {
 
         template.push({
           path: 'vertical/' + h_name + '.xml',
-          text:
-            '<vertical display_name="' +
+          text: '<vertical display_name="' +
             u_name +
             ' ' +
             (ss + 1) +
@@ -327,8 +350,7 @@ function constructCourseTemplate() {
 
         template.push({
           path: 'vertical/' + f_name + '.xml',
-          text:
-            '<vertical display_name="' +
+          text: '<vertical display_name="' +
             u_name +
             ' ' +
             (ss + 1) +
@@ -343,8 +365,7 @@ function constructCourseTemplate() {
       let seq_file = 's_' + (s + 1) + '_ss_' + (ss + 1) + '.xml';
       template.push({
         path: 'sequential/' + seq_file,
-        text:
-          '<sequential display_name="' +
+        text: '<sequential display_name="' +
           ss_name +
           ' ' +
           (ss + 1) +
@@ -382,8 +403,7 @@ function constructCourseTemplate() {
       let seq_file = 's_' + (s + 1) + '_ss_foot.xml';
       template.push({
         path: 'sequential/' + seq_file,
-        text:
-          '<sequential display_name="Outro ' +
+        text: '<sequential display_name="Outro ' +
           ss_name +
           '">\n' +
           sequential_innards +
@@ -396,8 +416,7 @@ function constructCourseTemplate() {
     // add chapter tag to template
     template.push({
       path: 'chapter/s_' + (s + 1) + '.xml',
-      text:
-        '<chapter display_name="' +
+      text: '<chapter display_name="' +
         s_name +
         ' ' +
         (s + 1) +
@@ -423,16 +442,22 @@ function constructCourseTemplate() {
       let n = k.split('_').slice(-1)[0]; // If it has course_ in front, take that out.
       template.push({
         path: 'tabs/' + k,
-        text:
-          '<h3>' + n.charAt(0).toUpperCase() + n.slice(1) + ' placeholder</h3>'
+        text: '<h3>' + n.charAt(0).toUpperCase() + n.slice(1) + ' placeholder</h3>'
       });
     }
   });
 
   // Add HX-JS to first HTML component on every page.
   if (use_hxjs) {
-    let hxjscode =
-      '<script src="/static/hx.js"></script>\n<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+    if($('#user').val() === 'harvardx'){
+      let hxjscode =
+        '<script src="https://stage.static.vpal.harvard.edu/cdn/universal/hx.js" type="text/javascript"></script>\n' +
+        '<link rel="stylesheet" type="text/css" href="https://stage.static.vpal.harvard.edu/cdn/universal/hx.css" />';
+    }else{
+      let hxjscode =
+        '<script src="/static/hx.js" type="text/javascript"></script>\n' +
+        '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+    }
 
     // Get the locations of all the first HTML elements
     let all_verticals = template.filter(e => e.path.startsWith('vertical'));
@@ -458,7 +483,10 @@ function constructCourseTemplate() {
     });
   }
 
-  return { template: template, policies: policies };
+  return {
+    template: template,
+    policies: policies
+  };
 }
 
 // Reads files from the boilerplate course and returns the raw text.
@@ -662,12 +690,12 @@ async function makeTarFromFlatFile(
             tar.addTextFile(
               'course.xml',
               '<course url_name="' +
-                new_course_info.run +
-                '" org="' +
-                new_course_info.org +
-                '" course="' +
-                new_course_info.number +
-                '"/>'
+              new_course_info.run +
+              '" org="' +
+              new_course_info.org +
+              '" course="' +
+              new_course_info.number +
+              '"/>'
             );
             filecounter = incrementAndCheckStatus(filecounter);
           } else if (
