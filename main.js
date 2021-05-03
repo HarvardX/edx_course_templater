@@ -83,12 +83,15 @@ $(document).ready(function() {
     } else if (e.target.value === 'harvardx') {
       $('#sourcerepo').val('https://harvardx.github.io/edx_course_templater/');
       $('#sourcefile').val('harvard_boilerplate_course.txt');
+      $('#courseorg').val('HarvardX');
+      $('#coursenum').val('HX101');
       $('.custom_repo').hide();
     } else if (e.target.value === 'custom') {
       $('#sourcerepo').val('');
       $('#sourcefile').val('');
       $('.custom_repo').show();
     }
+    $('name_and_number').attr('disabled', false);
   });
 });
 
@@ -449,14 +452,14 @@ function constructCourseTemplate() {
 
   // Add HX-JS to first HTML component on every page.
   if (use_hxjs) {
+    let hxjscode =
+      '<script src="/static/hx.js" type="text/javascript"></script>\n' +
+      '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
+
     if($('#user').val() === 'harvardx'){
-      let hxjscode =
+      hxjscode =
         '<script src="https://stage.static.vpal.harvard.edu/cdn/universal/hx.js" type="text/javascript"></script>\n' +
         '<link rel="stylesheet" type="text/css" href="https://stage.static.vpal.harvard.edu/cdn/universal/hx.css" />';
-    }else{
-      let hxjscode =
-        '<script src="/static/hx.js" type="text/javascript"></script>\n' +
-        '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
     }
 
     // Get the locations of all the first HTML elements
@@ -773,7 +776,7 @@ async function makeDownload() {
           if (!result) {
             console.log('No flat file found. Using default blank course.');
             result =
-              './course/2016.xml\n./.DS_Store\n./blank_course.txt\n./about/.DS_Store\n./about/overview.html\n./policies/2016/policy.json\n./policies/2016/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./static/.DS_Store\n./assets/assets.xml\n';
+              './course/2022.xml\n./about/overview.html\n./policies/2022/policy.json\n./policies/2022/grading_policy.json\n./policies/assets.json\n./info/updates.items.json\n./info/handouts.html\n./info/updates.html\n./course.xml\n./assets/assets.xml\n';
           }
 
           // console.log('course structure:');
