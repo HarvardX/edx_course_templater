@@ -5,7 +5,6 @@
 ./video/ae4e919f58414daaa8b0b37a68574d8d.xml
 ./video/cea0b870293e4e18bff77488ea95ce97.xml
 ./course/3T2018.xml
-./.DS_Store
 ./sequential/4c3256728d004f519ea6c0ded151ab6f.xml
 ./sequential/1381e42de1b242a792af3b814e60c700.xml
 ./sequential/e2861d0cf83344bbacfb7db8775f5a03.xml
@@ -41,7 +40,6 @@
 ./problem/dff6b518d24645338c88ec91d589badd.xml
 ./problem/ffa716a3e6ba49f5be0e97b71b077af1.xml
 ./problem/6296603437724e59acab43e48bbfb23c.xml
-./course_structure.txt
 ./html/0d187cfcbd264691bbb91a27c8c6452f.xml
 ./html/914a5a71a4ba470e87b264d597db466e.xml
 ./html/f8cae38940bc4df3b7a82df67aeec3cd.html
