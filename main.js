@@ -460,12 +460,6 @@ function constructCourseTemplate() {
       '<script src="/static/hx.js" type="text/javascript"></script>\n' +
       '<link rel="stylesheet" type="text/css" href="/static/hx.css">';
 
-    if($('#user').val() === 'harvardx'){
-      hxjscode =
-        '<script src="https://stage.static.vpal.harvard.edu/cdn/universal/hx.js" type="text/javascript"></script>\n' +
-        '<link rel="stylesheet" type="text/css" href="https://stage.static.vpal.harvard.edu/cdn/universal/hx.css" />';
-    }
-
     // Get the locations of all the first HTML elements
     let all_verticals = template.filter(e => e.path.startsWith('vertical'));
     let expanded_tags = all_verticals.map(v => v.text.split('\n'));

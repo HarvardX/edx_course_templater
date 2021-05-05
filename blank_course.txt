@@ -1,6 +1,4 @@
 ./course/2022.xml
-./.DS_Store
-./course_structure.txt
 ./about/.DS_Store
 ./about/overview.html
 ./policies/2022/policy.json
