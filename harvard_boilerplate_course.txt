@@ -1,6 +1,6 @@
-./tabs/0e5d0f8c7be1458d9c95176afadd2807.html
-./tabs/6cb10b8ef27e486e89f823d877e13240.html
-./tabs/a4e2f7762c34432997c0a303daab50b3.html
+./tabs/faq.html
+./tabs/syllabus.html
+./tabs/related_courses.html
 ./video/ceddadad13e34f31a6af5c0b91f0d2f1.xml
 ./video/ae4e919f58414daaa8b0b37a68574d8d.xml
 ./video/cea0b870293e4e18bff77488ea95ce97.xml
