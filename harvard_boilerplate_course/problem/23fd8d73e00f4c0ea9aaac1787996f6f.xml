@@ -1,0 +1,21 @@
+<problem display_name="Checkboxes" markdown="null" weight="0.0">
+  <p>This a checkbox problem, also known as a "check all that apply" problem. You will choose ALL of the correct responses, receiving full credit only if you select all of them and none of the incorrect answers.</p>
+  <p>This problem also allows for partial credit! It uses a scheme called "Every Decision Counts," which is the standard scheme in this course. Each choice is worth an equal amount of the total credit (20% in this case). Try answering the question different ways to see how partial credit works!</p>
+  <choiceresponse partial_credit="edc">
+    <label>Which of the following are vowels?</label>
+    <description>Select all that apply.</description>
+    <checkboxgroup label="Which of the following are vowels? Select all that apply.">
+      <choice correct="true">A</choice>
+      <choice correct="false">B</choice>
+      <choice correct="false">C</choice>
+      <choice correct="false">D</choice>
+      <choice correct="true">E</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>A, E, I, O, and U are vowels in English. Y is sometimes a vowel.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,22 @@
+<problem display_name="Multiple Choice" markdown="This a multiple-choice problem. You will choose just one response, receiving credit for the right answer.&#10;&#10;&gt;&gt;Select a vowel from the list below.&lt;&lt;&#10;     (x) A&#10;     ( ) B&#10;     ( ) C&#10;     ( ) D&#10;     (x) E&#10;&#10;|| There are two correct answers. ||&#10;&#10;[explanation]&#10;A, E, I, O, and U are vowels in English. Y is sometimes a vowel.&#10;[explanation]&#10;" weight="0.0">
+  <multiplechoiceresponse>
+    <p>This a multiple-choice problem. You will choose just one response, receiving credit for the right answer.</p>
+    <label>Select a vowel from the list below.</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="true">A</choice>
+      <choice correct="false">B</choice>
+      <choice correct="false">C</choice>
+      <choice correct="false">D</choice>
+      <choice correct="true">E</choice>
+    </choicegroup>
+    <solution>
+      <div class="detailed-solution">
+        <p>Explanation</p>
+        <p>A, E, I, O, and U are vowels in English. Y is sometimes a vowel.</p>
+      </div>
+    </solution>
+  </multiplechoiceresponse>
+  <demandhint>
+    <hint>There are two correct answers.</hint>
+  </demandhint>
+</problem>

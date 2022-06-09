@@ -1,0 +1,31 @@
+<problem display_name="Random Blocks of Text" markdown="null" rerandomize="onreset" show_reset_button="true">
+  <script type="loncapa/python">
+
+randomText = random.randrange(1,4,1)
+if randomText == 1:
+  insertText = "&lt;i&gt;Reputation is an idle and most false imposition; oft got without merit and lost without deserving.&lt;/i&gt;"
+  author = "Shakespeare"
+  source = "Othello"
+elif randomText == 2:
+  insertText = "&lt;i&gt;Nothing doth more hurt in a state than that cunning men pass for wise.&lt;/i&gt;"
+  author = "Francis Bacon"
+  source = "Essays (1625)"
+elif randomText == 3:
+  insertText = "&lt;i&gt;The souls of your friends you and I will claim. You've got the body, and I've got the brain.&lt;/i&gt;"
+  author = "DJ Jazzy Jeff"
+  source = "Nightmare on My Street"
+
+</script>
+  <p>This problem uses randomly selected blocks of text. This time we have:</p>
+  <p>$insertText</p>
+  <p>To whom is this phrase attributed?</p>
+  <optionresponse>
+    <optioninput options="('Shakespeare','Francis Bacon','DJ Jazzy Jeff')" correct="$author"/>
+  </optionresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Dude, just Google it. It's totally $author from $source.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,18 @@
+<problem display_name="Collaboration" group_access="{&quot;51&quot;: [1, 2]}" markdown="&gt;&gt;Which of the following are acceptable ways to collaborate?||Select all that apply.&lt;&lt; &#10;[x] Working jointly to develop an overall approach to an assignment &#10;[ ] Taking someone else’s formulas and plugging in your numbers to get the final answer&#10;[ ] Posting answers to a problem before the deadline&#10;[x] Getting hints from peers or course staff if you’re stuck&#10;&#10;[explanation]&#10;Please see the Collaboration Guidelines in the Syllabus for more information.&#10;[explanation]&#10;">
+  <choiceresponse>
+    <label>Which of the following are acceptable ways to collaborate?</label>
+    <description>Select all that apply.</description>
+    <checkboxgroup>
+      <choice correct="true">Working jointly to develop an overall approach to an assignment </choice>
+      <choice correct="false">Taking someone else’s formulas and plugging in your numbers to get the final answer</choice>
+      <choice correct="false">Posting answers to a problem before the deadline</choice>
+      <choice correct="true">Getting hints from peers or course staff if you’re stuck</choice>
+    </checkboxgroup>
+    <solution>
+      <div class="detailed-solution">
+        <p>Explanation</p>
+        <p>Please see the Collaboration Guidelines in the Syllabus for more information.</p>
+      </div>
+    </solution>
+  </choiceresponse>
+</problem>

@@ -1,0 +1,61 @@
+body {
+	font-family: 'Open Sans', Verdana, Geneva, sans-serif, sans-serif;
+}
+
+.sr {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+#boundingbox {
+	margin-left: 5px;
+	width: 740px;
+}
+
+#spacer {
+	clear: both;
+	height: 16px;
+}
+
+#errors {
+	color: #A60;
+}
+
+#rangelabel {
+	position: relative;
+}
+
+#location1 {
+	position: absolute;
+	left: -5px;
+}
+#location2 {
+	position: absolute;
+	left: 180px;
+}
+#location3 {
+	position: absolute;
+	left: 360px;
+}
+#location4 {
+	position: absolute;
+	left: 540px;
+}
+#location5 {
+	position: absolute;
+	left: 720px;
+}

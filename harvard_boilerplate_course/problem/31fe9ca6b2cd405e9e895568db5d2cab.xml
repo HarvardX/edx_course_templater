@@ -1,0 +1,39 @@
+<problem display_name="Writing Grader" markdown="null">
+  <script type="loncapa/python">
+# The CDATA declaration lets us use less-than signs
+# without edX thinking that we're starting an XML tag.
+import json
+from python_lib import HXGraders
+
+def answercheck(e, ans):
+
+  options = {
+    'min_length': 10   # This is the minimum length in characters of the response.
+  }
+
+  return HXGraders.journalingResponseGrader(ans, options)
+
+
+</script>
+  <script type="text/javascript">
+$(document).ready(function(){
+  console.log('writing outer ready');
+});
+
+function logThatThing(ThatThing){
+  console.log(JSON.stringify(ThatThing));
+  // Call the edX logging code.
+  Logger.log("harvardx.StudioAdv.journaling", ThatThing);
+}
+</script>
+  <p>Press "Submit" to submit your writing for grading.</p>
+  <customresponse cfn="answercheck">
+    <jsinput title="Journaling Exercise" gradefn="journaling.getGrade" get_statefn="journaling.getState" set_statefn="journaling.setState" width="10" height="10" html_file="/static/journaling.html?saveslot=Second_Draft" sop="false"/>
+  </customresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>You can put commentary here if you want, or you can remove this.</p>
+    </div>
+  </solution>
+</problem>
