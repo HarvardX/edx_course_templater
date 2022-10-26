@@ -1296,7 +1296,7 @@
         },
         "displayname": "verified_lock_icon_example.png",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@verified_lock_icon_example.png",
-        "import_path": "verified_lock_icon_example.png",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": [
             "c4x",
