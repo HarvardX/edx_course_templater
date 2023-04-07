@@ -23,6 +23,30 @@
             null
         ]
     },
+    "Dizzy.jpg": {
+        "contentType": "image/jpeg",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "Dizzy.jpg",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "Dizzy.jpg",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@Dizzy.jpg",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "HarvardX",
+            "HX102",
+            "thumbnail",
+            "Dizzy.jpg",
+            null
+        ]
+    },
     "EdX_Logo-1.PNG": {
         "contentType": "image/png",
         "content_son": {
@@ -152,12 +176,12 @@
         },
         "displayname": "MatchingA.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA.css",
-        "import_path": "MatchingA.css",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
     "MatchingA.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -169,7 +193,7 @@
         },
         "displayname": "MatchingA.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA.js",
-        "import_path": "MatchingA.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -190,6 +214,23 @@
         "locked": false,
         "thumbnail_location": null
     },
+    "MatchingA_Elements_dinosaurs.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "MatchingA_Elements_dinosaurs.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "MatchingA_Elements_dinosaurs.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_Elements_dinosaurs.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
     "MatchingA_Zoo.html": {
         "contentType": "text/html",
         "content_son": {
@@ -204,6 +245,23 @@
         "displayname": "MatchingA_Zoo.html",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_Zoo.html",
         "import_path": "MatchingA_Zoo.html",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "MatchingA_dinosaurs.html": {
+        "contentType": "text/html",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "MatchingA_dinosaurs.html",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "MatchingA_dinosaurs.html",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_dinosaurs.html",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -722,7 +780,7 @@
         "thumbnail_location": null
     },
     "jquery-ui.1.12.1.min.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -734,7 +792,7 @@
         },
         "displayname": "jquery-ui.1.12.1.min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.min.js",
-        "import_path": "jquery-ui.1.12.1.min.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -751,12 +809,12 @@
         },
         "displayname": "jquery-ui.1.12.1.smoothness.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.smoothness.css",
-        "import_path": "jquery-ui.1.12.1.smoothness.css",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
     "jquery.2.2.4.min.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -768,7 +826,24 @@
         },
         "displayname": "jquery.2.2.4.min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.2.2.4.min.js",
-        "import_path": "jquery.2.2.4.min.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "jquery.ui.touch-punch.min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "jquery.ui.touch-punch.min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "jquery.ui.touch-punch.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.ui.touch-punch.min.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -1243,7 +1318,7 @@
         "thumbnail_location": null
     },
     "underscore.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -1255,7 +1330,7 @@
         },
         "displayname": "underscore.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@underscore.js",
-        "import_path": "underscore.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
