@@ -1,10 +1,8 @@
-./course/2016.xml
-./.DS_Store
-./blank_course.txt
+./course/2022.xml
 ./about/.DS_Store
 ./about/overview.html
-./policies/2016/policy.json
-./policies/2016/grading_policy.json
+./policies/2022/policy.json
+./policies/2022/grading_policy.json
 ./policies/assets.json
 ./info/updates.items.json
 ./info/handouts.html

@@ -41,19 +41,7 @@
   <form id="goodform" onsubmit="return false">
     <div class="container">
       <div>
-        <label for="coursename">Course Name:</label>
-        <input type="text" name="coursename" value="Placeholder Course Name" id="coursename" /><br />
-        <label for="coursenum">Number:</label>
-        <input type="text" name="coursenum" value="HX101" id="coursenum" style="width: 6em;" />
-        <label for="courserun">Run:</label>
-        <input type="text" name="courserun" value="2T2021" id="courserun" style="width: 6em;" />
-        <label for="courseorg">Org:</label>
-        <input type="text" name="courseorg" value="HarvardX" id="courseorg" style="width: 6em;" />
-      </div>
-      <div>
         <!-- <h2>Defaults</h2> -->
-        <label for="filename">Output filename</label>
-        <input type="text" name="name" value="HX101_2T2021.tar.gz" id="filename" /><br />
         <label for="user">Use which defaults?</label>
         <select name="user" value="nochoice" id="user" required>
           <option value="nochoice" disabled selected></option>
@@ -67,6 +55,18 @@
           <label for="sourcefile">Boilerplate source file</label>
           <input type="text" name="sourcefile" value="" id="sourcefile" /><br />
         </div>
+        <label for="filename">Output filename</label>
+        <input type="text" name="name" value="" id="filename" disabled /><br />
+      </div>
+      <div id="name_and_number">
+        <label for="coursename">Course Name:</label>
+        <input disabled type="text" name="coursename" value="Placeholder Course Name" id="coursename" /><br />
+        <label for="coursenum">Number:</label>
+        <input disabled type="text" name="coursenum" value="UX002" id="coursenum" style="width: 6em;" />
+        <label for="courserun">Run:</label>
+        <input disabled type="text" name="courserun" value="2T2022" id="courserun" style="width: 6em;" />
+        <label for="courseorg">Org:</label>
+        <input disabled type="text" name="courseorg" value="UniversityX" id="courseorg" style="width: 6em;" />
       </div>
     </div>
     <br />
@@ -206,9 +206,9 @@
 
         <div>
           <h3>Include...</h3>
-          <input type="checkbox" checked disabled name="syllabus" id="syllabus" />
+          <input type="checkbox" checked name="syllabus" id="syllabus" />
           <label for="syllabus">Syllabus</label><br />
-          <input type="checkbox" checked disabled name="related" id="related" />
+          <input type="checkbox" name="related" id="related" />
           <label for="related">Related Courses</label><br />
           <input type="checkbox" name="faq" id="faq" />
           <label for="faq">FAQ</label><br />
