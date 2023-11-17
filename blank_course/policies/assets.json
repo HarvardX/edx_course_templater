@@ -5138,23 +5138,6 @@
             null
         ]
     }, 
-    "HOW_TO_EMBED_TWITTER_FEEDS.pdf": {
-        "contentType": "application/pdf", 
-        "content_son": {
-            "category": "asset", 
-            "course": "UX002", 
-            "name": "HOW_TO_EMBED_TWITTER_FEEDS.pdf", 
-            "org": "UniversityX", 
-            "revision": null, 
-            "run": "2022", 
-            "tag": "c4x"
-        }, 
-        "displayname": "HOW TO EMBED TWITTER FEEDS.pdf", 
-        "filename": "asset-v1:HarvardX+FAIL002+2016+type@asset+block@HOW_TO_EMBED_TWITTER_FEEDS.pdf", 
-        "import_path": "HOW TO EMBED TWITTER FEEDS.pdf", 
-        "locked": false, 
-        "thumbnail_location": null
-    }, 
     "HRDiagram.jpg": {
         "contentType": "image/jpeg", 
         "content_son": {
