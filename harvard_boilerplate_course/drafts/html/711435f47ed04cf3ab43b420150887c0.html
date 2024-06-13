@@ -1,0 +1,17 @@
+<h3 class="hx-underline">Clickable Images</h3>
+
+<p>You will need an image map already prepared. I recommend <a href="https://www.image-maps.com/" target="_blank">https://www.image-maps.com/</a> to create one quickly. There are some divs here, hidden in your view, but visible in the editor in Studio. You can fill those with whatever you want. They'll pop up when someone clicks on the bears.</p>
+
+<p class="hx-centered"><img src="https://placebear.com/500/300" alt="placeholder bear" usemap="#TheBearMap"/></p>
+
+<map id="BearMap1" name="TheBearMap">
+  <area id="Area1" class="Bear1 hx-popup-opener" title="Bear 1" shape="rect" coords="150,0,320,120" alt="Bear number one" />
+  <area id="Area2" class="Bear2 hx-popup-opener" title="Bear 2" shape="rect" coords="90,120,350,300" alt="Bear number two" />
+</map>
+
+<div class="Bear1 hx-popup-content">
+  <p>I am bear #1!</p>
+</div>
+<div class="Bear2 hx-popup-content">
+  <p>I am bear #2!</p>
+</div>

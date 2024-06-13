@@ -12,7 +12,7 @@
         },
         "displayname": "Bear.jpg",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@Bear.jpg",
-        "import_path": "Bear.jpg",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -20,6 +20,30 @@
             "HX102",
             "thumbnail",
             "Bear.jpg",
+            null
+        ]
+    },
+    "Dizzy.jpg": {
+        "contentType": "image/jpeg",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "Dizzy.jpg",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "Dizzy.jpg",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@Dizzy.jpg",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "HarvardX",
+            "HX102",
+            "thumbnail",
+            "Dizzy.jpg",
             null
         ]
     },
@@ -48,7 +72,7 @@
         ]
     },
     "HXEditor.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -60,12 +84,12 @@
         },
         "displayname": "HXEditor.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@HXEditor.js",
-        "import_path": null,
+        "import_path": "HXEditor.js",
         "locked": false,
         "thumbnail_location": null
     },
     "HXPopUpProblems.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -77,12 +101,12 @@
         },
         "displayname": "HXPopUpProblems.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@HXPopUpProblems.js",
-        "import_path": null,
+        "import_path": "HXPopUpProblems.js",
         "locked": false,
         "thumbnail_location": null
     },
     "HXVideoChime.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -94,12 +118,12 @@
         },
         "displayname": "HXVideoChime.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@HXVideoChime.js",
-        "import_path": null,
+        "import_path": "HXVideoChime.js",
         "locked": false,
         "thumbnail_location": null
     },
     "HXVideoLinks.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -111,7 +135,7 @@
         },
         "displayname": "HXVideoLinks.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@HXVideoLinks.js",
-        "import_path": null,
+        "import_path": "HXVideoLinks.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -128,7 +152,7 @@
         },
         "displayname": "Lion.jpg",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@Lion.jpg",
-        "import_path": "Lion.jpg",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -152,12 +176,12 @@
         },
         "displayname": "MatchingA.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA.css",
-        "import_path": "MatchingA.css",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
     "MatchingA.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -169,7 +193,7 @@
         },
         "displayname": "MatchingA.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA.js",
-        "import_path": "MatchingA.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -190,6 +214,23 @@
         "locked": false,
         "thumbnail_location": null
     },
+    "MatchingA_Elements_dinosaurs.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "MatchingA_Elements_dinosaurs.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "MatchingA_Elements_dinosaurs.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_Elements_dinosaurs.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
     "MatchingA_Zoo.html": {
         "contentType": "text/html",
         "content_son": {
@@ -204,6 +245,23 @@
         "displayname": "MatchingA_Zoo.html",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_Zoo.html",
         "import_path": "MatchingA_Zoo.html",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "MatchingA_dinosaurs.html": {
+        "contentType": "text/html",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "MatchingA_dinosaurs.html",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "MatchingA_dinosaurs.html",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@MatchingA_dinosaurs.html",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -288,7 +346,7 @@
         },
         "displayname": "VideoLinks.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@VideoLinks.css",
-        "import_path": null,
+        "import_path": "VideoLinks.css",
         "locked": false,
         "thumbnail_location": null
     },
@@ -305,7 +363,7 @@
         },
         "displayname": "Zebra.jpg",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@Zebra.jpg",
-        "import_path": "Zebra.jpg",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -329,7 +387,7 @@
         },
         "displayname": "ajax-loader.gif",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@ajax-loader.gif",
-        "import_path": null,
+        "import_path": "ajax-loader.gif",
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -353,12 +411,12 @@
         },
         "displayname": "backpack.html",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@backpack.html",
-        "import_path": null,
+        "import_path": "backpack.html",
         "locked": false,
         "thumbnail_location": null
     },
     "backpack.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -370,7 +428,7 @@
         },
         "displayname": "backpack.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@backpack.js",
-        "import_path": null,
+        "import_path": "backpack.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -421,7 +479,7 @@
         },
         "displayname": "dingding.mp3",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@dingding.mp3",
-        "import_path": null,
+        "import_path": "dingding.mp3",
         "locked": false,
         "thumbnail_location": null
     },
@@ -438,7 +496,7 @@
         },
         "displayname": "dingding.txt",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@dingding.txt",
-        "import_path": null,
+        "import_path": "dingding.txt",
         "locked": false,
         "thumbnail_location": null
     },
@@ -506,12 +564,12 @@
         },
         "displayname": "hx-min.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx-min.css",
-        "import_path": null,
+        "import_path": "hx-min.css",
         "locked": false,
         "thumbnail_location": null
     },
     "hx-min.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -523,7 +581,7 @@
         },
         "displayname": "hx-min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx-min.js",
-        "import_path": null,
+        "import_path": "hx-min.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -574,12 +632,12 @@
         },
         "displayname": "hx.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx.css",
-        "import_path": null,
+        "import_path": "hx.css",
         "locked": false,
         "thumbnail_location": null
     },
     "hx.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -591,12 +649,12 @@
         },
         "displayname": "hx.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx.js",
-        "import_path": null,
+        "import_path": "hx.js",
         "locked": false,
         "thumbnail_location": null
     },
     "hxGlobalOptions.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -608,7 +666,7 @@
         },
         "displayname": "hxGlobalOptions.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hxGlobalOptions.js",
-        "import_path": null,
+        "import_path": "hxGlobalOptions.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -625,7 +683,7 @@
         },
         "displayname": "hx_tiny_white.png",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@hx_tiny_white.png",
-        "import_path": null,
+        "import_path": "hx_tiny_white.png",
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -637,7 +695,7 @@
         ]
     },
     "imageMapResizer.min.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -649,12 +707,12 @@
         },
         "displayname": "imageMapResizer.min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@imageMapResizer.min.js",
-        "import_path": null,
+        "import_path": "imageMapResizer.min.js",
         "locked": false,
         "thumbnail_location": null
     },
     "intro_accessible.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -666,7 +724,7 @@
         },
         "displayname": "intro_accessible.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@intro_accessible.js",
-        "import_path": null,
+        "import_path": "intro_accessible.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -683,7 +741,7 @@
         },
         "displayname": "introjs.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@introjs.css",
-        "import_path": null,
+        "import_path": "introjs.css",
         "locked": false,
         "thumbnail_location": null
     },
@@ -700,12 +758,12 @@
         },
         "displayname": "journaling.html",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@journaling.html",
-        "import_path": null,
+        "import_path": "journaling.html",
         "locked": false,
         "thumbnail_location": null
     },
     "journaling.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -717,12 +775,80 @@
         },
         "displayname": "journaling.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@journaling.js",
+        "import_path": "journaling.js",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "jquery-ui.1.12.1.min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "jquery-ui.1.12.1.min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "jquery-ui.1.12.1.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.min.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "jquery-ui.1.12.1.smoothness.css": {
+        "contentType": "text/css",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "jquery-ui.1.12.1.smoothness.css",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "jquery-ui.1.12.1.smoothness.css",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.smoothness.css",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "jquery.2.2.4.min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "jquery.2.2.4.min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "jquery.2.2.4.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.2.2.4.min.js",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "jquery.ui.touch-punch.min.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "jquery.ui.touch-punch.min.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "jquery.ui.touch-punch.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.ui.touch-punch.min.js",
         "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
     "jschannel.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -734,7 +860,7 @@
         },
         "displayname": "jschannel.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jschannel.js",
-        "import_path": "jschannel.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -763,7 +889,7 @@
         ]
     },
     "lz-string.min.js": {
-        "contentType": "application/x-javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -775,6 +901,40 @@
         },
         "displayname": "lz-string.min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@lz-string.min.js",
+        "import_path": "lz-string.min.js",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "multi_text.html": {
+        "contentType": "text/html",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "multi_text.html",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "multi_text.html",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@multi_text.html",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "multi_text.js": {
+        "contentType": "application/x-javascript",
+        "content_son": {
+            "category": "asset",
+            "course": "HX102",
+            "name": "multi_text.js",
+            "org": "HarvardX",
+            "revision": null,
+            "run": "3T2018",
+            "tag": "c4x"
+        },
+        "displayname": "multi_text.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@multi_text.js",
         "import_path": null,
         "locked": false,
         "thumbnail_location": null
@@ -809,12 +969,12 @@
         },
         "displayname": "prism.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@prism.css",
-        "import_path": null,
+        "import_path": "prism.css",
         "locked": false,
         "thumbnail_location": null
     },
     "prism.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -826,7 +986,7 @@
         },
         "displayname": "prism.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@prism.js",
-        "import_path": null,
+        "import_path": "prism.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -860,7 +1020,7 @@
         },
         "displayname": "quote-left.png",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@quote-left.png",
-        "import_path": null,
+        "import_path": "quote-left.png",
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -884,7 +1044,7 @@
         },
         "displayname": "quote-right.png",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@quote-right.png",
-        "import_path": null,
+        "import_path": "quote-right.png",
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -908,7 +1068,7 @@
         },
         "displayname": "slick-theme.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick-theme.css",
-        "import_path": null,
+        "import_path": "slick-theme.css",
         "locked": false,
         "thumbnail_location": null
     },
@@ -925,7 +1085,7 @@
         },
         "displayname": "slick.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.css",
-        "import_path": null,
+        "import_path": "slick.css",
         "locked": false,
         "thumbnail_location": null
     },
@@ -942,12 +1102,12 @@
         },
         "displayname": "slick.eot",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.eot",
-        "import_path": null,
+        "import_path": "slick.eot",
         "locked": false,
         "thumbnail_location": null
     },
     "slick.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -959,7 +1119,7 @@
         },
         "displayname": "slick.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.js",
-        "import_path": null,
+        "import_path": "slick.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -976,7 +1136,7 @@
         },
         "displayname": "slick.svg",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.svg",
-        "import_path": null,
+        "import_path": "slick.svg",
         "locked": false,
         "thumbnail_location": [
             "c4x",
@@ -1000,7 +1160,7 @@
         },
         "displayname": "slick.ttf",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.ttf",
-        "import_path": null,
+        "import_path": "slick.ttf",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1017,7 +1177,7 @@
         },
         "displayname": "slick.woff",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@slick.woff",
-        "import_path": null,
+        "import_path": "slick.woff",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1034,12 +1194,12 @@
         },
         "displayname": "summernote-lite.min.css",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote-lite.min.css",
-        "import_path": null,
+        "import_path": "summernote-lite.min.css",
         "locked": false,
         "thumbnail_location": null
     },
     "summernote-lite.min.js": {
-        "contentType": "text/javascript",
+        "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -1051,7 +1211,7 @@
         },
         "displayname": "summernote-lite.min.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote-lite.min.js",
-        "import_path": null,
+        "import_path": "summernote-lite.min.js",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1068,7 +1228,7 @@
         },
         "displayname": "summernote.eot",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote.eot",
-        "import_path": null,
+        "import_path": "summernote.eot",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1085,7 +1245,7 @@
         },
         "displayname": "summernote.ttf",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote.ttf",
-        "import_path": null,
+        "import_path": "summernote.ttf",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1102,7 +1262,7 @@
         },
         "displayname": "summernote.woff",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote.woff",
-        "import_path": null,
+        "import_path": "summernote.woff",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1119,7 +1279,7 @@
         },
         "displayname": "summernote.woff2",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@summernote.woff2",
-        "import_path": null,
+        "import_path": "summernote.woff2",
         "locked": false,
         "thumbnail_location": null
     },
@@ -1158,7 +1318,7 @@
         "thumbnail_location": null
     },
     "underscore.js": {
-        "contentType": "application/javascript",
+        "contentType": "application/x-javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
@@ -1170,7 +1330,7 @@
         },
         "displayname": "underscore.js",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@underscore.js",
-        "import_path": "underscore.js",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": null
     },
@@ -1211,7 +1371,7 @@
         },
         "displayname": "verified_lock_icon_example.png",
         "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@verified_lock_icon_example.png",
-        "import_path": "verified_lock_icon_example.png",
+        "import_path": null,
         "locked": false,
         "thumbnail_location": [
             "c4x",
