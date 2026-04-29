@@ -1,6 +1,8 @@
-<course advanced_modules="[&quot;openassessment&quot;, &quot;word_cloud&quot;, &quot;lti_consumer&quot;, &quot;split_test&quot;, &quot;library_content&quot;, &quot;poll&quot;, &quot;survey&quot;, &quot;ubcpi&quot;, &quot;drag-and-drop-v2&quot;, &quot;done&quot;]" cert_html_view_enabled="true" days_early_for_beta="100.0" display_coursenumber="" display_name="Boilerplate Course" language="en" start="2030-01-01T00:00:00+00:00">
+<course advanced_modules="[&quot;openassessment&quot;, &quot;word_cloud&quot;, &quot;lti_consumer&quot;, &quot;split_test&quot;, &quot;library_content&quot;, &quot;poll&quot;, &quot;survey&quot;, &quot;ubcpi&quot;, &quot;drag-and-drop-v2&quot;, &quot;done&quot;]" cert_html_view_enabled="true" course_wide_css="[&quot;https://static.vpal.harvard.edu/cdn/universal/hx.css&quot;]" course_wide_js="[&quot;https://static.vpal.harvard.edu/cdn/universal/hx.js&quot;]" days_early_for_beta="1000.0" display_coursenumber="" display_name="Boilerplate Course" language="en" start="2030-01-01T00:00:00Z">
   <chapter url_name="ae4d34a5898348ec8f02796adfd3c211"/>
   <chapter url_name="bc94ec689194454dbc8148b3e53fc80c"/>
   <chapter url_name="cceae70553594a3dbdd65da2d9e7fd11"/>
+  <chapter url_name="792df7c1f1f34aa784a3a1b84dba7685"/>
+  <chapter url_name="6717e7364b624ca4a6d3c8d7c4386b4a"/>
   <wiki slug="HarvardX.HX102.3T2018"/>
 </course>

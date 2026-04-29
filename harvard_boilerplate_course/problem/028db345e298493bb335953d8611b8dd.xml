@@ -1,14 +1,3 @@
-<problem display_name="How Old?" markdown="&gt;&gt;How old is our solar system?&lt;&lt;&#10;&#10;( ) About 5 trillion years.&#10;( ) About 500 billion years.&#10;( ) About 50 billion years.&#10;( ) About 5 billion years.&#10;( ) About 500 million years.&#10;( ) About 50 million years.&#10;( ) About 5 million years.&#10;">
-  <multiplechoiceresponse>
-    <label>How old is our solar system?</label>
-    <choicegroup type="MultipleChoice">
-      <choice correct="false">About 5 trillion years.</choice>
-      <choice correct="false">About 500 billion years.</choice>
-      <choice correct="false">About 50 billion years.</choice>
-      <choice correct="true">About 5 billion years.</choice>
-      <choice correct="false">About 500 million years.</choice>
-      <choice correct="false">About 50 million years.</choice>
-      <choice correct="false">About 5 million years.</choice>
-    </choicegroup>
-  </multiplechoiceresponse>
+<problem attempts_before_showanswer_button="0" display_name="How Old?" markdown="&gt;&gt;How old is our solar system?&lt;&lt;&#10;&#10;( ) About 5 trillion years.&#10;( ) About 500 billion years.&#10;( ) About 50 billion years.&#10;( ) About 5 billion years.&#10;( ) About 500 million years.&#10;( ) About 50 million years.&#10;( ) About 5 million years.&#10;" showanswer="" submission_wait_seconds="0" weight="1.0"><multiplechoiceresponse>
+<label>How old is our solar system?</label><choicegroup><choice correct="false"><div>About 5 trillion years.</div></choice><choice correct="false"><div>About 500 billion years.</div></choice><choice correct="false"><div>About 50 billion years.</div></choice><choice correct="true"><div>About 5 billion years.</div></choice><choice correct="false"><div>About 500 million years.</div></choice><choice correct="false"><div>About 50 million years.</div></choice><choice correct="false"><div>About 5 million years.</div></choice></choicegroup></multiplechoiceresponse>
 </problem>

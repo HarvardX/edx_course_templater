@@ -1,0 +1,18 @@
+<problem url_name="6296603437724e59acab43e48bbfb23c" copied_from_block="block-v1:HarvardX+HX102+3T2018+type@problem+block@6296603437724e59acab43e48bbfb23c" display_name="Collaboration" markdown_edited="false" rerandomize="never" show_reset_button="false" showanswer="finished" submission_wait_seconds="0" upstream="null" weight="1.0" group_access="{&quot;51&quot;: [1, 2]}">
+  <choiceresponse>
+    <label>Which of the following are acceptable ways to collaborate?</label>
+    <description>Select all that apply.</description>
+    <checkboxgroup>
+      <choice correct="true">Working jointly to develop an overall approach to an assignment </choice>
+      <choice correct="false">Answering a question by copying what someone else wrote and changing a word or two.</choice>
+      <choice correct="false">Posting answers to a problem before the deadline</choice>
+      <choice correct="true">Getting hints from peers or course staff if you’re stuck</choice>
+    </checkboxgroup>
+    <solution>
+      <div class="detailed-solution">
+        <p>Explanation</p>
+        <p>You are encouraged to interact with your classmates, and to talk with people outside the course about course material. Copying material from any source, whether classmates or AI, is not allowed.</p>
+      </div>
+    </solution>
+  </choiceresponse>
+</problem>

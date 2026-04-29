@@ -1,0 +1,23 @@
+<problem url_name="2f1b64ce5f40434499c55c01843331d1" copied_from_block="block-v1:HarvardX+HX102+3T2018+type@problem+block@2f1b64ce5f40434499c55c01843331d1" display_name="Grades" markdown="null" upstream="null" group_access="{&quot;51&quot;: [1, 2]}">
+  <multiplechoiceresponse>
+    <label>Where can you find your grades?</label>
+    <choicegroup shuffle="true" type="MultipleChoice">
+      <choice correct="false">This course is ungraded 
+        <choicehint>Almost all of the questions in this course are graded.</choicehint>
+      </choice>
+      <choice correct="false">By e-mailing edX 
+        <choicehint>The nice people who answer the e-mail at edX do not have access to your grades.</choicehint>
+      </choice>
+      <choice correct="false">On the Discussion page 
+        <choicehint>Everyone can read the discussion page, but only you can access your grades.</choicehint>
+      </choice>
+      <choice correct="true">On the Progress page</choice>
+    </choicegroup>
+    <solution>
+      <div class="detailed-solution">
+        <p>Explanation</p>
+        <p>The Progress page shows you your performance in the course, and indicates the "pass" level for the course.</p>
+      </div>
+    </solution>
+  </multiplechoiceresponse>
+</problem>

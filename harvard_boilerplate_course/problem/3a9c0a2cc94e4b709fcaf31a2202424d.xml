@@ -1,0 +1,5 @@
+<problem display_name="Live Lectures?" markdown_edited="false" rerandomize="never" show_reset_button="false" showanswer="finished" submission_wait_seconds="0" weight="1.0"><optionresponse>
+<div>
+<p data-pm-slice="1 1 []">True or False: This course contains live lectures where you can interact with the professor.</p>
+</div><optioninput><option correct="false">True</option><option correct="true">False</option><option correct="false">undefined</option></optioninput></optionresponse>
+</problem>

@@ -1,4 +1,4 @@
-<problem display_name="Standard Matching Problem" markdown="null">
+<problem display_name="Standard Matching Problem" markdown="null" showanswer="" submission_wait_seconds="0" weight="1.0">
   <script type="text/javascript">
 $(document).ready(function(){
 	console.log('outer ready');
@@ -16,7 +16,7 @@ function logThatThing(ThatThing){
 }
 
 </script>
-  <script type="loncapa/python">
+<script type="loncapa/python">
 
 
 from python_lib import HXGraders
@@ -36,19 +36,17 @@ def answercheck(e, ans):
 
   # This pulls from the python_lib.zip file in Files &amp; Uploads.
   return HXGraders.matchingAGrader(ans, right_answer, partial_credit, feedback)
-
- 
 </script>
   <p>This is a matching exercise. Drag the elements on the left into the ones on the right to create a match. You can match items with more than one other item, but you should choose the best match if you can. Click on the items for a better view if you need it.</p>
   <customresponse cfn="answercheck">
-    <jsinput gradefn="MatchingA.getGrade" get_statefn="MatchingA.getState" set_statefn="MatchingA.setState" width="780" height="550" html_file="/static/MatchingA_Zoo.html" sop="false"/>
+    <jsinput gradefn="MatchingA.getGrade" get_statefn="MatchingA.getState" set_statefn="MatchingA.setState" width="780" height="550" html_file="/asset-v1:HarvardX+HX102+3T2018+type@asset+block/MatchingA_Zoo.html" sop="false"/>
   </customresponse>
   <solution>
     <div class="detailed-solution">
       <p>Explanation</p>
       <p>This is a placeholder solution. You should replace it with your own.</p>
       <p>To add an image to the solution, use an HTML "img" tag. Make sure to include alt text.</p>
-      <img src="/static/images/placeholder-image.png" width="400" alt="Description of image, with a primary goal of explaining its      relevance to the problem or concept being illustrated for someone      who is unable to see the image."/>
+      <img src="/static/studio/images/placeholder-image.a4ec673e34f2.png" width="400" alt="Description of image, with a primary goal of explaining its      relevance to the problem or concept being illustrated for someone      who is unable to see the image."/>
     </div>
   </solution>
 </problem>
