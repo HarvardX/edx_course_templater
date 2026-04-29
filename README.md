@@ -14,9 +14,10 @@ Pro Notes:
 
 Changelog:
 
+- 1.2.0 - Updated HX Boilerplate course to include short-course items
 - 1.1.0 - Split out HarvardX use case more explicitly.
 - 1.0.0 - Ready for production use
 
 Written by Colin Fredericks for HarvardX.
 Last code update: April 26th, 2021
-Last update to boilerplate course: April 26th, 2021
+Last update to boilerplate course: April 29th, 2026
