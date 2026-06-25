@@ -681,54 +681,54 @@
         "locked": false,
         "thumbnail_location": null
     },
-    "jquery-ui.1.12.1.min.js": {
+    "jquery-ui.1.14.1.min.js": {
         "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
-            "name": "jquery-ui.1.12.1.min.js",
+            "name": "jquery-ui.1.14.1.min.js",
             "org": "HarvardX",
             "revision": null,
             "run": "3T2018",
             "tag": "c4x"
         },
-        "displayname": "jquery-ui.1.12.1.min.js",
-        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.min.js",
-        "import_path": "jquery-ui.1.12.1.min.js",
+        "displayname": "jquery-ui.1.14.1.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.14.1.min.js",
+        "import_path": "jquery-ui.1.14.1.min.js",
         "locked": false,
         "thumbnail_location": null
     },
-    "jquery-ui.1.12.1.smoothness.css": {
+    "jquery-ui.1.14.1.smoothness.css": {
         "contentType": "text/css",
         "content_son": {
             "category": "asset",
             "course": "HX102",
-            "name": "jquery-ui.1.12.1.smoothness.css",
+            "name": "jquery-ui.1.14.1.smoothness.css",
             "org": "HarvardX",
             "revision": null,
             "run": "3T2018",
             "tag": "c4x"
         },
-        "displayname": "jquery-ui.1.12.1.smoothness.css",
-        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.12.1.smoothness.css",
-        "import_path": "jquery-ui.1.12.1.smoothness.css",
+        "displayname": "jquery-ui.1.14.1.smoothness.css",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery-ui.1.14.1.smoothness.css",
+        "import_path": "jquery-ui.1.14.1.smoothness.css",
         "locked": false,
         "thumbnail_location": null
     },
-    "jquery.2.2.4.min.js": {
+    "jquery.3.7.1.min.js": {
         "contentType": "application/javascript",
         "content_son": {
             "category": "asset",
             "course": "HX102",
-            "name": "jquery.2.2.4.min.js",
+            "name": "jquery.3.7.1.min.js",
             "org": "HarvardX",
             "revision": null,
             "run": "3T2018",
             "tag": "c4x"
         },
-        "displayname": "jquery.2.2.4.min.js",
-        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.2.2.4.min.js",
-        "import_path": "jquery.2.2.4.min.js",
+        "displayname": "jquery.3.7.1.min.js",
+        "filename": "asset-v1:HarvardX+HX102+3T2018+type@asset+block@jquery.3.7.1.min.js",
+        "import_path": "jquery.3.7.1.min.js",
         "locked": false,
         "thumbnail_location": null
     },

@@ -177,11 +177,11 @@
 ./static/hx-text-slider.css
 ./static/hx_tiny_white.png
 ./static/Dizzy.jpg
-./static/jquery.2.2.4.min.js
+./static/jquery.3.7.1.min.js
 ./static/guesser.css
 ./static/dingding.mp3
 ./static/16c52e62-3926-4cf3-8e7d-322765762ca4-en.srt
-./static/jquery-ui.1.12.1.min.js
+./static/jquery-ui.1.14.1.min.js
 ./static/Ordering_Elements.js
 ./static/Lion.jpg
 ./static/jschannel.js
@@ -191,7 +191,7 @@
 ./static/MatchingA_dinosaurs.html
 ./static/MatchingA_Elements_dinosaurs.js
 ./static/backpack.xml
-./static/jquery-ui.1.12.1.smoothness.css
+./static/jquery-ui.1.14.1.smoothness.css
 ./static/quote-right.png
 ./static/hx.js
 ./static/textlog.html

@@ -14256,23 +14256,6 @@
         "locked": false, 
         "thumbnail_location": null
     }, 
-    "jquery-3.3.1.min.js": {
-        "contentType": "application/javascript", 
-        "content_son": {
-            "category": "asset", 
-            "course": "UX002", 
-            "name": "jquery-3.3.1.min.js", 
-            "org": "UniversityX", 
-            "revision": null, 
-            "run": "2022", 
-            "tag": "c4x"
-        }, 
-        "displayname": "jquery-3.3.1.min.js", 
-        "filename": "asset-v1:HarvardX+FAIL002+2016+type@asset+block@jquery-3.3.1.min.js", 
-        "import_path": "jquery-3.3.1.min.js", 
-        "locked": false, 
-        "thumbnail_location": null
-    }, 
     "jquery-ui-dialogonly.min.css": {
         "contentType": "text/css", 
         "content_son": {
